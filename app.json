@@ -1,0 +1,11 @@
+{
+  "name": "party-sound",
+  "description": "A collaborative audio player",
+  "env": {
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ]
+}
