@@ -2,7 +2,7 @@ spring:
   jackson:
     default-property-inclusion: non_null
   datasource:
-    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/party-sound?user=postgres&password=postgres}
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://ocassio.asuscomm.com:8080/party-sound?user=nc2018&password=aajz6IXwo5OPd9pczQVuZ0qP}
   jpa:
     generate-ddl: true
     hibernate:
