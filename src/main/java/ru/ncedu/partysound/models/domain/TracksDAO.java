@@ -11,7 +11,7 @@ public class TracksDAO {
 
     @Id
     private long id;
-
+    private String url;
     private String name;
     private String artistName;
     private long artistId;
@@ -22,22 +22,31 @@ public class TracksDAO {
     @OneToMany(
             mappedBy = "track",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     private List<PlaylistTrackDAO> playlists = new ArrayList<>();
 
     public TracksDAO() {
     }
 
-    public TracksDAO(long id, String name, String artistName, long artistId, String albumName, long albumId, String genre, List<PlaylistTrackDAO> playlists) {
+    public TracksDAO(long id, String url, String name, String artistName, long artistId, String albumName, long albumId, String genre) {
         this.id = id;
+        this.url = url;
         this.name = name;
         this.artistName = artistName;
         this.artistId = artistId;
         this.albumName = albumName;
         this.albumId = albumId;
         this.genre = genre;
-        this.playlists = playlists;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getName() {

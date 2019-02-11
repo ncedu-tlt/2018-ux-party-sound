@@ -47,16 +47,13 @@ public class UsersDAO {
     public UsersDAO() {
     }
 
-    public UsersDAO(String login, String name, String surname, String mail, String avatar, String password, Set<RolesDAO> roles, Set<UsersDAO> invitedUsers, Set<UsersDAO> invitedByUsers) {
+    public UsersDAO(String login, String name, String surname, String mail, String avatar, String password) {
         this.login = login;
         this.name = name;
         this.surname = surname;
         this.mail = mail;
         this.avatar = avatar;
         this.password = password;
-        this.roles = roles;
-        this.invitedUsers = invitedUsers;
-        this.invitedByUsers = invitedByUsers;
     }
 
     public long getId() {

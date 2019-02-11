@@ -22,12 +22,12 @@ public class RolesDAO {
     private boolean canDeleteUser;
     private boolean canChangeTracksOrder;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<UsersDAO> users = new HashSet<>();
 
     public RolesDAO() {}
 
-    public RolesDAO(PlaylistsDAO playlist, String roleName, boolean canAddTrack, boolean canDeleteTrack, boolean canDeleteUser, boolean canChangeTracksOrder, Set<UsersDAO> users) {
+    public RolesDAO(PlaylistsDAO playlist, String roleName, boolean canAddTrack, boolean canDeleteTrack, boolean canDeleteUser, boolean canChangeTracksOrder) {
         this.playlist = playlist;
         this.roleName = roleName;
         this.canAddTrack = canAddTrack;

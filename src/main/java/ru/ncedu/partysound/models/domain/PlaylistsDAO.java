@@ -18,10 +18,10 @@ public class PlaylistsDAO {
     private String link;
     private int rating;
 
-    @OneToMany(mappedBy = "playlist")
+    @OneToMany(mappedBy = "playlist", fetch = FetchType.LAZY)
     private Set<RolesDAO> roles;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
             name="playlist_genre",
             joinColumns=@JoinColumn(name = "playlist_id", referencedColumnName = "id")
@@ -31,43 +31,20 @@ public class PlaylistsDAO {
     @OneToMany(
             mappedBy = "playlist",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     private List<PlaylistTrackDAO> tracks = new ArrayList<>();
 
-    public void addTrack(TracksDAO track) {
-        PlaylistTrackDAO playlistTrack = new PlaylistTrackDAO(this, track);
-        tracks.add(playlistTrack);
-        track.getPlaylists().add(playlistTrack);
-    }
-
-    public void removeTrack(TracksDAO track) {
-        for (Iterator<PlaylistTrackDAO> iterator = tracks.iterator();
-             iterator.hasNext(); ) {
-            PlaylistTrackDAO playlistTrack = iterator.next();
-
-            if (playlistTrack.getPlaylist().equals(this) &&
-                    playlistTrack.getTrack().equals(track)) {
-                iterator.remove();
-                playlistTrack.getTrack().getPlaylists().remove(playlistTrack);
-                playlistTrack.setPlaylist(null);
-                playlistTrack.setTrack(null);
-            }
-        }
-    }
-
     public PlaylistsDAO() {}
 
-    public PlaylistsDAO(String name, String description, String image, boolean privateAccess, String link, int rating, Set<RolesDAO> roles, Set<String> genres, List<PlaylistTrackDAO> tracks) {
+    public PlaylistsDAO(String name, String description, String image, boolean privateAccess, String link, int rating) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.privateAccess = privateAccess;
         this.link = link;
         this.rating = rating;
-        this.roles = roles;
-        this.genres = genres;
-        this.tracks = tracks;
     }
 
     public long getId() {
