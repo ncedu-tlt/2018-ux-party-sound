@@ -34,7 +34,6 @@ public class RolesDAO {
         this.canDeleteTrack = canDeleteTrack;
         this.canDeleteUser = canDeleteUser;
         this.canChangeTracksOrder = canChangeTracksOrder;
-        this.users = users;
     }
 
     public long getId() {

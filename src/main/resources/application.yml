@@ -2,7 +2,7 @@ spring:
   jackson:
     default-property-inclusion: non_null
   datasource:
-    url: ${DB_URL}
+    url: ${JDBC_DATABASE_URL}
   jpa:
     generate-ddl: true
     hibernate:

@@ -30,8 +30,7 @@ public class TracksDAO {
     public TracksDAO() {
     }
 
-    public TracksDAO(long id, String url, String name, String artistName, long artistId, String albumName, long albumId, String genre) {
-        this.id = id;
+    public TracksDAO(String url, String name, String artistName, long artistId, String albumName, long albumId, String genre) {
         this.url = url;
         this.name = name;
         this.artistName = artistName;
