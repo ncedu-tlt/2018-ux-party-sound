@@ -1,5 +1,5 @@
 <template>
-    <svg width="50" height="55">
+    <svg width="50" height="55" @click="onPlaylistClick(playlistId)">
         <polygon points="0,0 0,55 50,27" :fill="color" />
     </svg>
 </template>
@@ -11,6 +11,15 @@ export default {
         color: {
             type: String,
             default: '#D96DFF'
+        },
+        playlistId: {
+            type: Number,
+            required: true
+        }
+    },
+    methods: {
+        onPlaylistClick: function (playlistId) {
+            this.$emit('on-playlist-clicked', playlistId);
         }
     }
 };

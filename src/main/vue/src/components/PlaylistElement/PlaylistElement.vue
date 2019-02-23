@@ -1,6 +1,6 @@
 <template>
     <div class="playlist-element">
-        <TriangleButton v-bind:color="color" />
+        <TriangleButton v-bind:playlistId="playlistId" v-bind:color="color" @on-playlist-clicked="parentMethod" />
         <div class="playlist-element__info">
             <h4>{{ playlistName }}</h4>
             <div class="genres-list">
@@ -19,6 +19,10 @@ export default {
         TriangleButton
     },
     props: {
+        playlistId: {
+            type: Number,
+            required: true
+        },
         playlistName: {
             type: String,
             required: true
@@ -32,6 +36,11 @@ export default {
         color: {
             type: String,
             default: '#D96DFF'
+        }
+    },
+    methods: {
+        parentMethod: function (playlistId) {
+            alert(`Начали проигрывать плейлист с id=${playlistId}`);
         }
     }
 };
