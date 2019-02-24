@@ -4,7 +4,7 @@
         <div class="playlist-element__info">
             <h4>{{ playlistName }}</h4>
             <div class="genres-list">
-                <span v-for="genre in genres" :key="genre">{{ genre }}</span>
+                <span v-for="(genre, index) in genres" :key="index">{{ genre }}</span>
             </div>
         </div>
     </div>
