@@ -1,7 +1,9 @@
 <template>
     <button type="button" class="find-playlist">
         <span>Найти плэйлист</span>
-        <div class="down-arrow"/>
+        <div class="down-arrow">
+            <img class="down-arrow__icon" src="./../assets/down-arrow.png" alt="arrow">
+        </div>
     </button>
 </template>
 <style scoped lang="scss">
@@ -14,8 +16,11 @@
 
         &:hover {
             .down-arrow {
-                margin-top: 15px;
-                transition: margin-top 300ms;
+
+                .down-arrow__icon{
+                    margin-top: 5px;
+                    transition: margin-top 300ms;
+                }
             }
         }
 
@@ -25,12 +30,15 @@
         }
 
         .down-arrow {
-            background: url("./../assets/down-arrow.png") center no-repeat;
-            background-size: contain;
+            margin: 15px auto 0 auto;
             width: 55px;
-            height: 35px;
-            margin: 10px auto 0 auto;
-            transition: margin-top 300ms;
+            height: 40px;
+
+            .down-arrow__icon{
+                width: 55px;
+                height: 35px;
+                transition: margin-top 300ms;
+            }
         }
     }
 </style>

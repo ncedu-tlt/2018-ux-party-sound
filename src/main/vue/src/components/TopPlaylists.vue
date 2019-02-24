@@ -2,45 +2,20 @@
     <section class="top-list">
         <h2>Топ - 5</h2>
         <div class="top-list__playlists">
-            <PlaylistElement v-for="prop in fakeProps"
-                             :key="prop.playlistId"
-                             :playlist-id="prop.playlistId"
-                             :playlist-name="prop.playlistName"
-                             :color="prop.color"
-                             class="playlist" />
+            <PlaylistElement
+                v-for="prop in fakeProps"
+                :key="prop.playlistId"
+                :playlist-id="prop.playlistId"
+                :playlist-name="prop.playlistName"
+                :color="prop.color"
+                class="playlist"
+            />
         </div>
     </section>
 </template>
 <script>
 import PlaylistElement from './PlaylistElement/PlaylistElement.vue';
-
-const fakeData = [
-    {
-        playlistId: 0,
-        playlistName: 'Название',
-        color: '#D96DFF'
-    },
-    {
-        playlistId: 1,
-        playlistName: 'Название',
-        color: '#FFF500'
-    },
-    {
-        playlistId: 2,
-        playlistName: 'Название',
-        color: '#FF7F23'
-    },
-    {
-        playlistId: 3,
-        playlistName: 'Название',
-        color: '#D96DFF'
-    },
-    {
-        playlistId: 4,
-        playlistName: 'Название',
-        color: '#C1C1C1'
-    }
-];
+import { fakeData } from './fakeData';
 
 export default {
     name: 'TopPlaylists',
@@ -49,7 +24,9 @@ export default {
     },
     data: function () {
         return {
-            fakeProps: fakeData
+            fakeProps: fakeData.filter((elem, index) => {
+                return index < 5;
+            })
         };
     }
 };

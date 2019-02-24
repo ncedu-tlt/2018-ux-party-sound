@@ -68,6 +68,7 @@ export default {
 
                 span{
                     margin-right: 8px;
+                    font-size: 14px;
                 }
             }
         }
