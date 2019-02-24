@@ -4,32 +4,36 @@
             <div class="name" v-for="description in descriptions">
                 {{description}}
             </div>
-            <input v-model="nameTrack" class="js_name_track">
-            <input v-model="nameArtist" class="js_name_artist" @keyup="artistList()">
-            <input v-model="nameGenre" class="js_name_genre">
-            <input v-model="minTime" class="js_min_time">
-            <input v-model="maxTime" class="js_max_time">
+            <input v-model="nameTrack">
+            <input v-model="nameArtist" @keyup="artistList()">
+            <div >
+                <div  v-for="genre in activeGenres">
+                    {{genre}}
+                </div>
+            </div>
+            <input v-model="minTime">
+            <input v-model="maxTime">
             <div class="stash">
-                <button v-on:click="send()" id="js_send">Отправить запрос</button>
+                <button v-on:click="send()">Отправить запрос</button>
             </div>
             <div class="stash">
                 <p>Список исполнителей:</p>
-                <div class="artist" v-for="artist1 in artists.results" @click="addArtist(artist1.id)">
+                <div class="cursor" v-for="artist1 in artists.results" @click="addArtist(artist1.id)">
                     {{artist1.name}}
                 </div>
             </div>
             <div class="stash">
                 <p>
-                    Примеры жанров:
+                    Список жанров:
                 </p>
-                <div v-for="genre in genres">
+                <div class="cursor" v-for="genre in genres" @click="addGenre(genre)">
                     {{genre}}
                 </div>
             </div>
             <div class="stash">
             </div>
             <div class="stash">
-                <button v-on:click="createTrackOnBack()" id="js_create">Создаст сущность на сервере по первому треку
+                <button v-on:click="createTrackOnBack()">Создаст сущность на сервере по первому треку
                 </button>
             </div>
         </div>
@@ -90,11 +94,12 @@
                 maxTime: "",
                 content: {results: []},
                 artists: {results: []},
-                descriptions: ["Введите полное или частичное название трэка",
+                descriptions: ["Введите полное или частичное название трэка (Поиск по названию работает некорректно с пробелами у них в API)",
                     "Нажмите на исполните из списка ниже, чтобы добавить его в запрос",
-                    "Введите жанр", "Введите минимальную длительность трэка",
+                    "Выберите жанры, ОНИ НЕ ДОЛЖНЫ ПОВТОРЯТЬСЯ!", "Введите минимальную длительность трэка",
                     "Введите максимальную длительность трэка"],
                 genres: ["rock", "pop", "triphop", "indie"],
+                activeGenres:[]
             }
         },
         mounted: function () {
@@ -117,6 +122,8 @@
                     })
             },
             send() {
+                alert("Массив id исполнителей: " + this.idArtists + ".");
+
                 var nameTrack = "&namesearch=" + this.nameTrack;
                 var nameArtist = "";
                 this.idArtists.map((id) => {
@@ -124,9 +131,9 @@
                 });
 
                 var nameGenre = "";
-                if (this.nameGenre !== "") {
-                    nameGenre = "&tags=" + this.nameGenre;
-                }
+                this.activeGenres.map((genre)=>{
+                    nameGenre += "&tags[]=" + genre;
+                });
 
                 var minTime = "";
                 if (this.minTime !== "") {
@@ -165,6 +172,10 @@
 
             addArtist(id) {
                 this.idArtists.push(id);
+            },
+
+            addGenre(genre){
+                this.activeGenres.push(genre);
             }
         }
     };
@@ -172,7 +183,7 @@
 
 <style>
 
-    .artist:hover {
+    .cursor {
         cursor: pointer;
     }
 
