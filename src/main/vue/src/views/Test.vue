@@ -1,13 +1,13 @@
 <template>
-    <PartySoundLabel />
+    <TopPlaylists />
 </template>
 <script>
-import PartySoundLabel from '../components/PartySoundLabel.vue';
+import TopPlaylists from '../components/TopPlaylists.vue';
 
 export default {
     name: 'Test',
     components: {
-        PartySoundLabel
+        TopPlaylists
     }
 };
 </script>

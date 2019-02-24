@@ -1,6 +1,6 @@
 <template>
     <div class="playlist-element">
-        <TriangleButton v-bind:playlistId="playlistId" v-bind:color="color" @on-playlist-clicked="parentMethod" />
+        <TriangleButton :playlist-id="playlistId" :color="color" @on-playlist-clicked="parentMethod" />
         <div class="playlist-element__info">
             <h4>{{ playlistName }}</h4>
             <div class="genres-list">
@@ -30,7 +30,7 @@ export default {
         genres: {
             type: Array,
             default: function () {
-                return ['Неизвестный жанр'];
+                return [''];
             }
         },
         color: {
