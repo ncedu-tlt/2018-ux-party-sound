@@ -19,22 +19,11 @@ import java.net.URL;
 @RequestMapping("/api/test")
 public class TestController {
 
-    public static String http(String id) {
-
-        RestTemplate restTemplate = new RestTemplate();
-        String URL_EMPLOYEES = "https://api.jamendo.com/v3.0/tracks/?client_id=eeded1fc&format=jsonpretty&limit=5&include=musicinfo&id=" + id;
-        // Send request with GET method and default Headers.
-        String result = restTemplate.getForObject(URL_EMPLOYEES, String.class);
-
-        System.out.println(result);
-        return result;
-    }
-
-
     @GetMapping
     public String get(@RequestParam("track_id") String trackId) {
         return "Hello world";
     }
+
     @PostMapping
     public String post(@RequestBody String str) {
         try {
@@ -44,7 +33,7 @@ public class TestController {
             JSONObject tags = musicinfo.getJSONObject("tags");
 
             JSONArray genres = tags.getJSONArray("genres");
-//В genres лежит массив жанров, а иногда жанра может и не быть
+            //В genres лежит массив жанров, а иногда жанра может и не быть
             String genre;
             try {
                 genre = genres.getString(0);
@@ -61,7 +50,10 @@ public class TestController {
                     JSONTrack.getLong("album_id"),
                     genre
             );
-            return "model with name: " + track.getName() + " has been created successfully. Author is " + track.getArtistName() + ". Genre is: " + track.getGenre();
+            return "Model with name \"" + track.getName() + "\" has been created successfully." +
+                    "\nAuthor is " + track.getArtistName() +
+                    ". \nGenre is " + track.getGenre() +
+                    ". \nAlbum is " + track.getAlbumName();
         } catch (Exception e) {
             e.printStackTrace();
             return "Exception";
