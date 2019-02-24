@@ -1,13 +1,13 @@
 <template>
-    <FindPlaylist />
+    <PartySoundLabel />
 </template>
 <script>
-import FindPlaylist from '../components/FindPlaylist.vue';
+import PartySoundLabel from '../components/PartySoundLabel.vue';
 
 export default {
     name: 'Test',
     components: {
-        FindPlaylist
+        PartySoundLabel
     }
 };
 </script>
