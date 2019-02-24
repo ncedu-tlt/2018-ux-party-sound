@@ -1,13 +1,13 @@
 <template>
-    <PlaylistElement v-bind:playlist-id="1" playlist-name="artjh" v-bind:genres="['ahtrwe', 'aerghaht']" color="#478bf4" />
+    <FindPlaylist />
 </template>
 <script>
-import PlaylistElement from '../components/PlaylistElement/PlaylistElement.vue';
+import FindPlaylist from '../components/FindPlaylist.vue';
 
 export default {
     name: 'Test',
     components: {
-        PlaylistElement
+        FindPlaylist
     }
 };
 </script>
