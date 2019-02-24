@@ -1,7 +1,7 @@
 const path = require('path');
 
 const backendProxy = {
-    target: 'http://localhost:8080/',
+    target: 'http://localhost:8080',
     changeOrigin: true
 };
 
