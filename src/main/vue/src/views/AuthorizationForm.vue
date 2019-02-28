@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <main class="content">
         <div class="container">
             <TextInput class="field" placeholder="E-mail или логин" type="text"/>
             <TextInput class="field" placeholder="Пароль" type="password"/>
@@ -7,7 +7,7 @@
             <Button class="entry" label="Вход"/>
             <Button class="register" label="Зарегистрироваться" type="light"/>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -32,6 +32,7 @@
     .container {
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
 
     .field:nth-child(1) {
