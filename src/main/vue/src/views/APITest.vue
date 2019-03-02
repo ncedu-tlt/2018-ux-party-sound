@@ -1,40 +1,50 @@
 <template>
     <div class="APITest">
+        <div class="searchArtists">
+            <p>Демострация поиска исполнителей: </p>
+            <input v-model="nameArtist" type="text" @keyup="artistList()">
+            <p v-for="artist in artists.results">
+                Имя исполнителя: {{artist.name}} id исполнителя: {{artist.id}}
+            </p>
+        </div>
         <div class="box">
             <div class="name" v-for="description in descriptions">
                 {{description}}
             </div>
-            <input v-model="nameTrack">
-            <input v-model="nameArtist" @keyup="artistList()">
-            <div >
-                <div  v-for="genre in activeGenres">
-                    {{genre}}
-                </div>
-            </div>
-            <input v-model="minTime">
-            <input v-model="maxTime">
-            <div class="stash">
+            <div class="stash track">
+                <input v-model="nameTrack">
+
                 <button v-on:click="send()">Отправить запрос</button>
-            </div>
-            <div class="stash">
-                <p>Список исполнителей:</p>
-                <div class="cursor" v-for="artist1 in artists.results" @click="addArtist(artist1.id)">
-                    {{artist1.name}}
-                </div>
-            </div>
-            <div class="stash">
-                <p>
-                    Список жанров:
-                </p>
-                <div class="cursor" v-for="genre in genres" @click="addGenre(genre)">
-                    {{genre}}
-                </div>
-            </div>
-            <div class="stash">
-            </div>
-            <div class="stash">
-                <button v-on:click="createTrackOnBack()">Создаст сущность на сервере по первому треку
+
+                <button v-on:click="createTrackOnBack()">Создасть сущность на сервере
                 </button>
+            </div>
+            <div class="stash">
+                <div v-for="nameArtist in nameArtists">
+                    <input type="checkbox" v-bind:id="nameArtist.id" v-bind:value="nameArtist.id" v-model="idActiveArtist">
+                    <label>{{nameArtist.name}}</label>
+                </div>
+                {{idActiveArtist}}
+            </div>
+            <div class="stash">
+                <div v-for="genre in genres">
+                    <input type="checkbox" v-bind:id="genre" v-bind:value="genre" v-model="activeGenres">
+                    <label>{{genre}}</label>
+                </div>
+                {{activeGenres}}
+            </div>
+            <div class="stash">
+                <div v-for="time1 in timeBetween">
+                    <input type="radio" v-bind:id="time1.name" v-bind:value="time1.value" v-model="time">
+                    <label>{{time1.name}}</label>
+                </div>
+                {{time}}
+            </div>
+            <div class="stash">
+            </div>
+            <div class="stash">
+            </div>
+            <div class="stash">
             </div>
         </div>
         <div class="content">
@@ -86,18 +96,17 @@
         name: 'APITest',
         data() {
             return {
+                nameArtist:"",
+                descriptions: ["Введите полное или частичное название трэка",
+                    "Выберите исполнителя",
+                    "Выберите жанры", "Длительность трэка"],
                 nameTrack: "",
-                nameArtist: "",
-                idArtists: [],
-                nameGenre: "",
-                minTime: "",
-                maxTime: "",
+                nameArtists:[{name:"Skaut",id:"9"},{name:"TriFace",id:"7"},{name:"Both",id:"5"}],
+                idActiveArtist: [],
+                time:"",
+                timeBetween:[{name:"< 5 минут",value:"0_300"},{name:"5-10 минут",value:"300_600"},{name:"> 10 минут",value:"600_1600"}],
                 content: {results: []},
                 artists: {results: []},
-                descriptions: ["Введите полное или частичное название трэка (Поиск по названию работает некорректно с пробелами у них в API)",
-                    "Нажмите на исполните из списка ниже, чтобы добавить его в запрос",
-                    "Выберите жанры, ОНИ НЕ ДОЛЖНЫ ПОВТОРЯТЬСЯ!", "Введите минимальную длительность трэка",
-                    "Введите максимальную длительность трэка"],
                 genres: ["rock", "pop", "triphop", "indie"],
                 activeGenres:[]
             }
@@ -122,38 +131,27 @@
                     })
             },
             send() {
-                alert("Массив id исполнителей: " + this.idArtists + ".");
-
-                var nameTrack = "&namesearch=" + this.nameTrack;
-                var nameArtist = "";
-                this.idArtists.map((id) => {
-                    nameArtist += "&artist_id[]=" + id;
+                var nameTrack = "&namesearch=" + this.nameTrack.replace(" ", "%20");
+                var idArtists = "";
+                this.idActiveArtist.map((id) => {
+                    idArtists += "&artist_id[]=" + id;
                 });
 
-                var nameGenre = "";
+                var nameGenres = "";
                 this.activeGenres.map((genre)=>{
-                    nameGenre += "&tags[]=" + genre;
+                    nameGenres += "&tags[]=" + genre;
                 });
 
-                var minTime = "";
-                if (this.minTime !== "") {
-                    minTime = "" + this.minTime;
-                } else {
-                    minTime = "0";
+                var time = "0_10000";
+                if(this.time!==""){
+                    time = this.time;
                 }
 
-                var maxTime = "";
-                if (this.maxTime !== "") {
-                    maxTime = "" + this.maxTime;
-                } else {
-                    maxTime = "1000";
-                }
-                var durationBetween = "&durationbetween=" + minTime + "_" + maxTime;
+                var durationBetween = "&durationbetween=" + time;
 
-                console.log(API_TRACKS + nameTrack + nameArtist + nameGenre + durationBetween);
-                console.log(this.idArtists);
+                console.log(API_TRACKS + nameTrack + idArtists + nameGenres + durationBetween);
                 http("GET", API_TRACKS +
-                    nameTrack + nameArtist + nameGenre + durationBetween)
+                    nameTrack + idArtists + nameGenres + durationBetween)
                     .then(result => {
                         this.content = JSON.parse(result);
                     });
@@ -169,28 +167,30 @@
                     alert("Нет трека в списке!");
                 }
             },
-
-            addArtist(id) {
-                this.idArtists.push(id);
-            },
-
-            addGenre(genre){
-                this.activeGenres.push(genre);
-            }
         }
     };
 </script>
 
 <style>
-
-    .cursor {
-        cursor: pointer;
+    .searchArtists{
+        margin-bottom: 20px;
+    }
+    p{
+        margin: 0;
+        font-size:10px;
+    }
+    input{
+        height: 10px;
+    }
+    .track>*{
+        width: 100%;
+        margin: 10px;
     }
 
     .box {
         font-size: 10px;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 10px;
         width: 800px;
     }
