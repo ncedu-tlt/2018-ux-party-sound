@@ -1,7 +1,7 @@
 <template>
     <div class="input-form">
-        <label class="input-label" for="input-field">{{label}}</label>
-        <input id="input-field" class="input-field" :placeholder="placeholder" :type="type"/>
+        <label class="input-label">{{label}}</label>
+        <input class="input-field" :placeholder="placeholder" :type="type" v-bind:value="value"/>
     </div>
 </template>
 
