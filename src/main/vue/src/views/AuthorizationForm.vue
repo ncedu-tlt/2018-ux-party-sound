@@ -1,8 +1,8 @@
 <template>
     <main class="content">
         <div class="container">
-            <TextInput class="field" placeholder="E-mail или логин" type="text"/>
-            <TextInput class="field" placeholder="Пароль" type="password"/>
+            <TextInput class="field" placeholder="E-mail или логин" type="text" :value="email"/>
+            <TextInput class="field" placeholder="Пароль" type="password"  :value="password"/>
             <Button class="forget-password" label="Забыли пароль?" type="light"/>
             <Button class="entry" label="Вход"/>
             <Button class="register" label="Зарегистрироваться" type="light"/>
@@ -16,7 +16,13 @@
 
     export default {
         name: "AuthorizationForm",
-        components: {Button, TextInput}
+        components: {Button, TextInput},
+        data() {
+            return {
+                email: "",
+                password:""
+            }
+        }
     }
 </script>
 
