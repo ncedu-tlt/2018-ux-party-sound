@@ -37,6 +37,10 @@
         border-radius: 4px;
         box-shadow:1px 2px 12px 0 rgba(0,0,0,0.49);
     }
+    .default:hover{
+        transition: 400ms;
+        background: #1B1096;
+    }
 
     .light {
         border: none;
