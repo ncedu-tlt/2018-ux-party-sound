@@ -8,14 +8,20 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
-            path: '/',
-            name: 'main',
-            component: Main
-        },
-        {
-            path: '/authorization',
-            name: 'authorizationForm',
-            component: AuthorizationForm
+            path: '/:page',
+            template: '<div>sdgffdgd</div>',
+            children: [
+                {
+                    path: '/',
+                    name: 'main',
+                    component: Main
+                },
+                {
+                    path: '/authorization',
+                    name: 'authorizationForm',
+                    component: AuthorizationForm
+                },
+            ]
         },
     ]
 });
