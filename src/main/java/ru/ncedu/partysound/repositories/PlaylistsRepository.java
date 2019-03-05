@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface PlaylistsRepository extends CrudRepository<PlaylistsDAO, Long> {
     List<PlaylistsDAO> findAll();
-
-
 }

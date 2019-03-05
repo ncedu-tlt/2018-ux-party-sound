@@ -1,13 +1,20 @@
 <template>
     <audio controls="controls">
-        <source src="https:\/\/mp3l.jamendo.com\/?trackid=169&format=mp31&from=app-eeded1fc">
-        <source src="https:\/\/mp3l.jamendo.com\/?trackid=198&format=mp31&from=app-eeded1fc">
+        <source ref="player" v-bind:src="Array[index]">
     </audio>
 </template>
 
 <script>
     export default {
         name: "AudioPlayer",
+        data:{
+            trackIndex:0
+        },
+        mounted: function () {
+            this.$watch('content', function () {
+                this.$refs.player.load()
+            })
+        },
         props: {
             PlayList:{
                 type:Array,
