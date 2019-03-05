@@ -1,5 +1,5 @@
 <template>
-    <main class="content">
+    <div class="content">
         <div class="container">
             <TextInput class="child" placeholder="E-mail" :value="email"/>
             <TextInput class="child" placeholder="Логин" :value="login"/>
@@ -9,7 +9,7 @@
             <Button class="child" label="Зарегистрироваться"/>
             <Button class="child" label="Войти" type="light"/>
         </div>
-    </main>
+    </div>
 </template>
 
 <script>
@@ -34,6 +34,7 @@
 <style scoped>
     .content {
         height: 100vh;
+        width: 100%;
         background: slateblue;  /*временно, пока нет фоновой картинки*/
         display: flex;
         align-items: center;
