@@ -7,7 +7,7 @@
             <TextInput class="child" placeholder="Пароль" type="password" :value="firstPassword"/>
             <TextInput class="child" placeholder="Введите пароль еще раз" type="password" :value="secondPassword"/>
             <Button class="child" label="Зарегистрироваться"/>
-            <Button class="child" label="Войти" type="light"/>
+            <router-link to="/authorization"> <Button class="child" label="Войти" type="light"/></router-link>
         </div>
     </div>
 </template>

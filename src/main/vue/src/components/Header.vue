@@ -1,10 +1,14 @@
 <template>
     <main>
         <header class="container">
-            <h1>Party <b>Song</b></h1>
+            <router-link to="/"><h1>Party <b>Song</b></h1></router-link>
             <div class="right-menu">
-                <Button label="Регистрация" type="light"/>
-                <Button label="Вход" type="light"/>
+                <router-link to="/authorization">
+                    <Button label="Вход" type="light"/>
+                </router-link>
+                <router-link to="/registration">
+                    <Button label="Регистрация" type="light"/>
+                </router-link>
             </div>
             <div class="right-menu">
                 <img class="photo" src=""/>
@@ -34,39 +38,43 @@
 
     header {
         display: flex;
-
         width: 100%;
         align-items: center;
         justify-content: space-between;
     }
-
+    a{
+        text-decoration: none;
+    }
     h1 {
         color: white;
         left: 0;
         font-weight: 300;
         font-size: 40px;
     }
-
     .right-menu {
         display: flex;
         align-items: center;
     }
-    .right-menu:nth-child(2n-1){
+
+    .right-menu:nth-child(2n-1) {
         display: none;
     }
-    .photo{
+
+    .photo {
         border-radius: 50%;
         background: aqua;
         height: 50px;
         width: 50px;
-       object-fit: cover;
+        object-fit: cover;
     }
-    .name{
+
+    .name {
         font-size: 18px;
         color: white;
         margin-left: 20px;
     }
-    .arrow{
+
+    .arrow {
         margin-left: 20px;
         height: 10px;
         width: 10px;
