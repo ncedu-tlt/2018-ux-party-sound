@@ -1,8 +1,10 @@
 <template>
     <div class="authorized-user">
-        <img class="photo" src=""/>
-        <div class="name">Имя</div>
-        <div class="arrow" v-bind:class="{'open-arrow':isOpen===true}" v-on:click="isOpen=!isOpen"/>
+        <div class="static" v-on:click="isOpen=!isOpen">
+            <img class="photo" :src="photo"/>
+            <div class="name">{{name}}</div>
+            <div class="arrow" v-bind:class="{'open-arrow':isOpen===true}"/>
+        </div>
         <div class="dropdown-menu" v-bind:class="{'open-dropdown-menu':isOpen===true}">
             <div class="item">Профиль</div>
             <div class="item">Выход</div>
@@ -18,6 +20,16 @@
             return {
                 isOpen: false,
             }
+        },
+        props:{
+          name:{
+              type:String,
+              required:true
+          },
+          photo:{
+              type: String,
+              required: true
+          }
         }
     }
 </script>
@@ -25,6 +37,10 @@
 <style scoped>
     .authorized-user{
         position: relative;
+
+    }
+    .static{
+        cursor: pointer;
         display: flex;
         align-items: center;
     }
@@ -43,7 +59,6 @@
     }
 
     .arrow {
-        cursor: pointer;
         margin-left: 20px;
         height: 10px;
         width: 10px;
@@ -61,14 +76,16 @@
     .dropdown-menu{
         position: absolute;
         bottom: -90px;
+        right: 0;
         background: white;
         border-radius: 7px;
         padding: 10px;
         height: 50px;
-        width: 100%;
+        width: 100px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        box-shadow:1px 2px 12px 0 rgba(0,0,0,0.49);
         opacity: 0;
         pointer-events: none;
         transition: 400ms;
