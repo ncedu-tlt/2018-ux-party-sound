@@ -5,8 +5,8 @@
         </button>
         <div class="playlists-list">
             <PlaylistElement
-                v-for="prop in fakeProps"
-                :key="prop.playlistId"
+                v-for="(prop, index) in playlists"
+                :key="index"
                 :playlist-id="prop.playlistId"
                 :playlist-name="prop.playlistName"
                 :color="prop.color"
@@ -18,17 +18,19 @@
 </template>
 <script>
 import PlaylistElement from './PlaylistElement/PlaylistElement.vue';
-import { fakeData } from './fakeData';
 
 export default {
     name: 'PlaylistsList',
     components: {
         PlaylistElement
     },
-    data: function () {
-        return {
-            fakeProps: fakeData
-        };
+    computed: {
+        playlists: function () {
+            return this.$store.getters.PLAYLISTS;
+        }
+    },
+    mounted() {
+        this.$store.dispatch('POPULATE_PLAYLISTS');
     }
 };
 </script>

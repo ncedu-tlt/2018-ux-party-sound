@@ -1,3 +1,4 @@
+import { fakeData } from '../components/fakeData';
 
 const state = {
     isLoading: false,
@@ -24,7 +25,7 @@ const mutations = {
     },
     PLAYLIST_LOADING_SUCCESS: (state, payload) => {
         state.isLoading = false;
-        state.playlists.push(payload);
+        state.playlists = state.playlists.concat(payload);
     },
     PLAYLIST_LOADING_ERROR: (state, payload) => {
         state.isLoading = false;
@@ -33,8 +34,8 @@ const mutations = {
 };
 
 const actions = {
-    POPULATE_PLAYLISTS: (context, payload) => {
-        context.commit('PLAYLIST_LOADING_SUCCESS', payload);
+    POPULATE_PLAYLISTS: (context) => {
+        context.commit('PLAYLIST_LOADING_SUCCESS', fakeData);
     }
 };
 
