@@ -29,10 +29,10 @@ public class PlaylistsDAO {
     private Set<String> genres;
 
     @OneToMany(
+            fetch = FetchType.LAZY,
             mappedBy = "playlist",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
+            orphanRemoval = true
     )
     private List<PlaylistTrackDAO> tracks = new ArrayList<>();
 

@@ -74,6 +74,7 @@
 
 <script>
 import axios from 'axios';
+import {createTrack} from '@/api/rest/track.api';
 
 const API_ARTISTS = 'https://api.jamendo.com/v3.0/artists/?client_id=eeded1fc&format=jsonpretty&limit=5';
 const API_TRACKS = 'https://api.jamendo.com/v3.0/tracks/?client_id=eeded1fc&format=jsonpretty&limit=5&include=musicinfo';
@@ -90,7 +91,10 @@ export default {
             nameArtists: [{ name: 'Skaut', id: '9' }, { name: 'TriFace', id: '7' }, { name: 'Both', id: '5' }],
             idActiveArtist: [],
             time: '',
-            timeBetween: [{ name: '< 5 минут', value: '0_300' }, { name: '5-10 минут', value: '300_600' }, { name: '> 10 минут', value: '600_1600' }],
+            timeBetween: [{ name: '< 5 минут', value: '0_300' }, {
+                name: '5-10 минут',
+                value: '300_600'
+            }, { name: '> 10 минут', value: '600_1600' }],
             content: { results: [] },
             artists: { results: [] },
             genres: ['rock', 'pop', 'triphop', 'indie'],
@@ -149,7 +153,7 @@ export default {
                 } else {
                     genre = 'Не определен!';
                 }
-                axios.post('/api/test', {
+                createTrack({
                     name: this.content.results[0].name,
                     artist_id: this.content.results[0].artist_id,
                     artist_name: this.content.results[0].artist_name,
@@ -160,6 +164,9 @@ export default {
                 })
                     .then(result => {
                         alert(JSON.stringify(result.data));
+                    })
+                    .catch(e => {
+                        alert(e);
                     });
             } else {
                 alert('Нет трека в списке!');
