@@ -1,13 +1,14 @@
 <template>
-    <main class="content">
+    <div class="content">
         <div class="container">
             <TextInput class="field" placeholder="E-mail или логин" type="text" :value="email"/>
             <TextInput class="field" placeholder="Пароль" type="password"  :value="password"/>
             <Button class="forget-password" label="Забыли пароль?" type="light"/>
             <Button class="entry" label="Вход"/>
-            <Button class="register" label="Зарегистрироваться" type="light"/>
+            <router-link to="/registration"><Button class="register" label="Зарегистрироваться" type="light"/></router-link>
+
         </div>
-    </main>
+    </div>
 </template>
 
 <script>
@@ -28,6 +29,7 @@
 
 <style scoped>
     .content {
+        width: 100%;
         height: 100vh;
         background: slateblue; /*временно, пока нет фоновой картинки*/
         display: flex;
