@@ -16,7 +16,7 @@ const client = axios.create({
  */
 client.interceptors.response.use(null, error => {
     if (error.response.status === 401 || error.response.status === 403) {
-        router.push('/');
+        router.push('/auth');
     }
     return Promise.reject(error);
 });

@@ -8,7 +8,7 @@
             </p>
         </div>
         <div class="box">
-            <div v-for="description in descriptions" :key="description" class="name">
+            <div v-for="description in ['Введите полное или частичное название трэка', 'Выберите исполнителя','Выберите жанры', 'Длительность трэка']" :key="description" class="stash">
                 {{ description }}
             </div>
             <div class="stash track">
@@ -23,7 +23,7 @@
                 </button>
             </div>
             <div class="stash">
-                <div v-for="artistName in nameArtists" :key="artistName.id">
+                <div v-for="artistName in  [{name: 'Skaut', id: '9'}, {name: 'TriFace', id: '7'}, {name: 'Both', id: '5'}]" :key="artistName.id">
                     <input
                         :id="artistName.id"
                         v-model="idActiveArtist"
@@ -35,14 +35,14 @@
                 {{ idActiveArtist }}
             </div>
             <div class="stash">
-                <div v-for="genre in genres" :key="genre">
+                <div v-for="genre in ['rock', 'pop', 'triphop', 'indie']" :key="genre">
                     <input :id="genre" v-model="activeGenres" type="checkbox" :value="genre">
                     <label>{{ genre }}</label>
                 </div>
                 {{ activeGenres }}
             </div>
             <div class="stash">
-                <div v-for="time1 in timeBetween" :key="time1.value">
+                <div v-for="time1 in [{ name: '< 5 минут', value: '0_300' }, {name: '5-10 минут',value: '300_600'}, { name: '> 10 минут', value: '600_1600' }]" :key="time1.value">
                     <input :id="time1.name" v-model="time" type="radio" :value="time1.value">
                     <label>{{ time1.name }}</label>
                 </div>
@@ -52,8 +52,8 @@
             <div class="stash" />
             <div class="stash" />
         </div>
-        <div class="content">
-            <div v-for="obj in content.results" :key="obj.id" class="line">
+        <div>
+            <div v-for="obj in content.results" :key="obj.id" class="stash">
                 <div>
                     name:{{ obj.name }}
                 </div>
@@ -73,32 +73,21 @@
 </template>
 
 <script>
-import axios from 'axios';
-import {createTrack} from '@/api/rest/track.api';
-
-const API_ARTISTS = 'https://api.jamendo.com/v3.0/artists/?client_id=eeded1fc&format=jsonpretty&limit=5';
-const API_TRACKS = 'https://api.jamendo.com/v3.0/tracks/?client_id=eeded1fc&format=jsonpretty&limit=5&include=musicinfo';
+import { createTrack } from '@/api/rest/track.api';
+import { trackFilter } from '@/api/rest/track.jamendo.api';
+import { artistsFindByName } from '@/api/rest/artists,jamendo.api';
 
 export default {
     name: 'APITest',
     data() {
         return {
             nameArtist: '',
-            descriptions: ['Введите полное или частичное название трэка',
-                'Выберите исполнителя',
-                'Выберите жанры', 'Длительность трэка'],
             nameTrack: '',
-            nameArtists: [{ name: 'Skaut', id: '9' }, { name: 'TriFace', id: '7' }, { name: 'Both', id: '5' }],
             idActiveArtist: [],
             time: '',
-            timeBetween: [{ name: '< 5 минут', value: '0_300' }, {
-                name: '5-10 минут',
-                value: '300_600'
-            }, { name: '> 10 минут', value: '600_1600' }],
+            activeGenres: [],
             content: { results: [] },
-            artists: { results: [] },
-            genres: ['rock', 'pop', 'triphop', 'indie'],
-            activeGenres: []
+            artists: { results: [] }
         };
     },
     mounted: function () {
@@ -110,38 +99,34 @@ export default {
     },
     methods: {
         artistList() {
-            let set = '';
-            if (this.nameArtist !== '') {
-                set = '&namesearch=' + this.nameArtist;
-            }
-
-            axios.get(API_ARTISTS + set)
-                .then(result => {
-                    this.artists = result.data;
+            artistsFindByName({
+                client_id: 'eeded1fc',
+                format: 'jsonpretty',
+                limit: '5',
+                namesearch: this.nameArtist
+            })
+                .then(res => {
+                    this.artists = res.data;
                 });
         },
         send() {
-            let nameTrack = '&namesearch=' + this.nameTrack;
-            let idArtists = '';
-            this.idActiveArtist.map((id) => {
-                idArtists += '&artist_id[]=' + id;
-            });
-
-            let nameGenres = '';
-            this.activeGenres.map((genre) => {
-                nameGenres += '&tags[]=' + genre;
-            });
-
             let time = '0_10000';
             if (this.time !== '') {
                 time = this.time;
             }
 
-            let durationBetween = '&durationbetween=' + time;
-
-            axios.get(API_TRACKS + nameTrack + idArtists + nameGenres + durationBetween)
-                .then(response => {
-                    this.content = response.data;
+            trackFilter({
+                client_id: 'eeded1fc',
+                format: 'jsonpretty',
+                limit: '5',
+                include: 'musicinfo',
+                namesearch: this.nameTrack,
+                artist_id: this.idActiveArtist,
+                tags: this.activeGenres,
+                durationbetween: time
+            })
+                .then(res => {
+                    this.content = res.data;
                 });
         },
 
@@ -203,6 +188,12 @@ export default {
         width: 800px;
     }
 
+    .stash{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
     .APITest {
         display: flex;
         align-items: center;
