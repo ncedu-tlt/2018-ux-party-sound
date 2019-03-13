@@ -6,7 +6,7 @@
         </section>
         <FindPlaylist />
         <PlaylistsList />
-        <AudioPlayer/>
+        <ShowMore />
     </main>
 </template>
 <script>
@@ -14,7 +14,7 @@ import TopPlaylists from './../components/TopPlaylists.vue';
 import PartySoundLabel from './../components/PartySoundLabel.vue';
 import FindPlaylist from './../components/FindPlaylist.vue';
 import PlaylistsList from './../components/PlaylistsList.vue';
-import AudioPlayer from './../components/AudioPlayer.vue';
+import ShowMore from './../components/ShowMore.vue';
 
 export default {
     name: 'Main',
@@ -23,7 +23,7 @@ export default {
         PartySoundLabel,
         FindPlaylist,
         PlaylistsList,
-        AudioPlayer
+        ShowMore
     }
 };
 </script>
