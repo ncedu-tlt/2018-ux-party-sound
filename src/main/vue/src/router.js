@@ -1,31 +1,37 @@
 import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home.vue';
+import VueRouter from 'vue-router';
+import Header from "./components/Header";
+import Main from './views/Main.vue';
+import RegistrationForm from './views/RegistrationForm'
+import AuthorizationForm from './views/AuthorizationForm'
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-export default new Router({
+
+
+export default new VueRouter({
     routes: [
-        // {
-        //     path: '/',
-        //     name: 'home',
-        //     component: Home
-        // },
-        {
-            path: '/about',
-            name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-        },
         {
             path: '/',
-            name: 'APITest',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ './views/APITest.vue')
+            component: Header,
+            children: [
+                {
+                    path: '',
+                    name: 'main',
+                    component: Main
+                },
+                {
+                    path: 'authorization',
+                    name: 'authorizationForm',
+                    component: AuthorizationForm
+                },
+                {
+                    path: '/registration',
+                    name: 'registrationForm',
+                    component: RegistrationForm
+                }
+            ]
         }
+
     ]
 });
