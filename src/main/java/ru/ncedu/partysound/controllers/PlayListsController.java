@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.ncedu.partysound.models.domain.PlaylistsDAO;
 import ru.ncedu.partysound.repositories.PlaylistsRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

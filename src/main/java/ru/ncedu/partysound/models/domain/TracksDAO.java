@@ -1,5 +1,7 @@
 package ru.ncedu.partysound.models.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class TracksDAO {
     private long albumId;
     private String genre;
 
+    @JsonBackReference
     @OneToMany(
             mappedBy = "track",
             cascade = CascadeType.ALL,

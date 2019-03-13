@@ -1,5 +1,7 @@
 package ru.ncedu.partysound.models.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,10 +12,12 @@ public class PlaylistTrackDAO {
     @EmbeddedId
     private PlaylistTrackId id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("id")
     private PlaylistsDAO playlist;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("id")
     private TracksDAO track;

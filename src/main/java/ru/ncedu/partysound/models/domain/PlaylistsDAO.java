@@ -1,5 +1,7 @@
 package ru.ncedu.partysound.models.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -28,6 +30,7 @@ public class PlaylistsDAO {
     )
     private Set<String> genres;
 
+    @JsonManagedReference
     @OneToMany(
             mappedBy = "playlist",
             cascade = CascadeType.ALL,
