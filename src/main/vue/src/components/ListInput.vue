@@ -1,9 +1,9 @@
 <template>
     <div class="list-input">
         <div class="chosen-list">
-            <div class="chosen-list__item">
-                <span class="chosen-list__item__genre">rtjsrj</span>
-                <button class="chosen-list__item__x-button"></button>
+            <div v-for="item in chosen" :key="item" class="chosen-list__item">
+                <span class="chosen-list__item__genre">{{ item }}</span>
+                <button class="chosen-list__item__x-button" />
             </div>
         </div>
         <div :class="['input-with-window', {'_opened': isOpen}]">
@@ -13,13 +13,13 @@
                     class="input-with-window__input"
                     type="text"
                     :placeholder="placeholder"
-                    @input="isOpen = message !== ''"
+                    @input="isOpen = openWindow"
                     @blur="isOpen = false"
-                    @focus="isOpen = message !== ''"
+                    @focus="isOpen = openWindow"
                 >
             </label>
             <div class="input-with-window__window">
-                <div v-for="item in fakeData" :key="item" class="item">
+                <div v-for="item in listItems" :key="item" class="item">
                     <span>{{ item }}</span>
                     <button class="plus">
                         +
@@ -36,14 +36,30 @@ export default {
         placeholder: {
             type: String,
             required: true
+        },
+        chosen: {
+            type: Array,
+            default: function () {
+                return [];
+            }
+        },
+        listItems: {
+            type: Array,
+            default: function () {
+                return [];
+            }
         }
     },
     data: function () {
         return {
             isOpen: false,
-            message: '',
-            fakeData: ['aerg', 'sjyessr', 'aerghartahs']
+            message: ''
         };
+    },
+    computed: {
+        openWindow: function () {
+            return this.message !== '' && this.listItems.length !== 0;
+        }
     }
 };
 </script>

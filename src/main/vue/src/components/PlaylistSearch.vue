@@ -1,12 +1,13 @@
 <template>
     <section class="playlist-search container">
         <div class="playlist-search-fields">
-            <div class="playlist-search-fields__top">
+            <div class="playlist-search-fields__block">
                 <SearchInput />
+                <SearchButton />
             </div>
-            <div class="playlist-search-fields__bottom">
-                <ListInput placeholder="Исполнители" />
-                <ListInput placeholder="Жанры" />
+            <div class="playlist-search-fields__block">
+                <ListInput placeholder="Исполнители" :chosen="['Исполнитель1', 'Исполнитель2']" :list-items="['Исполнитель1', 'Исполнитель2']" />
+                <ListInput placeholder="Жанры" :chosen="['Жанр1', 'Жанр2']" :list-items="['Жанр1', 'Жанр2']" />
             </div>
         </div>
     </section>
@@ -14,12 +15,14 @@
 <script>
 import ListInput from './ListInput.vue';
 import SearchInput from './SearchInput.vue';
+import SearchButton from './SearchButton.vue';
 
 export default {
     name: 'PlaylistSearch',
     components: {
         ListInput,
-        SearchInput
+        SearchInput,
+        SearchButton
     }
 };
 </script>
@@ -30,7 +33,7 @@ export default {
 
         &-fields{
 
-            &__bottom{
+            &__block{
                 display: flex;
                 justify-content: space-between;
                 width: 590px;

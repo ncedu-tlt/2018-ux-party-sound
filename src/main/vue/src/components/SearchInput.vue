@@ -1,6 +1,6 @@
 <template>
     <label>
-        <input v-model="text" placeholder="Поиск" type="text" class="search-input" />
+        <input v-model="text" placeholder="Поиск" type="text" class="search-input">
     </label>
 </template>
 <script>
@@ -15,7 +15,7 @@ export default {
 </script>
 <style scoped lang="scss">
     .search-input{
-        width: 450px;
+        width: 420px;
         height: 40px;
         padding: 0 15px;
         font-size: 18px;
