@@ -2,19 +2,19 @@
     <section class="playlist-search container">
         <div class="playlist-search-fields">
             <div class="playlist-search-fields__bottom">
-                <InputWithWindow placeholder="Исполнители" />
-                <InputWithWindow placeholder="Жанры" />
+                <ListInput placeholder="Исполнители" />
+                <ListInput placeholder="Жанры" />
             </div>
         </div>
     </section>
 </template>
 <script>
-import InputWithWindow from './../components/InputWithWindow.vue';
+import ListInput from './ListInput.vue';
 
 export default {
     name: 'PlaylistSearch',
     components: {
-        InputWithWindow
+        ListInput
     }
 };
 </script>
