@@ -1,6 +1,9 @@
 <template>
     <section class="playlist-search container">
         <div class="playlist-search-fields">
+            <div class="playlist-search-fields__top">
+                <SearchInput />
+            </div>
             <div class="playlist-search-fields__bottom">
                 <ListInput placeholder="Исполнители" />
                 <ListInput placeholder="Жанры" />
@@ -10,18 +13,20 @@
 </template>
 <script>
 import ListInput from './ListInput.vue';
+import SearchInput from './SearchInput.vue';
 
 export default {
     name: 'PlaylistSearch',
     components: {
-        ListInput
+        ListInput,
+        SearchInput
     }
 };
 </script>
 <style scoped lang="scss">
     .playlist-search{
         width: 100%;
-        padding: 100px 0;
+        padding-top: 125px;
 
         &-fields{
 
