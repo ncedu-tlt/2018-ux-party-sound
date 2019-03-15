@@ -1,11 +1,19 @@
 <template>
-    <div class="input-with-window _opened">
+    <div :class="['input-with-window', {'_opened': isOpen}]">
         <label>
-            <input class="input-with-window__input">
+            <input
+                v-model="message"
+                class="input-with-window__input"
+                type="text"
+                :placeholder="placeholder"
+                @input="isOpen = message !== ''"
+                @blur="isOpen = false"
+                @focus="isOpen = message !== ''"
+            >
         </label>
         <div class="input-with-window__window">
-            <div class="item">
-                <span>sjy</span>
+            <div v-for="item in fakeData" :key="item" class="item">
+                <span>{{ item }}</span>
                 <button class="plus">
                     +
                 </button>
@@ -15,7 +23,20 @@
 </template>
 <script>
 export default {
-    name: 'InputWithWindow'
+    name: 'InputWithWindow',
+    props: {
+        placeholder: {
+            type: String,
+            required: true
+        }
+    },
+    data: function () {
+        return {
+            isOpen: false,
+            message: '',
+            fakeData: ['aerg', 'sjyessr', 'aerghartahs']
+        };
+    }
 };
 </script>
 <style scoped lang="scss">
@@ -24,10 +45,12 @@ export default {
         position: relative;
 
         &__input {
-            width: 100%;
+            width: 240px;
             height: 30px;
+            padding: 0 15px;
             border: 1px solid #0C0094;
             border-radius: 6px;
+            outline: none;
         }
 
         &__window{

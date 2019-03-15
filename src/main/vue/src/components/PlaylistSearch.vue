@@ -2,7 +2,8 @@
     <section class="playlist-search container">
         <div class="playlist-search-fields">
             <div class="playlist-search-fields__bottom">
-                <InputWithWindow />
+                <InputWithWindow placeholder="Исполнители" />
+                <InputWithWindow placeholder="Жанры" />
             </div>
         </div>
     </section>
@@ -21,5 +22,14 @@ export default {
     .playlist-search{
         width: 100%;
         padding: 100px 0;
+
+        &-fields{
+
+            &__bottom{
+                display: flex;
+                justify-content: space-between;
+                width: 590px;
+            }
+        }
     }
 </style>
