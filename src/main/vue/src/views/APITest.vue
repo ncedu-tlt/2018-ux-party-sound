@@ -1,9 +1,9 @@
 <template>
     <div class="APITest">
-        <div class="searchArtists">
+        <div class="search_artists">
             <p>Демострация поиска исполнителей: </p>
-            <input v-model="nameArtist" type="text" @keyup="artistList()">
-            <p v-for="artist in artists.results" :key="artist.id">
+            <input v-model="artistName" type="text" @keyup="findArtistsByName()">
+            <p v-for="artist in artists" :key="artist.id">
                 Имя исполнителя: {{ artist.name }} id исполнителя: {{ artist.id }}
             </p>
         </div>
@@ -12,9 +12,9 @@
                 {{ description }}
             </div>
             <div class="stash track">
-                <input v-model="nameTrack">
+                <input v-model="trackName">
 
-                <button @click="send()">
+                <button @click="getTracks()">
                     Отправить запрос
                 </button>
 
@@ -26,13 +26,13 @@
                 <div v-for="artistName in  [{name: 'Skaut', id: '9'}, {name: 'TriFace', id: '7'}, {name: 'Both', id: '5'}]" :key="artistName.id">
                     <input
                         :id="artistName.id"
-                        v-model="idActiveArtist"
+                        v-model="activeIdsArtist"
                         type="checkbox"
                         :value="artistName.id"
                     >
                     <label>{{ artistName.name }}</label>
                 </div>
-                {{ idActiveArtist }}
+                {{ activeIdsArtist }}
             </div>
             <div class="stash">
                 <div v-for="genre in ['rock', 'pop', 'triphop', 'indie']" :key="genre">
@@ -53,7 +53,7 @@
             <div class="stash" />
         </div>
         <div>
-            <div v-for="obj in content.results" :key="obj.id" class="stash">
+            <div v-for="obj in content" :key="obj.id" class="stash">
                 <div>
                     name:{{ obj.name }}
                 </div>
@@ -74,85 +74,59 @@
 
 <script>
 import { createTrack } from '@/api/rest/track.api';
-import { trackFilter } from '@/api/rest/track.jamendo.api';
-import { artistsFindByName } from '@/api/rest/artists,jamendo.api';
+import { getTracks } from '@/api/rest/track.jamendo.api';
+import { findArtistsByName } from '@/api/rest/artists.jamendo.api';
+
+const DEFAULT_TIME = '0_10000';
 
 export default {
     name: 'APITest',
     data() {
         return {
-            nameArtist: '',
-            nameTrack: '',
-            idActiveArtist: [],
-            time: '',
+            artistName: '',
+            trackName: '',
+            activeIdsArtist: [],
+            time: undefined,
             activeGenres: [],
-            content: { results: [] },
-            artists: { results: [] }
+            content: [],
+            artists: []
         };
     },
     mounted: function () {
         this.$watch('content', function () {
-            this.$refs.player.map((index, item) => {
-                index.load();
+            this.$refs.player.map((item) => {
+                item.load();
             });
         });
     },
     methods: {
-        artistList() {
-            artistsFindByName({
-                client_id: 'eeded1fc',
-                format: 'jsonpretty',
-                limit: '5',
-                namesearch: this.nameArtist
-            })
-                .then(res => {
-                    this.artists = res.data;
-                });
+        async findArtistsByName() {
+            this.artists = await findArtistsByName(5, this.artistName);
         },
-        send() {
-            let time = '0_10000';
-            if (this.time !== '') {
-                time = this.time;
-            }
-
-            trackFilter({
-                client_id: 'eeded1fc',
-                format: 'jsonpretty',
-                limit: '5',
-                include: 'musicinfo',
-                namesearch: this.nameTrack,
-                artist_id: this.idActiveArtist,
+        async getTracks() {
+            this.content = await getTracks({
+                namesearch: this.trackName,
+                artist_id: this.activeIdsArtist,
                 tags: this.activeGenres,
-                durationbetween: time
-            })
-                .then(res => {
-                    this.content = res.data;
-                });
+                durationbetween: DEFAULT_TIME || this.time,
+                limit: 5,
+                include: 'musicinfo'
+            });
         },
 
-        createTrackOnBack() {
-            if (this.content.results[0]) {
-                let genre;
-                if (this.content.results[0].musicinfo.tags.genres[0]) {
-                    genre = this.content.results[0].musicinfo.tags.genres[0];
-                } else {
-                    genre = 'Не определен!';
-                }
-                createTrack({
-                    name: this.content.results[0].name,
-                    artist_id: this.content.results[0].artist_id,
-                    artist_name: this.content.results[0].artist_name,
-                    album_name: this.content.results[0].album_name,
-                    album_id: this.content.results[0].album_id,
-                    audio: this.content.results[0].audio,
-                    genre: genre
-                })
-                    .then(result => {
-                        alert(JSON.stringify(result.data));
-                    })
-                    .catch(e => {
-                        alert(e);
-                    });
+        async createTrackOnBack() {
+            const track = this.content[0];
+            if (track) {
+                alert(await createTrack({
+                    id: track.id,
+                    name: track.name,
+                    artistId: track.artist_id,
+                    artistName: track.artist_name,
+                    albumName: track.album_name,
+                    albumId: track.album_id,
+                    url: track.audio,
+                    genre: track.musicinfo.tags.genres[0]
+                }));
             } else {
                 alert('Нет трека в списке!');
             }
@@ -162,7 +136,7 @@ export default {
 </script>
 
 <style>
-    .searchArtists {
+    .search_artists {
         margin-bottom: 20px;
     }
 

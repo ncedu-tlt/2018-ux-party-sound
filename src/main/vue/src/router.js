@@ -30,7 +30,7 @@ export default new VueRouter({
                     component: RegistrationForm
                 },
                 {
-                    path: 'APITest',
+                    path: 'api-test',
                     name: 'APITest',
                     component: APITest
                 }
