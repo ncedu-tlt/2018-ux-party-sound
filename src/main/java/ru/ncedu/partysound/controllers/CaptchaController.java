@@ -10,7 +10,7 @@ public class CaptchaController {
 
     @GetMapping("/key")
     public String get() {
-        return "";
+        return System.getenv("KEY");
     }
 
 }
