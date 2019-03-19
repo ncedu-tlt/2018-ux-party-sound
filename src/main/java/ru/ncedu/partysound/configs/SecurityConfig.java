@@ -14,6 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.ncedu.partysound.repositories.UsersRepository;
 import ru.ncedu.partysound.services.CustomAuthenticationEntryPoint;
 import ru.ncedu.partysound.services.UsernamePasswordAuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.ncedu.partysound.repositories.UsersRepository;
+import ru.ncedu.partysound.services.CustomAuthenticationEntryPoint;
+import ru.ncedu.partysound.services.UsernamePasswordAuthenticationProvider;
 
 
 import javax.servlet.http.HttpServletResponse;
