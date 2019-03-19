@@ -1,27 +1,29 @@
 <template>
     <main>
         <header class="container">
-            <router-link to="/"><h1>Party <b>Song</b></h1></router-link>
+            <router-link to="/">
+                <h1>Party <b>Sound</b></h1>
+            </router-link>
             <div class="right-menu">
                 <router-link to="/authorization">
-                    <Button label="Вход" type="light"/>
+                    <Button label="Вход" type="light" />
                 </router-link>
                 <router-link to="/registration">
-                    <Button label="Регистрация" type="light"/>
+                    <Button label="Регистрация" type="light" />
                 </router-link>
             </div>
         </header>
-        <router-view></router-view>
+        <router-view />
     </main>
 </template>
 
 <script>
-    import Button from "./Button";
+import Button from './Button';
 
-    export default {
-        name: "Header",
-        components: {Button}
-    }
+export default {
+    name: 'Header',
+    components: { Button }
+};
 </script>
 
 <style scoped>
@@ -51,6 +53,5 @@
         display: flex;
         align-items: center;
     }
-
 
 </style>

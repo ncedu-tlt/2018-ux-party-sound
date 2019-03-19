@@ -1,23 +1,23 @@
 <template>
     <button :class="type">
-        {{label}}
+        {{ label }}
     </button>
 </template>
 
 <script>
-    export default {
-        name: "Button",
-        props: {
-            label: {
-                type: String,
-                required: true
-            },
-            type: {
-                type: String,
-                default: "default"
-            }
+export default {
+    name: 'Button',
+    props: {
+        label: {
+            type: String,
+            required: true
+        },
+        type: {
+            type: String,
+            default: 'default'
         }
     }
+};
 </script>
 
 <style scoped>
