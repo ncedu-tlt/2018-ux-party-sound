@@ -25,25 +25,25 @@ export default {
         cursor: pointer;
         outline: none;
         font-size: 18px;
+        border: none;
     }
 
     .default {
         min-width: 220px;
         padding: 14px;
         box-sizing: border-box;
-        border: none;
         color: white;
         background: #0C0094;
         border-radius: 4px;
-        box-shadow:1px 2px 12px 0 rgba(0,0,0,0.49);
+        box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.49);
     }
-    .default:hover{
+
+    .default:hover {
         transition: 400ms;
         background: #1B1096;
     }
 
     .light {
-        border: none;
         background: none;
         color: white;
     }
@@ -52,9 +52,22 @@ export default {
         min-width: 220px;
         padding: 14px;
         box-sizing: border-box;
-        border: none;
         color: white;
         font-weight: bold;
         background: #7F6AFF;
+    }
+
+    .search-button {
+        width: 110px;
+        height: 40px;
+        background-color: #0C0094;
+        font-size: 16px;
+        color: #FFFFFF;
+        border-radius: 6px;
+    }
+
+    .search-button:hover {
+        transition: 400ms;
+        background: #1B1096;
     }
 </style>

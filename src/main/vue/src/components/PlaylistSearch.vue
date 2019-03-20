@@ -2,8 +2,8 @@
     <section class="playlist-search container">
         <div class="playlist-search-fields">
             <div class="playlist-search-fields__block">
-                <SearchInput />
-                <SearchButton />
+                <TextInput class-name="search-input" placeholder="Поиск" />
+                <Button type="search-button" label="Найти" />
             </div>
             <div class="playlist-search-fields__block">
                 <ListInput placeholder="Исполнители" :chosen="['Исполнитель1', 'Исполнитель2']" :list-items="['Исполнитель1', 'Исполнитель2']" />
@@ -14,15 +14,15 @@
 </template>
 <script>
 import ListInput from './ListInput.vue';
-import SearchInput from './SearchInput.vue';
-import SearchButton from './SearchButton.vue';
+import TextInput from './TextInput.vue';
+import Button from './Button.vue';
 
 export default {
     name: 'PlaylistSearch',
     components: {
         ListInput,
-        SearchInput,
-        SearchButton
+        TextInput,
+        Button
     }
 };
 </script>
