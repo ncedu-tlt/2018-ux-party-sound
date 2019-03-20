@@ -12,7 +12,6 @@ import java.util.*;
 public class TracksDAO {
 
     @Id
-    @GeneratedValue
     private long id;
 
     private String url;
