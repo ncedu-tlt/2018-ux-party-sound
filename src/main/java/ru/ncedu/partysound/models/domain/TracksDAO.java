@@ -1,23 +1,24 @@
 package ru.ncedu.partysound.models.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "tracks")
 public class TracksDAO {
 
     @Id
+    @GeneratedValue
     private long id;
+
     private String url;
     private String name;
     private String artistName;
     private long artistId;
-    private String albumName;
-    private long albumId;
-    private String genre;
 
     @OneToMany(
             mappedBy = "track",
@@ -27,17 +28,23 @@ public class TracksDAO {
     )
     private List<PlaylistTrackDAO> playlists = new ArrayList<>();
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "track_genre",
+            joinColumns = {@JoinColumn(name = "track_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genre_id")}
+    )
+    private Set<GenresDAO> genres = new HashSet<>();
+
     public TracksDAO() {
     }
 
-    public TracksDAO(String url, String name, String artistName, long artistId, String albumName, long albumId, String genre) {
+    public TracksDAO(String url, String name, String artistName, long artistId) {
         this.url = url;
         this.name = name;
         this.artistName = artistName;
         this.artistId = artistId;
-        this.albumName = albumName;
-        this.albumId = albumId;
-        this.genre = genre;
     }
 
     public String getUrl() {
@@ -72,30 +79,6 @@ public class TracksDAO {
         this.artistId = artistId;
     }
 
-    public String getAlbumName() {
-        return albumName;
-    }
-
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
-    }
-
-    public long getAlbumId() {
-        return albumId;
-    }
-
-    public void setAlbumId(long albumId) {
-        this.albumId = albumId;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     public List<PlaylistTrackDAO> getPlaylists() {
         return playlists;
     }
@@ -112,21 +95,26 @@ public class TracksDAO {
         this.id = id;
     }
 
+    public Set<GenresDAO> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<GenresDAO> genres) {
+        this.genres = genres;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TracksDAO tracksDAO = (TracksDAO) o;
         return artistId == tracksDAO.artistId &&
-                albumId == tracksDAO.albumId &&
                 Objects.equals(name, tracksDAO.name) &&
-                Objects.equals(artistName, tracksDAO.artistName) &&
-                Objects.equals(albumName, tracksDAO.albumName) &&
-                Objects.equals(genre, tracksDAO.genre);
+                Objects.equals(artistName, tracksDAO.artistName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, artistName, artistId, albumName, albumId, genre);
+        return Objects.hash(name, artistName, artistId);
     }
 }
