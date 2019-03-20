@@ -8,10 +8,10 @@ import java.util.Objects;
 @Embeddable
 public class PlaylistTrackId implements Serializable {
 
-    @Column(name = "playlist_id")
+    @Column
     private long playlistId;
 
-    @Column(name = "track_id")
+    @Column
     private long trackId;
 
     public PlaylistTrackId() {}
