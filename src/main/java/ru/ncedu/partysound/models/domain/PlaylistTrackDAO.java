@@ -10,25 +10,22 @@ public class PlaylistTrackDAO {
     @EmbeddedId
     private PlaylistTrackId id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("id")
+    @ManyToOne
+    @MapsId("playlistId")
     private PlaylistsDAO playlist;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("id")
+    @ManyToOne
+    @MapsId("trackId")
     private TracksDAO track;
 
-    @Column(name = "order_number_in_playlist")
-    private int orderNumberInPlaylist;
-
-    @Column(name = "dislikes_count")
-    private int dislikesCount;
+    private int trackNumberInPlaylist;
 
     public PlaylistTrackDAO() {}
 
-    public PlaylistTrackDAO(PlaylistsDAO playlist, TracksDAO tracks) {
+    public PlaylistTrackDAO(PlaylistsDAO playlist, TracksDAO track) {
         this.playlist = playlist;
-        this.track = tracks;
+        this.track = track;
+        this.id = new PlaylistTrackId(playlist.getId(), track.getId());
     }
 
     @Override
@@ -69,19 +66,11 @@ public class PlaylistTrackDAO {
         this.track = track;
     }
 
-    public int getOrderNumberInPlaylist() {
-        return orderNumberInPlaylist;
+    public int getTrackNumberInPlaylist() {
+        return trackNumberInPlaylist;
     }
 
-    public void setOrderNumberInPlaylist(int orderNumberInPlaylist) {
-        this.orderNumberInPlaylist = orderNumberInPlaylist;
-    }
-
-    public int getDislikesCount() {
-        return dislikesCount;
-    }
-
-    public void setDislikesCount(int dislikesCount) {
-        this.dislikesCount = dislikesCount;
+    public void setTrackNumberInPlaylist(int trackNumberInPlaylist) {
+        this.trackNumberInPlaylist = trackNumberInPlaylist;
     }
 }

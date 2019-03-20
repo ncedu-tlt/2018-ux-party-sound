@@ -1,10 +1,14 @@
 package ru.ncedu.partysound.models.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "users")
 public class UsersDAO {
 
@@ -19,30 +23,24 @@ public class UsersDAO {
     private String avatar;
     private String password;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-    private Set<RolesDAO> roles = new HashSet<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<SessionsDAO> sessions = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "recently_invited_users",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "invited_user_id")}
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
-    private Set<UsersDAO> invitedUsers = new HashSet<>();
+    private Set<PlaylistUserRoleDAO> playlistRole = new HashSet<>();
 
+    public Set<SessionsDAO> getSessions() {
+        return sessions;
+    }
 
-    @ManyToMany
-    @JoinTable(
-            name = "recently_invited_users",
-            joinColumns = {@JoinColumn(name = "invited_user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
-    )
-    private Set<UsersDAO> invitedByUsers = new HashSet<>();
+    public void setSessions(Set<SessionsDAO> sessions) {
+        this.sessions = sessions;
+    }
 
     public UsersDAO() {
     }
@@ -112,27 +110,11 @@ public class UsersDAO {
         this.password = password;
     }
 
-    public Set<RolesDAO> getRoles() {
-        return roles;
+    public Set<PlaylistUserRoleDAO> getPlaylistRole() {
+        return playlistRole;
     }
 
-    public void setRoles(Set<RolesDAO> roles) {
-        this.roles = roles;
-    }
-
-    public Set<UsersDAO> getInvitedUsers() {
-        return invitedUsers;
-    }
-
-    public void setInvitedUsers(Set<UsersDAO> invitedUsers) {
-        this.invitedUsers = invitedUsers;
-    }
-
-    public Set<UsersDAO> getInvitedByUsers() {
-        return invitedByUsers;
-    }
-
-    public void setInvitedByUsers(Set<UsersDAO> invitedByUsers) {
-        this.invitedByUsers = invitedByUsers;
+    public void setPlaylistRole(Set<PlaylistUserRoleDAO> playlistRole) {
+        this.playlistRole = playlistRole;
     }
 }

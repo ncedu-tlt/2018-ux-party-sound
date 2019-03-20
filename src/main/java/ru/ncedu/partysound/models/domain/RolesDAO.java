@@ -12,28 +12,30 @@ public class RolesDAO {
     @GeneratedValue
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "playlist_id", referencedColumnName = "id", nullable = false)
-    private PlaylistsDAO playlist;
+    private String name;
+    private boolean addTrack;
+    private boolean deleteTrack;
+    private boolean deleteUser;
+    private boolean changeTracksOrder;
+    private boolean seePlaylist;
 
-    private String roleName;
-    private boolean canAddTrack;
-    private boolean canDeleteTrack;
-    private boolean canDeleteUser;
-    private boolean canChangeTracksOrder;
-
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<UsersDAO> users = new HashSet<>();
+    @OneToMany(
+            mappedBy = "role",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private Set<PlaylistUserRoleDAO> playlistUser = new HashSet<>();
 
     public RolesDAO() {}
 
-    public RolesDAO(PlaylistsDAO playlist, String roleName, boolean canAddTrack, boolean canDeleteTrack, boolean canDeleteUser, boolean canChangeTracksOrder) {
-        this.playlist = playlist;
-        this.roleName = roleName;
-        this.canAddTrack = canAddTrack;
-        this.canDeleteTrack = canDeleteTrack;
-        this.canDeleteUser = canDeleteUser;
-        this.canChangeTracksOrder = canChangeTracksOrder;
+    public RolesDAO(String name, boolean addTrack, boolean deleteTrack, boolean deleteUser, boolean changeTracksOrder, boolean seePlaylist) {
+        this.name = name;
+        this.addTrack = addTrack;
+        this.deleteTrack = deleteTrack;
+        this.deleteUser = deleteUser;
+        this.changeTracksOrder = changeTracksOrder;
+        this.seePlaylist = seePlaylist;
     }
 
     public long getId() {
@@ -44,59 +46,51 @@ public class RolesDAO {
         this.id = id;
     }
 
-    public PlaylistsDAO getPlaylist() {
-        return playlist;
+    public String getName() {
+        return name;
     }
 
-    public void setPlaylist(PlaylistsDAO playlist) {
-        this.playlist = playlist;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public boolean isAddTrack() {
+        return addTrack;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setAddTrack(boolean addTrack) {
+        this.addTrack = addTrack;
     }
 
-    public boolean isCanAddTrack() {
-        return canAddTrack;
+    public boolean isDeleteTrack() {
+        return deleteTrack;
     }
 
-    public void setCanAddTrack(boolean canAddTrack) {
-        this.canAddTrack = canAddTrack;
+    public void setDeleteTrack(boolean deleteTrack) {
+        this.deleteTrack = deleteTrack;
     }
 
-    public boolean isCanDeleteTrack() {
-        return canDeleteTrack;
+    public boolean isDeleteUser() {
+        return deleteUser;
     }
 
-    public void setCanDeleteTrack(boolean canDeleteTrack) {
-        this.canDeleteTrack = canDeleteTrack;
+    public void setDeleteUser(boolean deleteUser) {
+        this.deleteUser = deleteUser;
     }
 
-    public boolean isCanDeleteUser() {
-        return canDeleteUser;
+    public boolean isChangeTracksOrder() {
+        return changeTracksOrder;
     }
 
-    public void setCanDeleteUser(boolean canDeleteUser) {
-        this.canDeleteUser = canDeleteUser;
+    public void setChangeTracksOrder(boolean changeTracksOrder) {
+        this.changeTracksOrder = changeTracksOrder;
     }
 
-    public boolean isCanChangeTracksOrder() {
-        return canChangeTracksOrder;
+    public boolean isSeePlaylist() {
+        return seePlaylist;
     }
 
-    public void setCanChangeTracksOrder(boolean canChangeTracksOrder) {
-        this.canChangeTracksOrder = canChangeTracksOrder;
-    }
-
-    public Set<UsersDAO> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<UsersDAO> users) {
-        this.users = users;
+    public void setSeePlaylist(boolean seePlaylist) {
+        this.seePlaylist = seePlaylist;
     }
 }
