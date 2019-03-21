@@ -38,8 +38,8 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         String username = auth.getName();
         String password = auth.getCredentials()
                 .toString();
-        if (userRepository.findByLogin(username)!=null && passwordEncoder.matches(password,userRepository.findByLogin(username).getPassword())) {
-            UsersDAO usersDAO = userRepository.findByLogin(username);
+        UsersDAO usersDAO;
+        if((usersDAO = userRepository.findByLogin(username)) != null && passwordEncoder.matches(password,userRepository.findByLogin(username).getPassword())) {
             Object principal = new UserPrincipal(usersDAO.getLogin());
             return new UsernamePasswordAuthenticationToken(principal, password, AuthorityUtils.createAuthorityList("ROLE_USER"));
         } else {
@@ -50,6 +50,6 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
     @Override
     public boolean supports(Class<?> auth) {
-        return auth.equals(UsernamePasswordAuthenticationToken.class);
+        return  UsernamePasswordAuthenticationToken.class.equals(auth);
     }
 }
