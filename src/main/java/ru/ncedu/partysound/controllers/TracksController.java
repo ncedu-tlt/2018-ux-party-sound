@@ -1,8 +1,8 @@
 package ru.ncedu.partysound.controllers;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.web.bind.annotation.*;
-import ru.ncedu.partysound.models.converters.MyMapper;
-import ru.ncedu.partysound.models.converters.TracksDTOMapper;
+import ru.ncedu.partysound.converters.TracksDTOMapper;
 import ru.ncedu.partysound.models.domain.GenresDAO;
 import ru.ncedu.partysound.models.domain.TracksDAO;
 import ru.ncedu.partysound.models.dto.TracksDTO;
@@ -20,25 +20,21 @@ public class TracksController {
 
     private final TracksRepository tracksRepository;
     private final GenresRepository genresRepository;
-    private final TracksDTOMapper tracksDTOMapper;
-    private final MyMapper myMapper;
+    private final TracksDTOMapper tracksDTOMapper = Mappers.getMapper(TracksDTOMapper.class);
 
-    public TracksController(TracksRepository tracksRepository, GenresRepository genresRepository,
-                            TracksDTOMapper tracksDTOMapper, MyMapper myMapper) {
+    public TracksController(TracksRepository tracksRepository, GenresRepository genresRepository) {
         this.tracksRepository = tracksRepository;
         this.genresRepository = genresRepository;
-        this.tracksDTOMapper = tracksDTOMapper;
-        this.myMapper = myMapper;
     }
 
     @PostMapping
     public String post(@RequestBody TracksDTO track) {
-        TracksDAO tracksDAO = tracksDTOMapper.toDTO(track);
-        Set<String> genres = track.getGenres();
+        List<String> genres = track.getGenresString();
         Set<GenresDAO> genresDAOS = new HashSet<>();
         genres.forEach(genre -> {
             genresDAOS.addAll(genresRepository.findAllByName(genre));
         });
+        TracksDAO tracksDAO = tracksDTOMapper.toDAO(track);
         tracksDAO.setGenres(genresDAOS);
         tracksRepository.save(tracksDAO);
         return "Трек успешно сохранен с id" + track.getId();

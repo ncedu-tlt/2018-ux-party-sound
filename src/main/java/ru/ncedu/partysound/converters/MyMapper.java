@@ -1,4 +1,4 @@
-package ru.ncedu.partysound.models.converters;
+package ru.ncedu.partysound.converters;
 
 public class MyMapper {
 

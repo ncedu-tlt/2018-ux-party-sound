@@ -108,7 +108,7 @@ export default {
                 namesearch: this.trackName,
                 artist_id: this.activeIdsArtist,
                 tags: this.activeGenres,
-                durationbetween: DEFAULT_TIME || this.time,
+                durationbetween: this.time || DEFAULT_TIME,
                 limit: 5,
                 include: 'musicinfo'
             });
@@ -125,7 +125,7 @@ export default {
                     albumName: track.album_name,
                     albumId: track.album_id,
                     url: track.audio,
-                    genre: track.musicinfo.tags.genres[0]
+                    genresString: track.musicinfo.tags.genres
                 }));
             } else {
                 alert('Нет трека в списке!');

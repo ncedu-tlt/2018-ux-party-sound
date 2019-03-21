@@ -1,6 +1,7 @@
 package ru.ncedu.partysound.models.dto;
 
 
+import java.util.List;
 import java.util.Set;
 
 public class TracksDTO {
@@ -10,18 +11,18 @@ public class TracksDTO {
     private String name;
     private String artistName;
     private long artistId;
-    private Set<String> genres;
+    private List<String> genresString;
 
     public TracksDTO() {
     }
 
-    public TracksDTO(long id, String url, String name, String artistName, long artistId, Set<String> genres) {
+    public TracksDTO(long id, String url, String name, String artistName, long artistId, List<String> genresString) {
         this.id = id;
         this.url = url;
         this.name = name;
         this.artistName = artistName;
         this.artistId = artistId;
-        this.genres = genres;
+        this.genresString = genresString;
     }
 
     public long getId() {
@@ -64,11 +65,11 @@ public class TracksDTO {
         this.artistId = artistId;
     }
 
-    public Set<String> getGenres() {
-        return genres;
+    public List<String> getGenresString() {
+        return genresString;
     }
 
-    public void setGenres(Set<String> genres) {
-        this.genres = genres;
+    public void setGenresString(List<String> genresString) {
+        this.genresString = genresString;
     }
 }

@@ -1,12 +1,11 @@
-package ru.ncedu.partysound.models.converters;
+package ru.ncedu.partysound.converters;
 
 import org.mapstruct.Mapper;
 import ru.ncedu.partysound.models.domain.TracksDAO;
 import ru.ncedu.partysound.models.dto.TracksDTO;
 
-import java.util.List;
 
 @Mapper
 public interface TracksDTOMapper {
-    TracksDAO toDTO(TracksDTO playlistsDTO);
+    TracksDAO toDAO(TracksDTO tracksDTO);
 }
