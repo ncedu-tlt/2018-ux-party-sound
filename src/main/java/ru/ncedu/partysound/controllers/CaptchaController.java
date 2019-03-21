@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/test")
-public class TestController {
+@RequestMapping("/api/captcha")
+public class CaptchaController {
 
-    @GetMapping
+    @GetMapping("/key")
     public String get() {
-        return "Hello!";
+        return System.getenv("KEY");
     }
+
 }

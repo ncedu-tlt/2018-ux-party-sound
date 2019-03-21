@@ -36,10 +36,10 @@ public class PlaylistsDAO {
     private Set<GenresDAO> genres = new HashSet<>();
 
     @OneToMany(
+            fetch = FetchType.LAZY,
             mappedBy = "playlist",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
+            orphanRemoval = true
     )
     private Set<PlaylistUserRoleDAO> userRole = new HashSet<>();
 
