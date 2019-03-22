@@ -1,27 +1,31 @@
 package ru.ncedu.partysound.services;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ncedu.partysound.models.domain.UsersDAO;
 import ru.ncedu.partysound.repositories.UsersRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UsersRepository userRepository;
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UsersRepository userRepository;
+    private final PasswordEncoder encode;
 
-    @Override
-    public void save(UsersDAO user) {
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+    public UserServiceImpl(UsersRepository userRepository, PasswordEncoder encode) {
+        this.userRepository = userRepository;
+        this.encode = encode;
     }
 
     @Override
-    public UsersDAO findByUsername(String username) {
-        return userRepository.findByLogin(username);
+    public UsersDAO save(UsersDAO user) {
+        UsersDAO usersDAO = new UsersDAO();
+        usersDAO.setLogin(user.getLogin());
+        usersDAO.setPassword(encode.encode(user.getPassword()));
+        usersDAO.setMail(user.getMail());
+        usersDAO.setName(user.getName());
+        usersDAO.setSurname(user.getSurname());
+        return userRepository.save(usersDAO);
     }
+
+
 }
