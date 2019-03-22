@@ -1,34 +1,36 @@
 <template>
     <div class="content">
         <div class="container">
-            <TextInput class="child" placeholder="E-mail" :value="email"/>
-            <TextInput class="child" placeholder="Логин" :value="login"/>
-            <TextInput class="child" placeholder="Имя" :value="name"/>
-            <TextInput class="child" placeholder="Пароль" type="password" :value="firstPassword"/>
-            <TextInput class="child" placeholder="Введите пароль еще раз" type="password" :value="secondPassword"/>
-            <Button class="child" label="Зарегистрироваться"/>
-            <router-link to="/authorization"> <Button class="child" label="Войти" type="light"/></router-link>
+            <TextInput class="child" placeholder="E-mail" :value="email" />
+            <TextInput class="child" placeholder="Логин" :value="login" />
+            <TextInput class="child" placeholder="Имя" :value="name" />
+            <TextInput class="child" placeholder="Пароль" type="password" :value="firstPassword" />
+            <TextInput class="child" placeholder="Введите пароль еще раз" type="password" :value="secondPassword" />
+            <Button class="child" label="Зарегистрироваться" />
+            <router-link to="/authorization">
+                <Button class="child" label="Войти" type="light" />
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
-    import TextInput from "../components/TextInput";
-    import Button from "../components/Button";
+import TextInput from '../components/TextInput';
+import Button from '../components/Button';
 
-    export default {
-        name: "RegistrationForm",
-        components: {Button, TextInput},
-        data() {
-            return {
-                email: "",
-                login: "",
-                name: "",
-                firstPassword: "",
-                secondPassword: "",
-            }
-        }
+export default {
+    name: 'RegistrationForm',
+    components: { Button, TextInput },
+    data() {
+        return {
+            email: '',
+            login: '',
+            name: '',
+            firstPassword: '',
+            secondPassword: ''
+        };
     }
+};
 </script>
 
 <style scoped>
