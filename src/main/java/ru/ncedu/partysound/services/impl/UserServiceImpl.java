@@ -1,9 +1,10 @@
-package ru.ncedu.partysound.services;
+package ru.ncedu.partysound.services.impl;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ncedu.partysound.models.domain.UsersDAO;
 import ru.ncedu.partysound.repositories.UsersRepository;
+import ru.ncedu.partysound.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

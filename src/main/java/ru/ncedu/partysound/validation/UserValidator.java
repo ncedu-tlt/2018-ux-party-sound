@@ -1,4 +1,4 @@
-package ru.ncedu.partysound.services;
+package ru.ncedu.partysound.validation;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
