@@ -23,14 +23,14 @@
                 </button>
             </div>
             <div class="stash">
-                <div v-for="artistName in  [{name: 'Skaut', id: '9'}, {name: 'TriFace', id: '7'}, {name: 'Both', id: '5'}]" :key="artistName.id">
+                <div v-for="artist in [{name: 'Skaut', id: '9'}, {name: 'TriFace', id: '7'}, {name: 'Both', id: '5'}]" :key="artist.id">
                     <input
-                        :id="artistName.id"
+                        :id="artist.id"
                         v-model="activeIdsArtist"
                         type="checkbox"
-                        :value="artistName.id"
+                        :value="artist.id"
                     >
-                    <label>{{ artistName.name }}</label>
+                    <label>{{ artist.name }}</label>
                 </div>
                 {{ activeIdsArtist }}
             </div>
@@ -101,12 +101,12 @@ export default {
     },
     methods: {
         async findArtistsByName() {
-            this.artists = await findArtistsByName(5, this.artistName);
+            this.artists = await findArtistsByName({ limit: 5, namesearch: this.artistName });
         },
         async getTracks() {
             this.content = await getTracks({
                 namesearch: this.trackName,
-                artist_id: this.activeIdsArtist,
+                artistId: this.activeIdsArtist,
                 tags: this.activeGenres,
                 durationbetween: this.time || DEFAULT_TIME,
                 limit: 5,
