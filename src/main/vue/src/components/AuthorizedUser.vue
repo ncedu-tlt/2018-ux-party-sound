@@ -1,37 +1,43 @@
 <template>
     <div class="authorized-user">
-        <div class="static" v-on:click="isOpen=!isOpen">
-            <img class="photo" :src="photo"/>
-            <div class="name">{{name}}</div>
-            <div class="arrow" v-bind:class="{'open-arrow':isOpen===true}"/>
+        <div class="static" @click="isOpen=!isOpen">
+            <img class="photo" :src="photo">
+            <div class="name">
+                {{ name }}
+            </div>
+            <div class="arrow" :class="{'open-arrow':isOpen===true}" />
         </div>
-        <div class="dropdown-menu" v-bind:class="{'open-dropdown-menu':isOpen===true}">
-            <div class="item">Профиль</div>
-            <div class="item">Выход</div>
+        <div class="dropdown-menu" :class="{'open-dropdown-menu':isOpen===true}">
+            <div class="item">
+                Профиль
+            </div>
+            <div class="item">
+                Выход
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "AuthorizedUser",
-
-        data() {
-            return {
-                isOpen: false,
-            }
+export default {
+    name: 'AuthorizedUser',
+    props: {
+        name: {
+            type: String,
+            required: true
         },
-        props:{
-          name:{
-              type:String,
-              required:true
-          },
-          photo:{
-              type: String,
-              required: true
-          }
+        photo: {
+            type: String,
+            required: true
         }
+    },
+
+    data() {
+        return {
+            isOpen: false
+        };
     }
+};
 </script>
 
 <style scoped>

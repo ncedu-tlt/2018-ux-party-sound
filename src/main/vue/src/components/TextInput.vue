@@ -12,12 +12,19 @@ export default {
     name: 'TextInput',
     props: {
         label: {
-            required: false
+            type: String,
+            required: false,
+            default: ''
         },
         placeholder: {
-            required: false
+            type: String,
+            required: false,
+            default: ''
         },
-        value: {},
+        value: {
+            type: String,
+            default: ''
+        },
         type: {
             type: String,
             default: 'text'

@@ -8,8 +8,6 @@ import APITest from './views/APITest';
 
 Vue.use(VueRouter);
 
-
-
 export default new VueRouter({
     routes: [
         {
