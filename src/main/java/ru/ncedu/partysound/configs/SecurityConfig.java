@@ -8,12 +8,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ru.ncedu.partysound.repositories.UsersRepository;
-import ru.ncedu.partysound.services.CustomAuthenticationEntryPoint;
-import ru.ncedu.partysound.services.UsernamePasswordAuthenticationProvider;
+import ru.ncedu.partysound.security.CustomAuthenticationEntryPoint;
+import ru.ncedu.partysound.security.UsernamePasswordAuthenticationProvider;
 
 
 import javax.servlet.http.HttpServletResponse;
@@ -53,11 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                     .authorizeRequests()
-                    .antMatchers("/api/test", "/api/test/login").permitAll()
+                    .antMatchers("/api/test").permitAll()
                     .antMatchers("/api/protected/* ").authenticated()
                 .and()
                     .formLogin()
-                    .loginProcessingUrl( "/api/test/login")
+                    .loginProcessingUrl( "/auth/login")
                 .and()
                     .logout()
                 .and()

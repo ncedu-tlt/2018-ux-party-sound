@@ -1,4 +1,4 @@
-package ru.ncedu.partysound.services;
+package ru.ncedu.partysound.security;
 
 
 import com.sun.security.auth.UserPrincipal;
