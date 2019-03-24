@@ -1,7 +1,7 @@
 package ru.ncedu.partysound.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import ru.ncedu.partysound.models.dto.TrackFromBodyDTO;
+import ru.ncedu.partysound.models.dto.TrackDTO;
 import ru.ncedu.partysound.services.TrackService;
 
 
@@ -16,7 +16,7 @@ public class TracksController {
     }
 
     @PostMapping
-    public String post(@RequestBody TrackFromBodyDTO track) {
-        return "Трек с id: " + trackService.createTrackDAOByTrackFromBodyDTO(track).getId() + " создан";
+    public String post(@RequestBody TrackDTO track) {
+        return "Track with id: " + trackService.createTrack(track).getId() + " has been created";
     }
 }

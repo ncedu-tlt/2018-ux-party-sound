@@ -5,10 +5,10 @@ import ru.ncedu.partysound.models.domain.PlaylistTrackId;
 public class PlaylistTrackDTO {
 
     private PlaylistTrackId id;
-    private TrackFromBodyDTO track;
+    private TrackDTO track;
     private int trackNumberInPlaylist;
 
-    public PlaylistTrackDTO(PlaylistTrackId id, TrackFromBodyDTO track, int trackNumberInPlaylist) {
+    public PlaylistTrackDTO(PlaylistTrackId id, TrackDTO track, int trackNumberInPlaylist) {
         this.id = id;
         this.track = track;
         this.trackNumberInPlaylist = trackNumberInPlaylist;
@@ -25,11 +25,11 @@ public class PlaylistTrackDTO {
         this.id = id;
     }
 
-    public TrackFromBodyDTO getTrack() {
+    public TrackDTO getTrack() {
         return track;
     }
 
-    public void setTrack(TrackFromBodyDTO track) {
+    public void setTrack(TrackDTO track) {
         this.track = track;
     }
 

@@ -8,5 +8,5 @@ import ru.ncedu.partysound.models.domain.PlaylistsDAO;
 import java.util.List;
 
 public interface PlaylistsRepository extends CrudRepository<PlaylistsDAO, Long> {
-    Page<PlaylistsDAO> findAll(Pageable pageable);
+    Page<PlaylistsDAO> findAllByPrivateAccessFalse(Pageable pageable);
 }
