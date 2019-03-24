@@ -113,7 +113,6 @@ export default {
                 include: 'musicinfo'
             });
         },
-
         async createTrackOnBack() {
             const track = this.content[0];
             if (track) {
