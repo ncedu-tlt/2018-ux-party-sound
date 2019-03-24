@@ -13,13 +13,13 @@ public class PlaylistDTO {
     private boolean privateAccess;
     private String link;
     private int rating;
-    private Set<String> genres;
+    private Set<String> genresString;
     private List<PlaylistTrackDTO> tracks = new ArrayList<>();
 
     public PlaylistDTO() {
     }
 
-    public PlaylistDTO(long id, String name, String description, String image, boolean privateAccess, String link, int rating, Set<String> genres, List<PlaylistTrackDTO> tracks) {
+    public PlaylistDTO(long id, String name, String description, String image, boolean privateAccess, String link, int rating, Set<String> genresString, List<PlaylistTrackDTO> tracks) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -27,7 +27,7 @@ public class PlaylistDTO {
         this.privateAccess = privateAccess;
         this.link = link;
         this.rating = rating;
-        this.genres = genres;
+        this.genresString = genresString;
         this.tracks = tracks;
     }
 
@@ -87,12 +87,12 @@ public class PlaylistDTO {
         this.rating = rating;
     }
 
-    public Set<String> getGenres() {
-        return genres;
+    public Set<String> getGenresString() {
+        return genresString;
     }
 
-    public void setGenres(Set<String> genres) {
-        this.genres = genres;
+    public void setGenresString(Set<String> genresString) {
+        this.genresString = genresString;
     }
 
     public List<PlaylistTrackDTO> getTracks() {

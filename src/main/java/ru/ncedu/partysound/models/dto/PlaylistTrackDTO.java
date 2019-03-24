@@ -3,19 +3,18 @@ package ru.ncedu.partysound.models.dto;
 import ru.ncedu.partysound.models.domain.PlaylistTrackId;
 
 public class PlaylistTrackDTO {
+
     private PlaylistTrackId id;
-    private TracksDTO track;
-    private int orderNumberInPlaylist;
-    private int dislikesCount;
+    private TrackFromBodyDTO track;
+    private int trackNumberInPlaylist;
 
-    public PlaylistTrackDTO() {
-    }
-
-    public PlaylistTrackDTO(PlaylistTrackId id, TracksDTO track, int orderNumberInPlaylist, int dislikesCount) {
+    public PlaylistTrackDTO(PlaylistTrackId id, TrackFromBodyDTO track, int trackNumberInPlaylist) {
         this.id = id;
         this.track = track;
-        this.orderNumberInPlaylist = orderNumberInPlaylist;
-        this.dislikesCount = dislikesCount;
+        this.trackNumberInPlaylist = trackNumberInPlaylist;
+    }
+
+    public PlaylistTrackDTO() {
     }
 
     public PlaylistTrackId getId() {
@@ -26,27 +25,19 @@ public class PlaylistTrackDTO {
         this.id = id;
     }
 
-    public TracksDTO getTrack() {
+    public TrackFromBodyDTO getTrack() {
         return track;
     }
 
-    public void setTrack(TracksDTO track) {
+    public void setTrack(TrackFromBodyDTO track) {
         this.track = track;
     }
 
-    public int getOrderNumberInPlaylist() {
-        return orderNumberInPlaylist;
+    public int getTrackNumberInPlaylist() {
+        return trackNumberInPlaylist;
     }
 
-    public void setOrderNumberInPlaylist(int orderNumberInPlaylist) {
-        this.orderNumberInPlaylist = orderNumberInPlaylist;
-    }
-
-    public int getDislikesCount() {
-        return dislikesCount;
-    }
-
-    public void setDislikesCount(int dislikesCount) {
-        this.dislikesCount = dislikesCount;
+    public void setTrackNumberInPlaylist(int trackNumberInPlaylist) {
+        this.trackNumberInPlaylist = trackNumberInPlaylist;
     }
 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface GenresRepository extends CrudRepository<GenresDAO, Long> {
     List<GenresDAO> findAll();
-    List<GenresDAO> findAllByName(String name);
+    GenresDAO findFirstByName(String name);
 }

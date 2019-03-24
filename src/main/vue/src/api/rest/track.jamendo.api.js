@@ -11,7 +11,7 @@ import jamendoClient from '@/api/rest/jamendo.client';
  * @param { String } filters.include задает импорт дополнительной инфы для трека
  */
 export function getTracks({ namesearch, artist_id, tags, durationbetween, limit, include }) {
-    return jamendoClient.get('/tracks', { params: { ...arguments[0] } })
+    return jamendoClient.get('/tracks', { params: arguments[0]  })
         .then(res => (
             res.data.results
         ));

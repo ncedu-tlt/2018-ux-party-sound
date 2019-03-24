@@ -2,9 +2,8 @@ package ru.ncedu.partysound.models.dto;
 
 
 import java.util.List;
-import java.util.Set;
 
-public class TracksDTO {
+public class TrackFromBodyDTO {
 
     private long id;
     private String url;
@@ -13,10 +12,10 @@ public class TracksDTO {
     private long artistId;
     private List<String> genresString;
 
-    public TracksDTO() {
+    public TrackFromBodyDTO() {
     }
 
-    public TracksDTO(long id, String url, String name, String artistName, long artistId, List<String> genresString) {
+    public TrackFromBodyDTO(long id, String url, String name, String artistName, long artistId, List<String> genresString) {
         this.id = id;
         this.url = url;
         this.name = name;

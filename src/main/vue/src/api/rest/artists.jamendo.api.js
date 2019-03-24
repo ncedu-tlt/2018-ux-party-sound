@@ -5,7 +5,7 @@ import jamendoClient from '@/api/rest/jamendo.client';
  * @param { Number } limit задает количество исполнителей
  */
 export function findArtistsByName(limit, namesearch) {
-    return jamendoClient.get('/artists', { params: { ...{ limit: limit, namesearch: namesearch } } })
+    return jamendoClient.get('/artists', { params: { limit: limit, namesearch: namesearch } })
         .then(res => (
             res.data.results
         ));
