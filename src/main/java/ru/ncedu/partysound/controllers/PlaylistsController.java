@@ -16,14 +16,14 @@ public class PlaylistsController {
     @Autowired
     private final PlaylistsService playlistsService;
 
-    private static final int NUMBER_OF_PLAYLISTS_IN_PAGE = 15;
+    private static final int PAGE_SIZE = 15;
 
     public PlaylistsController(PlaylistsService playlistsService) {
         this.playlistsService = playlistsService;
     }
 
     @GetMapping
-    public List<PlaylistsDTO> getPlaylistsList(@RequestParam(value = "offset", defaultValue = "0") int offset) {
-        return playlistsService.getPlaylists(offset, NUMBER_OF_PLAYLISTS_IN_PAGE);
+    public List<PlaylistsDTO> getPlaylistsList(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber) {
+        return playlistsService.getPlaylists(pageNumber, PAGE_SIZE);
     }
 }
