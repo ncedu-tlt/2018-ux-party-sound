@@ -15,15 +15,14 @@ import java.util.List;
 public class PlaylistsController {
     @Autowired
     private final PlaylistsService playlistsService;
-
-    private static final int PAGE_SIZE = 15;
-
+    
     public PlaylistsController(PlaylistsService playlistsService) {
         this.playlistsService = playlistsService;
     }
 
     @GetMapping
-    public List<PlaylistsDTO> getPlaylistsList(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber) {
-        return playlistsService.getPlaylists(pageNumber, PAGE_SIZE);
+    public List<PlaylistsDTO> getPlaylistsList(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
+                                               @RequestParam(value = "pageSize", defaultValue = "15") int pageSize) {
+        return playlistsService.getPlaylists(pageNumber, pageSize);
     }
 }
