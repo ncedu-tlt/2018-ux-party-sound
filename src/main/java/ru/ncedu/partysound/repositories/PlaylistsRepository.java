@@ -1,12 +1,10 @@
 package ru.ncedu.partysound.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import ru.ncedu.partysound.models.domain.PlaylistsDAO;
 
-import java.util.List;
-
-public interface PlaylistsRepository extends CrudRepository<PlaylistsDAO, Long> {
-    List<PlaylistsDAO> findAll();
-
-
+public interface PlaylistsRepository extends PagingAndSortingRepository<PlaylistsDAO,Long> {
+    Page<PlaylistsDAO> findAll(Pageable pageable);
 }
