@@ -14,15 +14,17 @@
             </div>
         </header>
         <router-view />
+        <Player />
     </main>
 </template>
 
 <script>
 import Button from './Button';
+import Player from './Player';
 
 export default {
     name: 'Header',
-    components: { Button }
+    components: { Button, Player }
 };
 </script>
 
