@@ -1,43 +1,17 @@
 package ru.ncedu.partysound.models.dto;
 
-
-import java.util.List;
-import java.util.Set;
-
 public class TracksDTO {
 
-    private long id;
-    private String url;
     private String name;
     private String artistName;
-    private long artistId;
-    private List<String> genresString;
+    private String url;
 
     public TracksDTO() {
     }
 
-    public TracksDTO(long id, String url, String name, String artistName, long artistId, List<String> genresString) {
-        this.id = id;
-        this.url = url;
+    public TracksDTO(String name, String artistName, String url) {
         this.name = name;
         this.artistName = artistName;
-        this.artistId = artistId;
-        this.genresString = genresString;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
         this.url = url;
     }
 
@@ -57,19 +31,11 @@ public class TracksDTO {
         this.artistName = artistName;
     }
 
-    public long getArtistId() {
-        return artistId;
+    public String getUrl() {
+        return url;
     }
 
-    public void setArtistId(long artistId) {
-        this.artistId = artistId;
-    }
-
-    public List<String> getGenresString() {
-        return genresString;
-    }
-
-    public void setGenresString(List<String> genresString) {
-        this.genresString = genresString;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

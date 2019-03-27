@@ -7,4 +7,5 @@ import ru.ncedu.partysound.models.domain.PlaylistsDAO;
 
 public interface PlaylistsRepository extends PagingAndSortingRepository<PlaylistsDAO,Long> {
     Page<PlaylistsDAO> findAll(Pageable pageable);
+    PlaylistsDAO findById(long id);
 }
