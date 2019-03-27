@@ -3,6 +3,7 @@ package ru.ncedu.partysound.converters;
 import org.mapstruct.Mapper;
 import ru.ncedu.partysound.models.domain.PlaylistsDAO;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
+import ru.ncedu.partysound.models.dto.PlaylistsWithTracksDTO;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ import java.util.List;
 public interface PlaylistsMapper {
 
     PlaylistsDTO toPlaylistDTO(PlaylistsDAO playlistDAO);
+
+    PlaylistsWithTracksDTO toPlaylistWithTracksDTO(PlaylistsDAO playlistsDAO);
 
     List<PlaylistsDTO> toPlaylistDTOs(List<PlaylistsDAO> products);
 }
