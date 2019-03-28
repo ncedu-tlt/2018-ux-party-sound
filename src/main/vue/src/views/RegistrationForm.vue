@@ -1,11 +1,11 @@
 <template>
     <div class="content">
         <div class="container">
-            <TextInput class="child" placeholder="E-mail" v-model="email"/>
-            <TextInput class="child" placeholder="Логин" v-model="login"/>
-            <TextInput class="child" placeholder="Имя" v-model="name"/>
-            <TextInput class="child" placeholder="Пароль" type="password" v-model="firstPassword"/>
-            <TextInput class="child" placeholder="Введите пароль еще раз" type="password" v-model="secondPassword"/>
+            <TextInput v-model="email" class="child" placeholder="E-mail"/>
+            <TextInput v-model="login" class="child" placeholder="Логин"/>
+            <TextInput v-model="name" class="child" placeholder="Имя"/>
+            <TextInput v-model="firstPassword" class="child" placeholder="Пароль" type="password"/>
+            <TextInput v-model="secondPassword" class="child" placeholder="Введите пароль еще раз" type="password"/>
             <Button class="child" label="Зарегистрироваться" v-on:click.native="setClientInfo"/>
             <router-link to="/authorization">
                 <Button class="child" label="Войти" type="light"/>
@@ -33,13 +33,13 @@ export default {
     },
     methods: {
         async setClientInfo() {
-                const responce = await registration({
-                            login: this.login,
-                            password: this.firstPassword,
-                            mail: this.email,
-                            name: this.name
-                        });
-                console.log(responce);
+            const responce = await registration({
+                login: this.login,
+                password: this.firstPassword,
+                mail: this.email,
+                name: this.name
+            });
+            console.log(responce);
         }
     }
 };

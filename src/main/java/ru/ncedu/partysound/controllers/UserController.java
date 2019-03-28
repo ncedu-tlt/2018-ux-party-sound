@@ -20,8 +20,6 @@ public class UserController {
         this.userValidator = userValidator;
     }
 
-
-
     @ResponseBody
     @PostMapping("/registration")
     public ResponseEntity registration(@RequestBody UsersDAO userForm, BindingResult bindingResult) {

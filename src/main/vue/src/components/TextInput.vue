@@ -3,7 +3,13 @@
         <label class="input-label">
             {{ label }}
         </label>
-        <input class="input-field" :placeholder="placeholder" :type="type" :value="value" v-on:input="$emit('input', $event.target.value)">
+        <input
+            class="input-field"
+            :placeholder="placeholder"
+            :type="type"
+            :value="value"
+            @input="$emit('input', $event.target.value)"
+        >
     </div>
 </template>
 

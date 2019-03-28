@@ -3,7 +3,6 @@ package ru.ncedu.partysound.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ru.ncedu.partysound.repositories.UsersRepository;
 import ru.ncedu.partysound.security.CustomAuthenticationEntryPoint;
 import ru.ncedu.partysound.security.UsernamePasswordAuthenticationProvider;
@@ -31,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
-
     private final UsersRepository usersRepository;
 
     public SecurityConfig(UsersRepository usersRepository) {
@@ -42,8 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder()  {
         return new BCryptPasswordEncoder();
     }
-
-
 
     @Bean
     AuthenticationProvider authenticationProvider(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
@@ -76,6 +71,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable();
 //                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
-
 
 }
