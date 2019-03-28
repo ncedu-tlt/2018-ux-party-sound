@@ -1,8 +1,20 @@
 <template>
     <div class="content">
         <div class="container">
-            <TextInput class="field" placeholder="E-mail или логин" type="text" :value="email" />
-            <TextInput class="field" placeholder="Пароль" type="password" :value="password" />
+            <TextInput
+                class="field"
+                placeholder="E-mail или логин"
+                type="text"
+                class-name="input-field"
+                :value="email"
+            />
+            <TextInput
+                class="field"
+                placeholder="Пароль"
+                type="password"
+                class-name="input-field"
+                :value="password"
+            />
             <Button class="forget-password" label="Забыли пароль?" type="light" />
             <Button class="entry" label="Вход" />
             <router-link to="/registration">
