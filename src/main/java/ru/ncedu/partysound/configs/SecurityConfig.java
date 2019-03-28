@@ -3,6 +3,7 @@ package ru.ncedu.partysound.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,12 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                    .authorizeRequests()
-                    .antMatchers("/api/test").permitAll()
+                .authorizeRequests()
+                    .antMatchers("/api/auth/login").permitAll()
                     .antMatchers("/api/protected/* ").authenticated()
                 .and()
                     .formLogin()
-                    .loginProcessingUrl( "/auth/login")
+                    .loginProcessingUrl( "/api/auth/login")
                 .and()
                     .logout()
                 .and()
@@ -66,13 +67,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .httpBasic()
                     .authenticationEntryPoint(entryPoint)
                 .and()
-            .exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
-                )
+                    .exceptionHandling()
+                    .authenticationEntryPoint(
+                            (request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                    )
                 .and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                    .csrf()
+                    .disable();
+//                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
 
