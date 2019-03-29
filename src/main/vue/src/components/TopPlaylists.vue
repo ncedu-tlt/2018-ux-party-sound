@@ -8,6 +8,7 @@
                 :playlist-id="prop.playlistId"
                 :playlist-name="prop.playlistName"
                 :genres="prop.genres"
+                :show-genres="false"
                 class="playlist"
             />
         </div>

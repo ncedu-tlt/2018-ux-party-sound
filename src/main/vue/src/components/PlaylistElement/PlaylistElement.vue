@@ -3,7 +3,7 @@
         <TriangleButton :playlist-id="playlistId" :genres="genres" @on-playlist-clicked="parentMethod" />
         <div class="playlist-element__info">
             <h4>{{ playlistName }}</h4>
-            <div class="genres-list">
+            <div v-if="showGenres" class="genres-list">
                 <span v-for="(genre, index) in genres" :key="index">
                     {{ genre }}
                 </span>
@@ -38,6 +38,10 @@ export default {
         color: {
             type: String,
             default: '#D96DFF'
+        },
+        showGenres: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
@@ -66,6 +70,9 @@ export default {
             }
 
             .genres-list {
+                max-width: 230px;
+                max-height: 35px;
+                overflow-y: hidden;
                 display: flex;
                 flex-wrap: wrap;
 
