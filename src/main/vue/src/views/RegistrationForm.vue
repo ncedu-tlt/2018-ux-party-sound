@@ -1,11 +1,23 @@
 <template>
     <div class="content">
         <div class="container">
-            <TextInput class="child" placeholder="E-mail" :value="email" />
-            <TextInput class="child" placeholder="Логин" :value="login" />
-            <TextInput class="child" placeholder="Имя" :value="name" />
-            <TextInput class="child" placeholder="Пароль" type="password" :value="firstPassword" />
-            <TextInput class="child" placeholder="Введите пароль еще раз" type="password" :value="secondPassword" />
+            <TextInput class="child" placeholder="E-mail" class-name="input-field" :value="email" />
+            <TextInput class="child" placeholder="Логин" class-name="input-field" :value="login" />
+            <TextInput class="child" placeholder="Имя" class-name="input-field" :value="name" />
+            <TextInput
+                class="child"
+                placeholder="Пароль"
+                type="password"
+                class-name="input-field"
+                :value="firstPassword"
+            />
+            <TextInput
+                class="child"
+                placeholder="Введите пароль еще раз"
+                type="password"
+                class-name="input-field"
+                :value="secondPassword"
+            />
             <Button class="child" label="Зарегистрироваться" />
             <router-link to="/authorization">
                 <Button class="child" label="Войти" type="light" />

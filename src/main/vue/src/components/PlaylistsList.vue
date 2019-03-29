@@ -1,8 +1,5 @@
 <template>
     <section class="playlists-section container">
-        <button class="settings-button" type="button">
-            <img src="./../assets/settings.png" alt="settings">
-        </button>
         <div class="playlists-list">
             <PlaylistElement
                 v-for="(prop, index) in playlists"
@@ -30,7 +27,9 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('POPULATE_PLAYLISTS');
+        if (this.$store.getters.PLAYLISTS.length === 0) {
+            this.$store.dispatch('POPULATE_PLAYLISTS');
+        }
     }
 };
 </script>
