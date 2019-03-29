@@ -26,9 +26,9 @@ export const fakeData = [
         playlistName: 'Название',
         color: '#FFF500',
         genres: [
-            'жанр',
-            'жанр',
-            'жанр',
+            'rock',
+            'blues',
+            'rnb',
             'жанр',
             'жанр'
         ],
@@ -48,9 +48,9 @@ export const fakeData = [
         playlistName: 'Название',
         color: '#FF7F23',
         genres: [
-            'жанр',
-            'жанр',
-            'жанр',
+            'classical',
+            'рок-музыка',
+            'classical',
             'жанр',
             'жанр'
         ],
@@ -70,8 +70,8 @@ export const fakeData = [
         playlistName: 'Название',
         color: '#D96DFF',
         genres: [
-            'жанр',
-            'жанр',
+            'rock',
+            'blues',
             'жанр',
             'жанр',
             'жанр'
@@ -82,8 +82,8 @@ export const fakeData = [
         playlistName: 'Название',
         color: '#C1C1C1',
         genres: [
-            'жанр',
-            'жанр',
+            'rock',
+            'blues',
             'жанр',
             'жанр',
             'жанр'
@@ -94,8 +94,8 @@ export const fakeData = [
         playlistName: 'Название',
         color: '#D96DFF',
         genres: [
-            'жанр',
-            'жанр',
+            'rock',
+            'blues',
             'жанр',
             'жанр',
             'жанр'

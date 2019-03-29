@@ -7,7 +7,7 @@
                 :key="prop.playlistId"
                 :playlist-id="prop.playlistId"
                 :playlist-name="prop.playlistName"
-                :color="prop.color"
+                :genres="prop.genres"
                 class="playlist"
             />
         </div>
