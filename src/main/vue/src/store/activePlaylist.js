@@ -1,5 +1,4 @@
-import { getPlaylistById } from './../api/rest/playlist.client';
-import { fakeData } from '../components/fakeData';
+import { getTracksByPlaylistId } from '../api/rest/tracks.api';
 
 const state = {
     tracks: [],
@@ -12,7 +11,7 @@ const getters = {
     TRACKS: state => (state.tracks),
     PLAYLIST_ID: state => (state.playlistId),
     ACTIVE_TRACK_NUMBER: state => (state.activeTrackNumber),
-    IS_SUCCESS_LOAD: state => (state.successLoad) //Нужен ли он
+    IS_SUCCESS_LOAD: state => (state.successLoad)
 };
 
 const mutations = {
@@ -35,14 +34,16 @@ const mutations = {
 
 const actions = {
     GET_ACTIVE_PLAYLIST: ({ commit }, playlistId) => {
-        commit('SET_ACTIVE_PLAYLIST', fakeData[playlistId]);
-        // getPlaylistById(playlistId)
-        //     .then(res => {
-        //         commit('SET_ACTIVE_PLAYLIST', res);
-        //     })
-        //     .catch(e => {
-        //         commit('PLAYLIST_LOADING_ERROR');
-        //     });
+        getTracksByPlaylistId(playlistId)
+            .then(res => {
+                commit('SET_ACTIVE_PLAYLIST', {
+                    tracks: res.tracks,
+                    playlistId: playlistId
+                });
+            })
+            .catch(e => {
+                commit('PLAYLIST_LOADING_ERROR');
+            });
     }
 };
 

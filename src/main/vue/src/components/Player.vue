@@ -1,9 +1,9 @@
 <template>
     <section>
-        <audio ref="player" class="js_player" />
+        <audio ref="player" />
 
         <div class="player">
-            <div class="progress_bar js_progress_bar" @click="seek">
+            <div ref="seek" class="progress_bar" @click="seek">
                 <div class="percent_complete" :style="{width: percentComplete + '%'}">
                 </div>
             </div>
@@ -69,24 +69,31 @@ export default {
         currentSeconds: 0
     }),
     computed: {
+        trackName() {
+            if (this.tracks[this.activeTrackNumber]) {
+                return this.tracks[this.activeTrackNumber].name;
+            } else {
+                if (this.load) {
+                    return 'Трек не выбран!';
+                } else {
+                    return 'Ошибка загрузки!';
+                }
+            }
+        },
+        percentComplete() {
+            return parseInt(this.currentSeconds / this.durationSeconds * 100);
+        },
         playlistId() {
             return this.$store.getters.PLAYLIST_ID;
         },
         activeTrackNumber() {
             return this.$store.getters.ACTIVE_TRACK_NUMBER;
         },
-        trackName() {
-            if (this.tracks[this.activeTrackNumber]) {
-                return this.tracks[this.activeTrackNumber].name;
-            } else {
-                return 'Трек не выбран!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-            }
+        load() {
+            return this.$store.getters.IS_SUCCESS_LOAD;
         },
         tracks() {
             return this.$store.getters.TRACKS;
-        },
-        percentComplete() {
-            return parseInt(this.currentSeconds / this.durationSeconds * 100);
         },
         currentTime() {
             return this.currentSeconds;
@@ -112,13 +119,14 @@ export default {
         }
     },
     mounted() {
-        this.player = this.$el.getElementsByClassName('js_player')[0];
+        this.player = this.$refs.player;
         this.player.addEventListener('timeupdate', this.update);
-        this.player.addEventListener('loadeddata', this.load);
+        this.player.addEventListener('loadeddata', this.loaded);
+        this.player.addEventListener('ended', this.playNextTrack);
         this.player.volume = this.volume / 100;
     },
     methods: {
-        load() {
+        loaded() {
             if (this.player.readyState >= 2) {
                 this.durationSeconds = parseInt(this.player.duration);
             }
@@ -132,7 +140,7 @@ export default {
             this.player.play();
         },
         seek(e) {
-            const el = this.$el.getElementsByClassName('js_progress_bar')[0].getBoundingClientRect();
+            const el = this.$refs.seek.getBoundingClientRect();
             const seekPos = (e.clientX - el.left) / el.width;
 
             if (this.player.currentTime) {
@@ -165,12 +173,14 @@ export default {
         position: fixed;
         bottom: 0;
         right: 0;
+
         .progress_bar{
             transition: 100ms;
             position: relative;
             width: 100%;
             height: 5px;
             background-color: #f1f1f1;
+
             .percent_complete {
                 height: 100%;
                 background-color: #0C0094;
@@ -189,6 +199,7 @@ export default {
             background-color: #FFF;
             height: 60px;
             box-shadow:inset 0 4px 20px 0 rgba(0,0,0,0.25);
+
             .buttons{
                 display: flex;
                 margin-left: 100px;
@@ -207,9 +218,7 @@ export default {
                     height: 100%;
                 }
             }
-            .volume {
-                margin-right: 100px;
-            }
+
             .volume {
                 border-radius: 8px;
                 cursor: pointer;
@@ -217,7 +226,9 @@ export default {
                 width: 80px;
                 -webkit-appearance: none;
                 background-color: #9a905d;
+                margin-right: 100px;
             }
+
             .volume::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 width: 10px;
@@ -227,6 +238,7 @@ export default {
                 box-shadow: -80px 0 0 74px #0C0094;
                 border: 1px solid #000;
             }
+
             .volume:focus {
                 outline: none;
             }
