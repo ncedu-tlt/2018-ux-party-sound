@@ -1,4 +1,3 @@
-import { fakeData } from '../components/fakeData';
 import { getPlaylistsByPage } from '../api/rest/playlists.api';
 
 const state = {

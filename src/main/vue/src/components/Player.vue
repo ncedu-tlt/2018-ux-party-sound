@@ -4,8 +4,7 @@
 
         <div class="player">
             <div ref="seek" class="progress_bar" @click="seek">
-                <div class="percent_complete" :style="{width: percentComplete + '%'}">
-                </div>
+                <div class="percent_complete" :style="{width: percentComplete + '%'}" />
             </div>
             <div class="management_player">
                 <div class="buttons">
