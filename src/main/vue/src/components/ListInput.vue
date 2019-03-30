@@ -3,7 +3,10 @@
         <div class="chosen-list">
             <div v-for="item in chosen" :key="item" class="chosen-list__item">
                 <span class="chosen-list__item__genre">{{ item }}</span>
-                <button class="chosen-list__item__x-button" />
+                <button
+                    class="chosen-list__item__x-button"
+                    @click="onXButtonClick(item)"
+                />
             </div>
         </div>
         <div :class="['input-with-window', {'_opened': isOpen}]">
@@ -14,14 +17,12 @@
                     type="text"
                     :placeholder="placeholder"
                     @input="isOpen = openWindow"
-                    @blur="isOpen = false"
-                    @focus="isOpen = openWindow"
                 >
             </label>
             <div class="input-with-window__window">
                 <div v-for="item in listItems" :key="item" class="item">
                     <span>{{ item }}</span>
-                    <button class="plus">
+                    <button class="plus" @click="onPlusClick(item)">
                         +
                     </button>
                 </div>
@@ -59,6 +60,14 @@ export default {
     computed: {
         openWindow: function () {
             return this.message !== '' && this.listItems.length !== 0;
+        }
+    },
+    methods: {
+        onPlusClick: function (item) {
+            this.$emit('plus-clicked', item);
+        },
+        onXButtonClick: function (item) {
+            this.$emit('x-clicked', item);
         }
     }
 };

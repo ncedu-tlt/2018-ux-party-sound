@@ -2,12 +2,24 @@
     <section class="playlist-search container">
         <div class="playlist-search-fields">
             <div class="playlist-search-fields__block">
-                <TextInput class-name="search-input" placeholder="Поиск" />
-                <Button type="search-button" label="Найти" />
+                <TextInput v-model="searchText" class-name="search-input" placeholder="Поиск" />
+                <Button type="search-button" label="Найти" @on-click="getAllData" />
             </div>
             <div class="playlist-search-fields__block">
-                <ListInput placeholder="Исполнители" :chosen="['Исполнитель1', 'Исполнитель2']" :list-items="['Исполнитель1', 'Исполнитель2']" />
-                <ListInput placeholder="Жанры" :chosen="['Жанр1', 'Жанр2']" :list-items="['Жанр1', 'Жанр2']" />
+                <ListInput
+                    placeholder="Исполнители"
+                    :chosen="chosenSingers"
+                    :list-items="singers"
+                    @plus-clicked="addSinger"
+                    @x-clicked="deleteSinger"
+                />
+                <ListInput
+                    placeholder="Жанры"
+                    :chosen="chosenGenres"
+                    :list-items="genres"
+                    @plus-clicked="addGenre"
+                    @x-clicked="deleteGenre"
+                />
             </div>
         </div>
     </section>
@@ -23,6 +35,36 @@ export default {
         ListInput,
         TextInput,
         Button
+    },
+    data: function () {
+        return {
+            genres: ['Жанр1', 'Жанр2'],
+            singers: ['Исполнитель1', 'Исполнитель2'],
+            chosenGenres: [],
+            chosenSingers: [],
+            searchText: ''
+        };
+    },
+    methods: {
+        addSinger: function (singer) {
+            this.chosenSingers.push(singer);
+            this.singers.splice(this.singers.indexOf(singer), 1);
+        },
+        addGenre: function (genre) {
+            this.chosenGenres.push(genre);
+            this.genres.splice(this.genres.indexOf(genre), 1);
+        },
+        deleteSinger: function (singer) {
+            this.chosenSingers.splice(this.chosenSingers.indexOf(singer), 1);
+            this.singers.push(singer);
+        },
+        deleteGenre: function (genre) {
+            this.chosenGenres.splice(this.chosenGenres.indexOf(genre), 1);
+            this.genres.push(genre);
+        },
+        getAllData: function () {
+            console.log(this.searchText);
+        }
     }
 };
 </script>
