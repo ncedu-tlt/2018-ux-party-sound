@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <router-view />
+        <Background/>
     </div>
 </template>
 
@@ -23,3 +24,9 @@
         color: #000000;
     }
 </style>
+<script>
+import Background from './components/Background';
+export default {
+    components: {Background}
+}
+</script>
