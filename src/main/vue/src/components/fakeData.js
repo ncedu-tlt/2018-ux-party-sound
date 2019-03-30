@@ -9,7 +9,17 @@ export const fakeData = [
             'жанр',
             'жанр',
             'жанр'
-        ]
+        ],
+        tracks: [{
+            name: 'первый трек, 1 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=174&format=mp31&from=app-eeded1fc'
+        }, {
+            name: 'второй трек, 1 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=176&format=mp31&from=app-eeded1fc'
+        }, {
+            name: 'третий трек, 1 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=175&format=mp31&from=app-eeded1fc'
+        }]
     },
     {
         playlistId: 1,
@@ -21,7 +31,17 @@ export const fakeData = [
             'жанр',
             'жанр',
             'жанр'
-        ]
+        ],
+        tracks: [{
+            name: 'первый трек, 2 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=174&format=mp31&from=app-eeded1fc'
+        }, {
+            name: 'второй трек, 2 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=176&format=mp31&from=app-eeded1fc'
+        }, {
+            name: 'третий трек, 2 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=175&format=mp31&from=app-eeded1fc'
+        }]
     },
     {
         playlistId: 2,
@@ -33,7 +53,17 @@ export const fakeData = [
             'жанр',
             'жанр',
             'жанр'
-        ]
+        ],
+        tracks: [{
+            name: 'первый трек, 3 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=174&format=mp31&from=app-eeded1fc'
+        }, {
+            name: 'второй трек, 3 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=176&format=mp31&from=app-eeded1fc'
+        }, {
+            name: 'третий трек, 3 плейлист',
+            url: 'https:\\/\\/mp3l.jamendo.com\\/?trackid=175&format=mp31&from=app-eeded1fc'
+        }]
     },
     {
         playlistId: 3,
