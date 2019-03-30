@@ -1,4 +1,5 @@
 <template>
+
     <main class="main-page">
         <section class="top-content">
             <section class="head">
@@ -59,6 +60,7 @@ export default {
             align-items: center;
             justify-content: space-around;
             height: 90vh;
+
             .head {
                 width: 700px;
                 display: flex;

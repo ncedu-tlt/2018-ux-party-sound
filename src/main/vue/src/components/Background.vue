@@ -43,10 +43,6 @@ export default {
     }
     svg {
         width: 100vw;
-        height: 100%;
-    }
-    svg {
-        width: 100vw;
        height: 100%;
     }
 </style>
