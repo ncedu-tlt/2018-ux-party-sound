@@ -5,6 +5,7 @@
             <PartySoundLabel />
         </section>
         <FindPlaylist />
+        <PlaylistSearch />
         <PlaylistsList />
         <ShowMore />
     </main>
@@ -15,6 +16,7 @@ import PartySoundLabel from './../components/PartySoundLabel.vue';
 import FindPlaylist from './../components/FindPlaylist.vue';
 import PlaylistsList from './../components/PlaylistsList.vue';
 import ShowMore from './../components/ShowMore.vue';
+import PlaylistSearch from './../components/PlaylistSearch.vue';
 
 export default {
     name: 'Main',
@@ -23,7 +25,8 @@ export default {
         PartySoundLabel,
         FindPlaylist,
         PlaylistsList,
-        ShowMore
+        ShowMore,
+        PlaylistSearch
     }
 };
 </script>

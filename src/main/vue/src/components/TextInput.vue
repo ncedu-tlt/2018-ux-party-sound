@@ -17,39 +17,27 @@
 export default {
     name: 'TextInput',
     props: {
-        label: {
-            type: String,
-            required: false,
-            default: ''
-        },
         placeholder: {
             type: String,
-            required: false,
-            default: ''
-        },
-        value: {
-            type: String,
-            default: ''
+            required: true
         },
         type: {
             type: String,
             default: 'text'
+        },
+        className: {
+            type: String,
+            required: true
+        },
+        value: {
+            type: String,
+            default: ''
         }
     }
 };
 </script>
 
 <style scoped>
-    .input-form {
-        display: flex;
-        flex-direction: column;
-    }
-    .input-label{
-        width: max-content;
-        color: white;
-        margin-bottom: 7px;
-        font-size: 16px;
-    }
     .input-field {
         outline: none;
         border: 1px solid #0C0094;
@@ -57,6 +45,16 @@ export default {
         padding: 10px;
         font-size: 15px;
         border-radius: 4px;
-        box-shadow:1px 2px 12px 0 rgba(0,0,0,0.3);
+        box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .search-input{
+        width: 420px;
+        height: 40px;
+        padding: 0 15px;
+        font-size: 18px;
+        border: 1px solid #0C0094;
+        border-radius: 6px;
+        outline: none;
     }
 </style>

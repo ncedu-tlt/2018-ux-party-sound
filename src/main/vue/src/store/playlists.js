@@ -1,9 +1,10 @@
-import { fakeData } from '../components/fakeData';
+import { getPlaylistsByPage } from '../api/rest/playlists.api';
 
 const state = {
     isLoading: false,
     playlists: [],
-    error: null
+    error: null,
+    numberPagePlaylists: 0
 };
 
 const getters = {
@@ -26,6 +27,7 @@ const mutations = {
     PLAYLIST_LOADING_SUCCESS: (state, payload) => {
         state.isLoading = false;
         state.playlists = state.playlists.concat(payload);
+        state.numberPagePlaylists++;
     },
     PLAYLIST_LOADING_ERROR: (state, payload) => {
         state.isLoading = false;
@@ -35,7 +37,13 @@ const mutations = {
 
 const actions = {
     POPULATE_PLAYLISTS: (context) => {
-        context.commit('PLAYLIST_LOADING_SUCCESS', fakeData);
+        getPlaylistsByPage(context.state.numberPagePlaylists)
+            .then(res => {
+                context.commit('PLAYLIST_LOADING_SUCCESS', res);
+            })
+            .catch(e => {
+                context.commit('PLAYLIST_LOADING_ERROR');
+            });
     }
 };
 
