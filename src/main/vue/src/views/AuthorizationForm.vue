@@ -21,7 +21,7 @@
 
             <Button class="entry" label="Вход" @click.native="setClientInfo" />
             <router-link to="/registration">
-                <Button class="register" label="Зарегистрироваться" type="light" />
+                <Button class="register" label="Зарегистрироваться" type="light"/>
             </router-link>
         </div>
     </div>
@@ -71,6 +71,7 @@ export default {
         align-items: center;
         justify-content: center;
     }
+
 
     .field:nth-child(1) {
         margin-bottom: 20px

@@ -42,7 +42,7 @@ export default {
             }
             await window.scrollBy(0, finishPlace % 10);
         }
-    }
+    },
 };
 </script>
 <style scoped lang="scss">
@@ -51,6 +51,7 @@ export default {
         flex-direction: column;
         align-items: center;
         padding-bottom: 100px;
+
 
         .top-content {
             display: flex;
@@ -83,6 +84,5 @@ export default {
                 margin-bottom: 70px;
             }
         }
-
     }
 </style>
