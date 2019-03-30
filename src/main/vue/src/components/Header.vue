@@ -1,16 +1,18 @@
 <template>
     <main>
-        <header class="container">
-            <router-link to="/">
-                <h1>Party <b>Sound</b></h1>
-            </router-link>
-            <div class="right-menu">
-                <router-link to="/authorization">
-                    <Button label="Вход" type="light" />
+        <header>
+            <div class="content container">
+                <router-link to="/">
+                    <h1>Party <b>Sound</b></h1>
                 </router-link>
-                <router-link to="/registration">
-                    <Button label="Регистрация" type="light" />
-                </router-link>
+                <div class="right-menu">
+                    <router-link to="/authorization">
+                        <Button label="Вход" type="light" />
+                    </router-link>
+                    <router-link to="/registration">
+                        <Button label="Регистрация" type="light" />
+                    </router-link>
+                </div>
             </div>
         </header>
         <router-view />
@@ -39,7 +41,13 @@ export default {
         background: darkslategrey; /*временно, чтобы было видно белые кнопки*/
         display: flex;
         width: 100%;
+        height: 10vh;
         align-items: center;
+        justify-content: center;
+    }
+    .content{
+        width: 100%;
+        display: flex;
         justify-content: space-between;
     }
     a{
@@ -54,6 +62,8 @@ export default {
     .right-menu {
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        width: 170px;
     }
 
 </style>

@@ -155,4 +155,7 @@ export default {
             }
         }
     }
+    input:focus{
+        box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.3);
+    }
 </style>

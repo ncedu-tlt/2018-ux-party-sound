@@ -49,7 +49,6 @@ export default {
     .content {
         height: 100vh;
         width: 100%;
-        background: slateblue;  /*временно, пока нет фоновой картинки*/
         display: flex;
         align-items: center;
         justify-content: center;
