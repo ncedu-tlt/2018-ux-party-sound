@@ -3,8 +3,8 @@
     <main class="main-page">
         <section class="top-content">
             <section class="head">
-                <TopPlaylists/>
-                <PartySoundLabel/>
+                <TopPlaylists class="top-playlists"/>
+                <PartySoundLabel class="patry-sound-label"/>
             </section>
             <FindPlaylist v-on:click.native="scrollWindow"/>
         </section>
@@ -34,11 +34,10 @@ export default {
     },
     methods: {
         async scrollWindow() {
-            let finishPlace = document.documentElement.clientHeight;
+            let finishPlace = document.documentElement.clientHeight - window.pageYOffset;
             const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
             for (let i = 0; i < (finishPlace - finishPlace % 10) / 10; i++) {
-                console.log(finishPlace);
                 window.scrollBy(0, 10);
                 await delay(5-Math.pow(i,4)/40000);
             }
@@ -60,11 +59,26 @@ export default {
             align-items: center;
             justify-content: space-around;
             height: 90vh;
-
             .head {
                 width: 700px;
                 display: flex;
                 align-items: center;
+                .top-playlists{
+                    animation: move 1s 1 ease-out;
+                }
+                .patry-sound-label{
+                    animation: move 3s 1 ease-out;
+                }
+                @keyframes move {
+                    from{
+                        transform: translateX(70px);
+                        opacity: .0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
             }
         }
 

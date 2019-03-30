@@ -38,7 +38,6 @@ export default {
     }
 
     header {
-        background: darkslategrey; /*временно, чтобы было видно белые кнопки*/
         display: flex;
         width: 100%;
         height: 10vh;
