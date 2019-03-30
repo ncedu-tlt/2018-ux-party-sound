@@ -1,13 +1,17 @@
 <template>
+
     <main class="main-page">
-        <section class="head">
-            <TopPlaylists />
-            <PartySoundLabel />
+        <section class="top-content">
+            <section class="head">
+                <TopPlaylists/>
+                <PartySoundLabel/>
+            </section>
+            <FindPlaylist v-on:click.native="scrollWindow"/>
         </section>
-        <FindPlaylist />
-        <PlaylistSearch />
-        <PlaylistsList />
-        <ShowMore />
+
+        <PlaylistSearch/>
+        <PlaylistsList/>
+        <ShowMore/>
     </main>
 </template>
 <script>
@@ -27,21 +31,43 @@ export default {
         PlaylistsList,
         ShowMore,
         PlaylistSearch
+    },
+    methods: {
+        async scrollWindow() {
+            let finishPlace = document.documentElement.clientHeight;
+            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            for (let i = 0; i < (finishPlace - finishPlace % 10) / 10; i++) {
+                console.log(finishPlace);
+                window.scrollBy(0, 10);
+                await delay(5-Math.pow(i,4)/40000);
+            }
+            await window.scrollBy(0, finishPlace % 10);
+        }
     }
 };
 </script>
 <style scoped lang="scss">
-    .main-page{
+    .main-page {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding-bottom: 100px;
 
-        .head{
-            width: 700px;
+        .top-content {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 80px;
+            justify-content: space-around;
+            height: 90vh;
+
+            .head {
+                width: 700px;
+                display: flex;
+                align-items: center;
+            }
         }
+
+
     }
 </style>

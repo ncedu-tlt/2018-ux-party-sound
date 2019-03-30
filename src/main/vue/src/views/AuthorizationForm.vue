@@ -1,10 +1,25 @@
 <template>
-    <div class="content">
-        <div class="container">
-            <TextInput v-model="login" class="field" placeholder="E-mail или логин" type="text" />
-            <TextInput v-model="password" class="field" placeholder="Пароль" type="password" />
-            <Button class="forget-password" label="Забыли пароль?" type="light" />
-            <Button class="entry" label="Вход" v-on:click.native="setClientInfo" />
+    <div class="authorization">
+        <div class="content">
+            <TextInput
+                    class="field"
+                    placeholder="E-mail или логин"
+                    type="text"
+                    class-name="input-field"
+                    v-model="login"
+            />
+            <TextInput
+                    class="field"
+                    placeholder="Пароль"
+                    type="password"
+                    class-name="input-field"
+                    v-model="password"
+            />
+            <div class="forget-password-container">
+                <Button label="Забыли пароль?" type="light"/>
+            </div>
+
+            <Button class="entry" label="Вход" v-on:click.native="setClientInfo"/>
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>
@@ -43,19 +58,18 @@ export default {
 </script>
 
 <style scoped>
-    .content {
+    .authorization {
         width: 100%;
-        height: 100vh;
-        background: slateblue; /*временно, пока нет фоновой картинки*/
+        height: 90vh;
         display: flex;
-        align-items: center;
         justify-content: center;
     }
 
-    .container {
+    .content {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
     }
 
     .field:nth-child(1) {
@@ -66,10 +80,10 @@ export default {
         margin-bottom: 10px
     }
 
-    .forget-password {
+    .forget-password-container {
         width: 100%;
-
-        text-align: end;
+        display: flex;
+        justify-content: flex-end;
     }
 
     .entry {
