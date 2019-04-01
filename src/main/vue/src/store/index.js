@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import playlists from './playlists';
-import activePlaylist from './activePlaylist';
+import activePlaylist from './Player';
 
 Vue.use(Vuex);
 

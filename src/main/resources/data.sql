@@ -1,18 +1,18 @@
 
-INSERT INTO tracks (id, artist_id, artist_name, name, url) VALUES
-(1215788,	440873,	'Lyonn',	'Well Light The Sky',	'https://mp3l.jamendo.com/?trackid=1215788&format=mp31&from=app-35feaec1'),
-(174271,	339884,	'Julandrew',	'Crazy As',	'https://mp3l.jamendo.com/?trackid=174271&format=mp31&from=app-35feaec1'),
-(179685,	340120,	'Fluxo',	'Linhas Sonoras',	'https://mp3l.jamendo.com/?trackid=179685&format=mp31&from=app-35feaec1'),
-(759883,	352184,	'Conway Hambone',	'REVOLUTION STREET',	'https://mp3l.jamendo.com/?trackid=759883&format=mp31&from=app-35feaec1'),
-(559026,	359088,	'Projet Xion',	'Very shy...',	'https://mp3l.jamendo.com/?trackid=559026&format=mp31&from=app-35feaec1'),
-(1450722,	495918,	'Soularis',	'Everything Is A Game',	'https://mp3l.jamendo.com/?trackid=1450722&format=mp31&from=app-35feaec1'),
-(1535676,	347734,	'Heifervescent',	'Everything Under The Sun (Instrumental)',	'https://mp3l.jamendo.com/?trackid=1535676&format=mp31&from=app-35feaec1'),
-(1529290,	336846,	'Dhalius',	'Asteroides',	'https://mp3l.jamendo.com/?trackid=1529290&format=mp31&from=app-35feaec1'),
-(112518,	337298,	'Kostny Mozg', 'Oppenheimer',	'https://mp3l.jamendo.com/?trackid=112518&format=mp31&from=app-35feaec1'),
-(1507116,	368175,	'marcello correa e castro',	'TROMBADINHA',	'https://mp3l.jamendo.com/?trackid=1507116&format=mp31&from=app-35feaec1'),
-(1069429,	360766,	'Django de la Poppavati &amp; Melintus Pukstavilainen',	'Syöpynyt sydän',	'https://mp3l.jamendo.com/?trackid=1069429&format=mp31&from=app-35feaec1'),
-(1099703,	437152,	'TheBlackParrot',	'Divergence (Remastered VIP)','https://mp3l.jamendo.com/?trackid=1099703&format=mp31&from=app-35feaec1'),
-(623192,	361898,	'Chasing Eidolon',	'Set Me Free',	'https://mp3l.jamendo.com/?trackid=623192&format=mp31&from=app-35feaec1');
+INSERT INTO tracks (id, artist_id, artist_name, name, url, duration) VALUES
+(1215788,	440873,	'Lyonn',	'Well Light The Sky',	'https://mp3l.jamendo.com/?trackid=1215788&format=mp31&from=app-35feaec1', 168),
+(174271,	339884,	'Julandrew',	'Crazy As',	'https://mp3l.jamendo.com/?trackid=174271&format=mp31&from=app-35feaec1', 191),
+(179685,	340120,	'Fluxo',	'Linhas Sonoras',	'https://mp3l.jamendo.com/?trackid=179685&format=mp31&from=app-35feaec1', 177),
+(759883,	352184,	'Conway Hambone',	'REVOLUTION STREET',	'https://mp3l.jamendo.com/?trackid=759883&format=mp31&from=app-35feaec1', 399),
+(559026,	359088,	'Projet Xion',	'Very shy...',	'https://mp3l.jamendo.com/?trackid=559026&format=mp31&from=app-35feaec1', 210),
+(1450722,	495918,	'Soularis',	'Everything Is A Game',	'https://mp3l.jamendo.com/?trackid=1450722&format=mp31&from=app-35feaec1', 359),
+(1535676,	347734,	'Heifervescent',	'Everything Under The Sun (Instrumental)',	'https://mp3l.jamendo.com/?trackid=1535676&format=mp31&from=app-35feaec1', 265),
+(1529290,	336846,	'Dhalius',	'Asteroides',	'https://mp3l.jamendo.com/?trackid=1529290&format=mp31&from=app-35feaec1', 133),
+(112518,	337298,	'Kostny Mozg', 'Oppenheimer',	'https://mp3l.jamendo.com/?trackid=112518&format=mp31&from=app-35feaec1', 83),
+(1507116,	368175,	'marcello correa e castro',	'TROMBADINHA',	'https://mp3l.jamendo.com/?trackid=1507116&format=mp31&from=app-35feaec1', 196),
+(1069429,	360766,	'Django de la Poppavati &amp; Melintus Pukstavilainen',	'Syöpynyt sydän',	'https://mp3l.jamendo.com/?trackid=1069429&format=mp31&from=app-35feaec1', 258),
+(1099703,	437152,	'TheBlackParrot',	'Divergence (Remastered VIP)','https://mp3l.jamendo.com/?trackid=1099703&format=mp31&from=app-35feaec1', 385),
+(623192,	361898,	'Chasing Eidolon',	'Set Me Free',	'https://mp3l.jamendo.com/?trackid=623192&format=mp31&from=app-35feaec1', 337);
 
 INSERT INTO genres (id, name) VALUES
 (1, 'rock'),
@@ -67,6 +67,14 @@ INSERT INTO playlists (id, description, name, private_access) VALUES
 
 INSERT INTO playlist_track (track_number_in_playlist, playlist_id, track_id) VALUES
 (1, 1, 1215788),
+(1, 1, 174271),
+(1, 1, 179685),
+(1, 1, 759883),
+(1, 1, 559026),
+(1, 1, 1450722),
+(1, 1, 1529290),
+(1, 1, 1507116),
+(1, 1, 1069429),
 (2, 1,112518),
 (3, 1,1535676),
 (1, 2,112518),
