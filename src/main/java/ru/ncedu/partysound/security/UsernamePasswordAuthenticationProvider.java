@@ -9,14 +9,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.ncedu.partysound.models.domain.UsersDAO;
 import ru.ncedu.partysound.repositories.UsersRepository;
 
-import javax.management.relation.Role;
-import java.util.Collections;
 
 
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
