@@ -1,7 +1,10 @@
 <template>
     <section>
         <audio ref="player" />
-
+        <PlayerPlaylist
+            class="playlist"
+            :view-playlist="viewPlaylist"
+        />
         <div class="player">
             <div ref="seek" class="progress_bar" @click="seek">
                 <div class="percent_complete" :style="{width: percentComplete + '%'}" />
@@ -12,7 +15,7 @@
                         <polygon points="23,7 23,22 9,15" fill="#0C0094" />
                         <polygon points="11,7 11,22 8,22 8,7" fill="#0C0094" />
                     </svg>
-                    <div class="player_button" @click="playing = !playing">
+                    <div class="player_button" @click="reversePlaying">
                         <svg v-if="playing" class="play">
                             <circle
                                 cx="15"
@@ -41,6 +44,11 @@
                         <polygon points="7,7 7,22 21,15" fill="#0C0094" />
                         <polygon points="19,7 19,22 22,22 22,7" fill="#0C0094" />
                     </svg>
+                    <svg class="player_button" @click="viewPlaylist = !viewPlaylist">
+                        <polygon points="10,7 10,11 30,11 30,7" fill="#0C0094" />
+                        <polygon points="10,14 10,18 30,18 30,14" fill="#0C0094" />
+                        <polygon points="10,25 10,21 30,21 30,25" fill="#0C0094" />
+                    </svg>
                 </div>
                 <div class="track_name">
                     {{ trackName }}
@@ -58,14 +66,17 @@
 </template>
 
 <script>
+import PlayerPlaylist from './PlayerPlaylist';
 export default {
     name: 'Player',
+    components: {
+        PlayerPlaylist
+    },
     data: () => ({
+        viewPlaylist: false,
         player: undefined,
-        playing: false,
         volume: 50,
-        durationSeconds: 0,
-        currentSeconds: 0
+        durationSeconds: 0
     }),
     computed: {
         trackName() {
@@ -80,7 +91,10 @@ export default {
             }
         },
         percentComplete() {
-            return parseInt(this.currentSeconds / this.durationSeconds * 100);
+            return parseInt(this.currentTime / this.durationSeconds * 100);
+        },
+        playing() {
+            return this.$store.getters.IS_PLAYING;
         },
         playlistId() {
             return this.$store.getters.PLAYLIST_ID;
@@ -95,13 +109,19 @@ export default {
             return this.$store.getters.TRACKS;
         },
         currentTime() {
-            return this.currentSeconds;
+            return this.$store.getters.CURRENT_SECONDS;
+        },
+        PlayMethod() {
+            return this.$store.getters.IS_PLAY_METHOD;
         }
     },
     watch: {
         playlistId() {
-            this.$store.commit('SET_ACTIVE_TRACK_NUMBER', 0);
-            this.setAndPlayTrack();
+            if (this.PlayMethod) {
+                this.player.setAttribute('src', this.tracks[this.activeTrackNumber].url);
+                this.$store.commit('SET_PLAYING', true);
+                this.player.play();
+            }
         },
         volume() {
             this.player.volume = this.volume / 100;
@@ -110,11 +130,16 @@ export default {
             if (value) {
                 this.player.play()
                     .catch(e => {
-                        this.playing = false;
+                        this.$store.commit('SET_PLAYING', false);
                     });
             } else {
                 this.player.pause();
             }
+        },
+        activeTrackNumber() {
+            this.player.setAttribute('src', this.tracks[this.activeTrackNumber].url);
+            this.$store.commit('SET_PLAYING', true);
+            this.player.play();
         }
     },
     mounted() {
@@ -125,18 +150,16 @@ export default {
         this.player.volume = this.volume / 100;
     },
     methods: {
+        reversePlaying() {
+            this.$store.commit('SET_PLAYING', !this.playing);
+        },
         loaded() {
             if (this.player.readyState >= 2) {
                 this.durationSeconds = parseInt(this.player.duration);
             }
         },
         update(e) {
-            this.currentSeconds = parseInt(this.player.currentTime);
-        },
-        setAndPlayTrack() {
-            this.player.src = this.tracks[this.activeTrackNumber].url;
-            this.playing = true;
-            this.player.play();
+            this.$store.commit('SET_CURRENT_SECONDS', parseInt(this.player.currentTime));
         },
         seek(e) {
             const el = this.$refs.seek.getBoundingClientRect();
@@ -152,7 +175,6 @@ export default {
             } else {
                 this.$store.commit('SET_ACTIVE_TRACK_NUMBER', this.activeTrackNumber + 1);
             }
-            this.setAndPlayTrack();
         },
         playPreviousTrack() {
             if (this.activeTrackNumber - 1 < 0) {
@@ -160,14 +182,24 @@ export default {
             } else {
                 this.$store.commit('SET_ACTIVE_TRACK_NUMBER', this.activeTrackNumber - 1);
             }
-            this.setAndPlayTrack();
         }
     }
 };
 </script>
 
 <style scoped lang="scss">
+    $mainColor: #0C0094;
+    $whiteColor: #f1f1f1;
+    $blackColor: #000;
+    $grayColor: #9a905d;
+    .playlist{
+        z-index: 1;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
     .player {
+        z-index: 2;
         width: 100%;
         position: fixed;
         bottom: 0;
@@ -178,13 +210,15 @@ export default {
             position: relative;
             width: 100%;
             height: 5px;
-            background-color: #f1f1f1;
+            box-shadow:inset 0 1px 5px 0 rgba(0,0,0,0.25);
+            background-color: $whiteColor;
 
             .percent_complete {
                 height: 100%;
-                background-color: #0C0094;
+                background-color: $mainColor;
             }
         }
+
         .progress_bar:hover {
             cursor: pointer;
             transition: 100ms;
@@ -195,7 +229,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #FFF;
+            background-color: $whiteColor;
             height: 60px;
             box-shadow:inset 0 4px 20px 0 rgba(0,0,0,0.25);
 
@@ -224,7 +258,7 @@ export default {
                 overflow: hidden;
                 width: 80px;
                 -webkit-appearance: none;
-                background-color: #9a905d;
+                background-color: $grayColor;
                 margin-right: 100px;
             }
 
@@ -233,8 +267,8 @@ export default {
                 width: 10px;
                 height: 10px;
                 border-radius: 100%;
-                background: #fff;
-                box-shadow: -80px 0 0 74px #0C0094;
+                background: $whiteColor;
+                box-shadow: -80px 0 0 74px $mainColor;
                 border: 1px solid #000;
             }
 
