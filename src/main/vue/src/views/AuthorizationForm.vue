@@ -2,30 +2,29 @@
     <div class="authorization">
         <div class="content">
             <TextInput
-                    class="field"
-                    placeholder="E-mail или логин"
-                    type="text"
-                    class-name="input-field"
-                    :value="email"
+                class="field"
+                placeholder="E-mail или логин"
+                type="text"
+                class-name="input-field"
+                :value="email"
             />
             <TextInput
-                    class="field"
-                    placeholder="Пароль"
-                    type="password"
-                    class-name="input-field"
-                    :value="password"
+                class="field"
+                placeholder="Пароль"
+                type="password"
+                class-name="input-field"
+                :value="password"
             />
             <div class="forget-password-container">
-                <Button label="Забыли пароль?" type="light"/>
+                <Button label="Забыли пароль?" type="light" />
             </div>
 
-            <Button class="entry" label="Вход"/>
+            <Button class="entry" label="Вход" />
             <router-link to="/registration">
-                <Button class="register" label="Зарегистрироваться" type="light"/>
+                <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -34,7 +33,7 @@ import Button from '../components/Button';
 
 export default {
     name: 'AuthorizationForm',
-    components: {Button, TextInput},
+    components: { Button, TextInput },
     data() {
         return {
             email: '',
@@ -58,7 +57,6 @@ export default {
         align-items: center;
         justify-content: center;
     }
-
 
     .field:nth-child(1) {
         margin-bottom: 20px

@@ -1,17 +1,16 @@
 <template>
-
     <main class="main-page">
         <section class="top-content">
             <section class="head">
-                <TopPlaylists class="top-playlists"/>
-                <PartySoundLabel class="patry-sound-label"/>
+                <TopPlaylists class="top-playlists" />
+                <PartySoundLabel class="patry-sound-label" />
             </section>
-            <FindPlaylist v-on:click.native="scrollWindow"/>
+            <FindPlaylist class="find-playlist" @click.native="scrollWindow" />
         </section>
 
-        <PlaylistSearch/>
-        <PlaylistsList/>
-        <ShowMore/>
+        <PlaylistSearch />
+        <PlaylistsList />
+        <ShowMore />
     </main>
 </template>
 <script>
@@ -39,7 +38,7 @@ export default {
 
             for (let i = 0; i < (finishPlace - finishPlace % 10) / 10; i++) {
                 window.scrollBy(0, 10);
-                await delay(5-Math.pow(i,4)/40000);
+                await delay(5 - Math.pow(i, 4) / 40000);
             }
             await window.scrollBy(0, finishPlace % 10);
         }
@@ -80,8 +79,10 @@ export default {
                     }
                 }
             }
+            .find-playlist{
+                margin-bottom: 70px;
+            }
         }
-
 
     }
 </style>
