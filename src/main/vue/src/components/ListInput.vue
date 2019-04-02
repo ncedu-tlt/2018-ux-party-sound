@@ -2,7 +2,9 @@
     <div class="list-input">
         <div class="chosen-list">
             <div v-for="item in chosen" :key="item" class="chosen-list__item">
-                <span class="chosen-list__item__genre">{{ item }}</span>
+                <span class="chosen-list__item__genre">
+                    {{ item }}
+                </span>
                 <button
                     class="chosen-list__item__x-button"
                     @click="onXButtonClick(item)"
