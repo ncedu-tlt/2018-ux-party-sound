@@ -61,7 +61,7 @@ export default {
 <style scoped>
     .authorization {
         width: 100%;
-        height: 90vh;
+        height: 89vh;
         display: flex;
         justify-content: center;
     }
