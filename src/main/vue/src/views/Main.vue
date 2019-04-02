@@ -43,7 +43,7 @@ export default {
             }
             await window.scrollBy(0, finishPlace % 10);
         }
-    },
+    }
 };
 </script>
 <style scoped lang="scss">
@@ -53,14 +53,12 @@ export default {
         align-items: center;
         padding-bottom: 100px;
 
-
         .top-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-around;
             height: 90vh;
-
             .head {
                 width: 700px;
                 display: flex;

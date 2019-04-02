@@ -2,7 +2,7 @@
     <div class="background">
         <svg
             viewBox="0 0 1600 1330"
-            fill=""
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="xMinYMin slice"
         >
