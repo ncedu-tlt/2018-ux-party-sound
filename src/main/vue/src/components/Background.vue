@@ -2,8 +2,9 @@
     <div class="background">
         <svg
             viewBox="0 0 1600 1330"
-            fill="none"
+            fill=""
             xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMinYMin slice"
         >
             <path
                 fill-rule="evenodd"
@@ -39,11 +40,10 @@ export default {
         position: absolute;
         top: 0;
         z-index: -100;
-        width: 100%;
-        height: inherit;
+        height: 100%;
     }
-
     svg {
-        width: 100%;
+        width: 100vw;
+       height: 100%;
     }
 </style>
