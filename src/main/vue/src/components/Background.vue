@@ -40,7 +40,9 @@ export default {
         position: absolute;
         top: 0;
         z-index: -100;
+        height: 100%;
     }
+
     svg {
         width: 100vw;
        height: 100%;
