@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <router-view />
-        <Background/>
+        <Background />
     </div>
 </template>
 
@@ -27,6 +27,6 @@
 <script>
 import Background from './components/Background';
 export default {
-    components: {Background}
-}
+    components: { Background }
+};
 </script>

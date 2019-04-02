@@ -16,9 +16,10 @@
                     v-model="password"
             />
             <div class="forget-password-container">
-                <Button label="Забыли пароль?" type="light"/>
+                <Button label="Забыли пароль?" type="light" />
             </div>
 
+            <Button class="entry" label="Вход" />
             <Button class="entry" label="Вход" v-on:click.native="setClientInfo"/>
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
@@ -71,6 +72,7 @@ export default {
         align-items: center;
         justify-content: center;
     }
+
 
     .field:nth-child(1) {
         margin-bottom: 20px
