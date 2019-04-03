@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.ncedu.partysound.converters.PlaylistsMapper;
 import ru.ncedu.partysound.converters.TracksMapper;
 import ru.ncedu.partysound.models.domain.PlaylistTrackDAO;
@@ -49,5 +50,12 @@ public class PlaylistsServiceImpl implements PlaylistsService {
         PlaylistsWithTracksDTO playlistsWithTracksDTO = playlistsMapper.toPlaylistWithTracksDTO(playlistDAO);
         playlistsWithTracksDTO.setTracks(tracksDTOS);
         return playlistsWithTracksDTO;
+    }
+
+    @Override
+    public List<PlaylistsDTO> getPlaylistsBySearchParams(int pageNumber, int pageSize, String playlistName, List<String> singersArray, List<String> genresArray) {
+        Pageable playlistsPage = PageRequest.of(pageNumber, pageSize);
+        Page<PlaylistsDAO> playlistsDAOPage = playlistsRepository.findAllByNameAndAndGenresAndSingers(playlistName, singersArray, genresArray, playlistsPage);
+        return playlistsMapper.toPlaylistDTOs(playlistsDAOPage.getContent());
     }
 }
