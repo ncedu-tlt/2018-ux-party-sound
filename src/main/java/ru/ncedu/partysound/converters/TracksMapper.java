@@ -15,7 +15,8 @@ public interface TracksMapper {
 
     @Mappings ({@Mapping(target = "name", source = "track.name"),
             @Mapping(target = "artistName", source = "track.artistName"),
-            @Mapping(target = "url", source = "track.url")})
+            @Mapping(target = "url", source = "track.url"),
+            @Mapping(target = "duration", source = "track.duration")})
     TracksDTO toTracksDTO(PlaylistTrackDAO playlistTrackDAO);
 
 

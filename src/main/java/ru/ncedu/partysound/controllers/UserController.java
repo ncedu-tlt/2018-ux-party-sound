@@ -1,5 +1,7 @@
 package ru.ncedu.partysound.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.ncedu.partysound.models.domain.UsersDAO;
@@ -7,7 +9,7 @@ import ru.ncedu.partysound.services.UserService;
 import ru.ncedu.partysound.validation.UserValidator;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/api/auth")
 public class UserController {
 
     private final UserService userService;
@@ -18,20 +20,15 @@ public class UserController {
         this.userValidator = userValidator;
     }
 
-
+    @ResponseBody
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") UsersDAO userForm, BindingResult bindingResult) {
+    public ResponseEntity registration(@RequestBody UsersDAO userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return String.valueOf(bindingResult);
+            return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.OK);
         }
         userService.save(userForm);
-        return "successful registration";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "successful login";
+        return  new ResponseEntity(HttpStatus.OK);
     }
 
 }

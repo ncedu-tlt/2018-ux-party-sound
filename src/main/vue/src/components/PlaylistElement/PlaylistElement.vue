@@ -42,7 +42,8 @@ export default {
     },
     methods: {
         parentMethod: function (playlistId) {
-            alert(`Начали проигрывать плейлист с id=${playlistId}`);
+            this.$store.dispatch('GET_ACTIVE_PLAYLIST', playlistId);
+            // alert(`Начали проигрывать плейлист с id=${playlistId}`);
         }
     }
 };

@@ -35,7 +35,7 @@ public class PlaylistsServiceImpl implements PlaylistsService {
     @Override
     public List<PlaylistsDTO> getPlaylists(int pageNumber, int pageSize) {
         Pageable playlistPage = PageRequest.of(pageNumber, pageSize);
-        Page<PlaylistsDAO> playlistsDAOPage = playlistsRepository.findAll(playlistPage);
+        Page<PlaylistsDAO> playlistsDAOPage = playlistsRepository.findAllByPrivateAccessFalse(playlistPage);
         return playlistsMapper.toPlaylistDTOs(playlistsDAOPage.getContent());
     }
 

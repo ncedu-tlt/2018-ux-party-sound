@@ -18,6 +18,7 @@ public class TracksDAO {
     private String name;
     private String artistName;
     private long artistId;
+    private int duration;
 
     @OneToMany(
             mappedBy = "track",
@@ -39,11 +40,13 @@ public class TracksDAO {
     public TracksDAO() {
     }
 
-    public TracksDAO(String url, String name, String artistName, long artistId) {
+    public TracksDAO(long id,String url, String name, String artistName, long artistId, int duration) {
+        this.id = id;
         this.url = url;
         this.name = name;
         this.artistName = artistName;
         this.artistId = artistId;
+        this.duration = duration;
     }
 
     public String getUrl() {
@@ -100,6 +103,14 @@ public class TracksDAO {
 
     public void setGenres(Set<GenresDAO> genres) {
         this.genres = genres;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     @Override

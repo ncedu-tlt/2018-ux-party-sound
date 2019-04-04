@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { createTrack } from '@/api/rest/track.api';
+import { createTrack } from '@/api/rest/tracks.api';
 import { getTracks } from '@/api/rest/track.jamendo.api';
 import { findArtistsByName } from '@/api/rest/artists.jamendo.api';
 
