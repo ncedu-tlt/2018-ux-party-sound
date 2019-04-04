@@ -1,14 +1,14 @@
 <template>
     <div class="content">
         <div class="container">
-            <TextInput v-model="email" class="child" placeholder="E-mail"/>
-            <TextInput v-model="login" class="child" placeholder="Логин"/>
-            <TextInput v-model="name" class="child" placeholder="Имя"/>
-            <TextInput v-model="firstPassword" class="child" placeholder="Пароль" type="password"/>
-            <TextInput v-model="secondPassword" class="child" placeholder="Введите пароль еще раз" type="password"/>
-            <Button class="child" label="Зарегистрироваться" v-on:click.native="setClientInfo"/>
+            <TextInput v-model="email" class="child" placeholder="E-mail" />
+            <TextInput v-model="login" class="child" placeholder="Логин" />
+            <TextInput v-model="name" class="child" placeholder="Имя" />
+            <TextInput v-model="firstPassword" class="child" placeholder="Пароль" type="password" />
+            <TextInput v-model="secondPassword" class="child" placeholder="Введите пароль еще раз" type="password" />
+            <Button class="child" label="Зарегистрироваться" @click.native="setClientInfo" />
             <router-link to="/authorization">
-                <Button class="child" label="Войти" type="light"/>
+                <Button class="child" label="Войти" type="light" />
             </router-link>
         </div>
     </div>

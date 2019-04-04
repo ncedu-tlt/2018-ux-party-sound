@@ -11,10 +11,11 @@ import java.lang.annotation.Native;
 import java.util.List;
 
 public interface PlaylistsRepository extends PagingAndSortingRepository<PlaylistsDAO, Long> {
-    Page<PlaylistsDAO> findAll(Pageable pageable);
+    Page<PlaylistsDAO> findAllByPrivateAccessFalse(Pageable pageable);
 
     PlaylistsDAO findById(long id);
 
-    @Query(value = "select * from playlists playlist where playlist.name like %?1", nativeQuery = true)
+    @Query(value = "select * from playlists playlist where playlist.name like %?1 ",
+            nativeQuery = true)
     Page<PlaylistsDAO> findAllByNameAndAndGenresAndSingers(String name, List<String> singersArray, List<String> genresArray, Pageable pageable);
 }
