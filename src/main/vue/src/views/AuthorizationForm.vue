@@ -2,25 +2,24 @@
     <div class="authorization">
         <div class="content">
             <TextInput
-                    class="field"
-                    placeholder="E-mail или логин"
-                    type="text"
-                    class-name="input-field"
-                    v-model="login"
+                v-model="login"
+                class="field"
+                placeholder="E-mail или логин"
+                type="text"
+                class-name="input-field"
             />
             <TextInput
-                    class="field"
-                    placeholder="Пароль"
-                    type="password"
-                    class-name="input-field"
-                    v-model="password"
+                v-model="password"
+                class="field"
+                placeholder="Пароль"
+                type="password"
+                class-name="input-field"
             />
             <div class="forget-password-container">
                 <Button label="Забыли пароль?" type="light" />
             </div>
 
-            <Button class="entry" label="Вход" />
-            <Button class="entry" label="Вход" v-on:click.native="setClientInfo"/>
+            <Button class="entry" label="Вход" @click.native="setClientInfo" />
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>
@@ -72,7 +71,6 @@ export default {
         align-items: center;
         justify-content: center;
     }
-
 
     .field:nth-child(1) {
         margin-bottom: 20px
