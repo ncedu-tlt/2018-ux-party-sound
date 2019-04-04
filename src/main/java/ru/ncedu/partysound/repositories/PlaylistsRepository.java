@@ -15,8 +15,6 @@ public interface PlaylistsRepository extends PagingAndSortingRepository<Playlist
 
     PlaylistsDAO findById(long id);
 
-    Page<PlaylistsDAO> findByName(Page pageable);
-
     @Query(value = "select * from playlists playlist where playlist.name like %?1", nativeQuery = true)
     Page<PlaylistsDAO> findAllByNameAndAndGenresAndSingers(String name, List<String> singersArray, List<String> genresArray, Pageable pageable);
 }

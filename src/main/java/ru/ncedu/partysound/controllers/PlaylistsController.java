@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
 import ru.ncedu.partysound.services.PlaylistsService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,9 +29,9 @@ public class PlaylistsController {
     @GetMapping("/filter")
     public List<PlaylistsDTO> getPlaylists(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
                                            @RequestParam(value = "pageSize", defaultValue = "15") int pageSize,
-                                           @RequestParam(value = "playlistName") String playlistName,
-                                           @RequestParam(value = "singersArray") ArrayList<String> singersArray,
-                                           @RequestParam(value = "genresArray") ArrayList<String> genresArray) {
+                                           @RequestParam(value = "playlistName", defaultValue = "") String playlistName,
+                                           @RequestParam(value = "singersArray") List<String> singersArray,
+                                           @RequestParam(value = "genresArray") List<String> genresArray) {
         return playlistsService.getPlaylistsBySearchParams(pageNumber, pageSize, playlistName, singersArray, genresArray);
     }
 }
