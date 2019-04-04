@@ -55,7 +55,7 @@ public class PlaylistsServiceImpl implements PlaylistsService {
 
     @Override
     public List<PlaylistsDTO> getTopPlaylists() {
-        List<BigInteger> topPlaylistsId = playlistsRepository.getTopPlaylistsId(UserRoles.LISTENER.toString().toLowerCase());
+        List<BigInteger> topPlaylistsId = playlistsRepository.getTopPlaylistsId();
         List<PlaylistsDAO> topPlaylists = getPlaylistsDAOS(topPlaylistsId);
         return playlistsMapper.toPlaylistDTOs(topPlaylists);
     }
