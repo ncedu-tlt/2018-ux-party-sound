@@ -10,5 +10,5 @@ public interface PlaylistsService {
 
     PlaylistsWithTracksDTO getPlaylistById(long playlistId);
 
-    List<PlaylistsDTO> getPlaylistsBySearchParams(int pageNumber, int pageSize, String playlistName, List<String> singersArray, List<String> genresArray);
+    List<PlaylistsDTO> getPlaylistsBySearchParams(int pageNumber, int pageSize, String playlistName, List<String> genresArray, String singer);
 }

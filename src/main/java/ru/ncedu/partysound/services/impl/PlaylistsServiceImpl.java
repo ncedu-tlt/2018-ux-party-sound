@@ -53,9 +53,9 @@ public class PlaylistsServiceImpl implements PlaylistsService {
     }
 
     @Override
-    public List<PlaylistsDTO> getPlaylistsBySearchParams(int pageNumber, int pageSize, String playlistName, List<String> singersArray, List<String> genresArray) {
+    public List<PlaylistsDTO> getPlaylistsBySearchParams(int pageNumber, int pageSize, String playlistName, List<String> genresArray, String singer) {
         Pageable playlistsPage = PageRequest.of(pageNumber, pageSize);
-        Page<PlaylistsDAO> playlistsDAOPage = playlistsRepository.findAllByNameAndAndGenresAndSingers(playlistName, singersArray, genresArray, playlistsPage);
+        Page<PlaylistsDAO> playlistsDAOPage = playlistsRepository.findAllByNameAndAndGenresAndSingers(playlistName, genresArray, singer, playlistsPage);
         return playlistsMapper.toPlaylistDTOs(playlistsDAOPage.getContent());
     }
 }
