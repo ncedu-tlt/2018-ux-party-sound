@@ -6,9 +6,9 @@
         <div class="trackBox">
             <Track
                 v-for="(track, index) in tracks"
+                :id="track.id"
                 :key="index"
-                :index="index"
-                :artist-name="track.artistName"
+                :artist-name="track.artistName || track.artist_name"
                 :track-name="track.name"
                 :duration="track.duration"
             />

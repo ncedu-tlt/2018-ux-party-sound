@@ -1,15 +1,14 @@
 <template>
     <div class="input-form">
         <label class="input-label">
-            {{ label }}
+            <input
+                class="input-field"
+                :placeholder="placeholder"
+                :type="type"
+                :value="value"
+                @input="$emit('input', $event.target.value)"
+            >
         </label>
-        <input
-            class="input-field"
-            :placeholder="placeholder"
-            :type="type"
-            :value="value"
-            @input="$emit('input', $event.target.value)"
-        >
     </div>
 </template>
 

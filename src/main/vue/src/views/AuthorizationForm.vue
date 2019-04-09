@@ -4,7 +4,7 @@
             <TextInput v-model="login" class="field" placeholder="E-mail или логин" type="text" />
             <TextInput v-model="password" class="field" placeholder="Пароль" type="password" />
             <Button class="forget-password" label="Забыли пароль?" type="light" />
-            <Button class="entry" label="Вход" v-on:click.native="setClientInfo" />
+            <Button class="entry" label="Вход" @click.native="setClientInfo" />
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>

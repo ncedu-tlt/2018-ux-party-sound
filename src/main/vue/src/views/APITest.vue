@@ -1,5 +1,6 @@
 <template>
     <div class="APITest">
+        <FindTracksFromJamendo class="jamendo"/>
         <div class="search_artists">
             <p>Демострация поиска исполнителей: </p>
             <input v-model="artistName" type="text" @keyup="findArtistsByName()">
@@ -76,11 +77,13 @@
 import { createTrack } from '@/api/rest/tracks.api';
 import { getTracks } from '@/api/rest/track.jamendo.api';
 import { findArtistsByName } from '@/api/rest/artists.jamendo.api';
+import FindTracksFromJamendo from '@/components/FindTracksFromJamendo';
 
 const DEFAULT_TIME = '0_10000';
 
 export default {
     name: 'APITest',
+    components: { FindTracksFromJamendo },
     data() {
         return {
             artistName: '',
@@ -111,7 +114,7 @@ export default {
                 durationbetween: this.time || DEFAULT_TIME,
                 limit: 5,
                 include: 'musicinfo'
-            });
+            }).results;
         },
         async createTrackOnBack() {
             const track = this.content[0];
@@ -171,5 +174,8 @@ export default {
         display: flex;
         align-items: center;
         flex-direction: column;
+    }
+    .jamendo{
+        height:500px;
     }
 </style>
