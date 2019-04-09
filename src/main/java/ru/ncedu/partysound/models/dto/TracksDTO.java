@@ -2,6 +2,7 @@ package ru.ncedu.partysound.models.dto;
 
 public class TracksDTO {
 
+    private long id;
     private String name;
     private String artistName;
     private String url;
@@ -10,7 +11,8 @@ public class TracksDTO {
     public TracksDTO() {
     }
 
-    public TracksDTO(String name, String artistName, String url, int duration) {
+    public TracksDTO(long id, String name, String artistName, String url, int duration) {
+        this.id = id;
         this.name = name;
         this.artistName = artistName;
         this.url = url;
@@ -47,5 +49,13 @@ public class TracksDTO {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

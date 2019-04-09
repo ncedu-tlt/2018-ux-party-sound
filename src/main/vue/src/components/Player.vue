@@ -44,7 +44,7 @@
                         <polygon points="7,7 7,22 21,15" fill="#0C0094" />
                         <polygon points="19,7 19,22 22,22 22,7" fill="#0C0094" />
                     </svg>
-                    <svg class="player_button" @click="viewPlaylist = !viewPlaylist">
+                    <svg class="player_button" @click="reverseViewPlaylist()">
                         <polygon points="10,7 10,11 30,11 30,7" fill="#0C0094" />
                         <polygon points="10,14 10,18 30,18 30,14" fill="#0C0094" />
                         <polygon points="10,25 10,21 30,21 30,25" fill="#0C0094" />
@@ -80,15 +80,7 @@ export default {
     }),
     computed: {
         trackName() {
-            if (this.tracks[this.activeTrackNumber]) {
-                return this.tracks[this.activeTrackNumber].name;
-            } else {
-                if (this.load) {
-                    return 'Трек не выбран!';
-                } else {
-                    return 'Ошибка загрузки!';
-                }
-            }
+            return this.activeTrack.name;
         },
         percentComplete() {
             return parseInt(this.currentTime / this.durationSeconds * 100);
@@ -99,8 +91,8 @@ export default {
         playlistId() {
             return this.$store.getters.PLAYLIST_ID;
         },
-        activeTrackNumber() {
-            return this.$store.getters.ACTIVE_TRACK_NUMBER;
+        activeTrack() {
+            return this.$store.getters.ACTIVE_TRACK;
         },
         load() {
             return this.$store.getters.IS_SUCCESS_LOAD;
@@ -110,19 +102,9 @@ export default {
         },
         currentTime() {
             return this.$store.getters.CURRENT_SECONDS;
-        },
-        PlayMethod() {
-            return this.$store.getters.IS_PLAY_METHOD;
         }
     },
     watch: {
-        playlistId() {
-            if (this.PlayMethod) {
-                this.player.setAttribute('src', this.tracks[this.activeTrackNumber].url);
-                this.$store.commit('SET_PLAYING', true);
-                this.player.play();
-            }
-        },
         volume() {
             this.player.volume = this.volume / 100;
         },
@@ -136,8 +118,8 @@ export default {
                 this.player.pause();
             }
         },
-        activeTrackNumber() {
-            this.player.setAttribute('src', this.tracks[this.activeTrackNumber].url);
+        activeTrack() {
+            this.player.setAttribute('src', this.activeTrack.url || this.activeTrack.audio);
             this.$store.commit('SET_PLAYING', true);
             this.player.play();
         }
@@ -150,6 +132,11 @@ export default {
         this.player.volume = this.volume / 100;
     },
     methods: {
+        reverseViewPlaylist() {
+            if (this.tracks.length !== 0) {
+                this.viewPlaylist = !this.viewPlaylist;
+            }
+        },
         reversePlaying() {
             this.$store.commit('SET_PLAYING', !this.playing);
         },
@@ -170,18 +157,10 @@ export default {
             }
         },
         playNextTrack() {
-            if (this.activeTrackNumber + 1 === this.tracks.length) {
-                this.$store.commit('SET_ACTIVE_TRACK_NUMBER', 0);
-            } else {
-                this.$store.commit('SET_ACTIVE_TRACK_NUMBER', this.activeTrackNumber + 1);
-            }
+            this.$store.commit('SET_NEXT_TRACK');
         },
         playPreviousTrack() {
-            if (this.activeTrackNumber - 1 < 0) {
-                this.$store.commit('SET_ACTIVE_TRACK_NUMBER', this.tracks.length - 1);
-            } else {
-                this.$store.commit('SET_ACTIVE_TRACK_NUMBER', this.activeTrackNumber - 1);
-            }
+            this.$store.commit('SET_PREVIOUS_TRACK');
         }
     }
 };

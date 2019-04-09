@@ -1,45 +1,46 @@
 <template>
-    <div class="track center" @click="playOrStopTrack">
-        <div v-if="id === activeTrack.id && playing">
+    <section class="track center" @click="addTrackInPlaylist(id)">
+        <div v-if="id === activeTrack.id && playing" @click="playOrStopTrack()">
             <svg class="player_button">
                 <polygon points="10,8 10,21 14,21 14,8" fill="#0C0094" />
                 <polygon points="16,8 16,21 20,21 20,8" fill="#0C0094" />
             </svg>
         </div>
-        <div v-else class="stop">
+        <div v-else class="stop" @click="playOrStopTrack()">
             <svg class="player_button">
                 <polygon points="10,8 10,21 24,15" fill="#0C0094" />
             </svg>
         </div>
-        <div class="text artist_name">
+        <span @click="console.log('Сработал клик')" class="track_name">
+            {{ name }}
+        </span>
+        <div @click.native="addTrackInPlaylist(id)" class="artist_name">
             {{ artistName }}
         </div>
-        <div class="text track_name">
-            {{ trackName }}
+        <div @click.native="addTrackInPlaylist(id)" class="duration">
+            {{ durationTime }}
         </div>
-        <div v-if="id === activeTrack.id" class="text duration">
-            {{ currentTime }}
-        </div>
-        <div v-else class="text duration">
-            {{ parseInt(duration / 60) + ':' }}{{ 10 >= duration % 60 ? '0' : '' }}{{ duration % 60 }}
-        </div>
-    </div>
+        <button  class="plus">
+            +
+        </button>
+    </section>
 </template>
+
 <script>
 export default {
-    name: 'TrackForPlayer',
+    name: 'TrackWithButtonSetTrack',
     props: {
         id: {
             type: String,
             default: ''
         },
+        name: {
+            type: String,
+            default: ''
+        },
         artistName: {
             type: String,
-            default: 'нет исполнителя'
-        },
-        trackName: {
-            type: String,
-            default: 'нет имени'
+            default: ''
         },
         duration: {
             type: Number,
@@ -47,11 +48,14 @@ export default {
         }
     },
     computed: {
-        currentTime() {
-            let beautifulTime = parseInt(this.$store.getters.CURRENT_SECONDS / 60) + ':';
-            beautifulTime += this.$store.getters.CURRENT_SECONDS % 60 < 10 ? '0' : '';
-            beautifulTime += this.$store.getters.CURRENT_SECONDS % 60;
-            return beautifulTime;
+        durationTime() {
+            let time = parseInt(this.duration / 60) + ':';
+            time += this.duration % 60 < 10 ? '0' : '';
+            time += this.duration % 60;
+            return time;
+        },
+        tracks() {
+            return this.$store.getters.TRACKS_FROM_JAMENDO;
         },
         activeTrack() {
             return this.$store.getters.ACTIVE_TRACK;
@@ -65,16 +69,40 @@ export default {
             if (this.id === this.activeTrack.id) {
                 this.$store.commit('SET_PLAYING', !this.playing);
             } else {
-                this.$store.commit('SET_ACTIVE_TRACK_BY_ID', this.id);
+                this.$store.commit('SET_LIST_FORM_JAMENDO', { tracks1: this.tracks, trackId: this.id });
             }
+        },
+        addTrackInPlaylist(id1) {
+            console.log('qwe');
+            alert('Ну тут будет добален трек с id ' + id1);
         }
     }
 };
 </script>
+
 <style scoped lang="scss">
     $mainColor: #0C0094;
     $whiteColor: #fff;
 
+    .plus {
+        height: 20px;
+        width: 20px;
+        padding: 0;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        background: transparent;
+        outline: none;
+        cursor: pointer;
+    }
+    span {
+        text-overflow: ellipsis;
+    }
+    .plus_track {
+        background-color: $mainColor;
+        width: 10px;
+        height: 10px;
+    }
     .center {
         &::before {
             border-radius: 5px;
@@ -105,7 +133,8 @@ export default {
         position: relative;
         height: 50px;
         display: grid;
-        grid-template-columns: 40px 1fr 1.5fr 60px;
+        grid-template-columns: 40px 1fr 1.5fr 60px 40px;
+        overflow: hidden;
 
         &::before,
         &::after {
