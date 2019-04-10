@@ -1,6 +1,5 @@
 package ru.ncedu.partysound.repositories;
 
-import ch.qos.logback.core.db.dialect.SQLiteDialect;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -9,9 +8,6 @@ import ru.ncedu.partysound.models.domain.PlaylistsDAO;
 
 import java.math.BigInteger;
 import java.util.List;
-
-public interface PlaylistsRepository extends PagingAndSortingRepository<PlaylistsDAO,Long> {
-import java.lang.annotation.Native;
 
 public interface PlaylistsRepository extends PagingAndSortingRepository<PlaylistsDAO, Long> {
     Page<PlaylistsDAO> findAllByPrivateAccessFalse(Pageable pageable);
@@ -28,15 +24,12 @@ public interface PlaylistsRepository extends PagingAndSortingRepository<Playlist
             "limit 5", nativeQuery = true)
     List<BigInteger> getTopPlaylistsId();
 
-    String QUERY_REQUEST = "select * from playlists " +
-            "left join playlist_genre on(playlists.id = playlist_genre.playlist_id) " +
-            "left join genres on(playlist_genre.genre_id = genres.id) " +
-            "left join playlist_track on(playlists.id = playlist_track.playlist_id) " +
-            "left join tracks on(playlist_track.track_id = tracks.id) " +
-            "left join user_playlist on(playlists.id = user_playlist.playlist_id)" +
-            "where playlists.name like %?1% and genres.name in ?2 and tracks.artist_name like %?3%";
-
-    @Query(value = QUERY_REQUEST,
+    @Query(value = "SELECT DISTINCT playlists.id, playlists.name, playlists.description, playlists.private_access FROM playlists " +
+            "LEFT JOIN playlist_genre ON(playlists.id = playlist_genre.playlist_id) " +
+            "LEFT JOIN genres ON(playlist_genre.genre_id = genres.id) " +
+            "LEFT JOIN playlist_track ON(playlists.id = playlist_track.playlist_id) " +
+            "LEFT JOIN tracks ON(playlist_track.track_id = tracks.id) " +
+            "WHERE playlists.name LIKE %?1% AND genres.name IN ?2 AND tracks.artist_name LIKE %?3%",
             nativeQuery = true)
     Page<PlaylistsDAO> findAllByNameAndAndGenresAndSingers(String name, String[] genresArray, String singer, Pageable pageable);
 }

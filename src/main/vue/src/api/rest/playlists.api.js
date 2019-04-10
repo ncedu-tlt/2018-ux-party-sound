@@ -12,7 +12,7 @@ export function getPlaylistsByPage(pageNumber) {
 }
 
 export function getPlaylistsBySearchParams(playlistName, genresArray, singer, pageNumber) {
-    return client.get('/playlists/filter', {
+    return client.get('/filter', {
         params: {
             playlistName: playlistName,
             singer: singer,

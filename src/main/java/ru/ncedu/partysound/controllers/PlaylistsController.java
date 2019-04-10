@@ -30,7 +30,7 @@ public class PlaylistsController {
         return playlistsService.getTopPlaylists();
     }
 
-    @GetMapping("/filter")
+    @GetMapping("/api/filter")
     public List<PlaylistsDTO> getPlaylists(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
                                            @RequestParam(value = "pageSize", defaultValue = "15") int pageSize,
                                            @RequestParam(value = "playlistName", defaultValue = "") String playlistName,
