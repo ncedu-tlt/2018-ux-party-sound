@@ -11,7 +11,6 @@ import ru.ncedu.partysound.services.PlaylistsService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/playlists")
 public class PlaylistsController {
     @Autowired
     private final PlaylistsService playlistsService;
@@ -20,10 +19,15 @@ public class PlaylistsController {
         this.playlistsService = playlistsService;
     }
 
-    @GetMapping
+    @GetMapping(value = "/api/playlists")
     public List<PlaylistsDTO> getPlaylistsList(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
                                                @RequestParam(value = "pageSize", defaultValue = "15") int pageSize) {
         return playlistsService.getPlaylists(pageNumber, pageSize);
+    }
+
+    @GetMapping(value = "/api/topPlaylists")
+    public List<PlaylistsDTO> getTopPlaylists(){
+        return playlistsService.getTopPlaylists();
     }
 
     @GetMapping("/filter")

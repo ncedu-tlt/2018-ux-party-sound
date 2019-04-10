@@ -37,7 +37,7 @@ export default {
 <style scoped>
     .input-field {
         outline: none;
-        border: 1px solid #0C0094;
+        border: 1px solid transparent;
         width: 300px;
         padding: 10px;
         font-size: 15px;
@@ -53,5 +53,11 @@ export default {
         border: 1px solid #0C0094;
         border-radius: 6px;
         outline: none;
+    }
+    .input-field:focus{
+        border: 1px solid #0C0094;
+    }
+    .search-input:focus{
+        box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.3);
     }
 </style>

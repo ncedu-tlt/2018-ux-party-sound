@@ -1,0 +1,12 @@
+export const golden = '#FFF500';
+export const silver = '#C1C1C1';
+export const copper = '#FF7F23';
+export const pinkStrong = '#D96DFF';
+export const darkBlue = '#0C0094';
+export const blue = '#1240AB';
+export const lightBlue = '#6AFFF6';
+export const purple = '#7F6AFF';
+export const green = '#00CC00';
+export const lightGreen = '#9AFF6A';
+export const red = '#FF0000';
+export const brown = '#A64B00';
