@@ -25,5 +25,5 @@ public interface PlaylistsRepository extends PagingAndSortingRepository<Playlist
 
     @Query(value = QUERY_REQUEST,
             nativeQuery = true)
-    Page<PlaylistsDAO> findAllByNameAndAndGenresAndSingers(String name, List<String> genresArray, String singer, Pageable pageable);
+    Page<PlaylistsDAO> findAllByNameAndAndGenresAndSingers(String name, String[] genresArray, String singer, Pageable pageable);
 }

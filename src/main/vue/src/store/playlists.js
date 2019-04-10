@@ -1,10 +1,13 @@
-import { getPlaylistsByPage } from '../api/rest/playlists.api';
+import { getPlaylistsBySearchParams } from '../api/rest/playlists.api';
 
 const state = {
     isLoading: false,
     playlists: [],
     error: null,
-    numberPagePlaylists: 0
+    numberPagePlaylists: 0,
+    playlistName: 'номер',
+    genresArray: ['pop'],
+    singer: ''
 };
 
 const getters = {
@@ -37,7 +40,7 @@ const mutations = {
 
 const actions = {
     POPULATE_PLAYLISTS: (context) => {
-        getPlaylistsByPage(context.state.numberPagePlaylists)
+        getPlaylistsBySearchParams(context.state.playlistName, context.state.genresArray, context.state.singer, context.state.numberPagePlaylists)
             .then(res => {
                 context.commit('PLAYLIST_LOADING_SUCCESS', res);
             })

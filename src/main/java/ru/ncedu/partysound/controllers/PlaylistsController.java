@@ -30,8 +30,8 @@ public class PlaylistsController {
     public List<PlaylistsDTO> getPlaylists(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
                                            @RequestParam(value = "pageSize", defaultValue = "15") int pageSize,
                                            @RequestParam(value = "playlistName", defaultValue = "") String playlistName,
-                                           @RequestParam(value = "genresArray") List<String> genresArray,
-                                           @RequestParam(value = "singer") String singer) {
+                                           @RequestParam(value = "genresArray", required = false) String[] genresArray,
+                                           @RequestParam(value = "singer", required = false) String singer) {
         return playlistsService.getPlaylistsBySearchParams(pageNumber, pageSize, playlistName, genresArray, singer);
     }
 }
