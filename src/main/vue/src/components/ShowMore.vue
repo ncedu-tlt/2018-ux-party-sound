@@ -1,14 +1,19 @@
 <template>
-    <button class="show-more" @click="getPlaylists()">
+    <button v-if="showButton" class="show-more" @click="getPlaylists()">
         Показать еще
     </button>
 </template>
 <script>
 export default {
     name: 'ShowMore',
+    computed: {
+        showButton: function () {
+            return this.$store.getters.PLAYLISTS.length % 15 === 0;
+        }
+    },
     methods: {
         getPlaylists: function () {
-            this.$store.dispatch('POPULATE_PLAYLISTS');
+            this.$store.dispatch('GET_NEW_PAGE');
         }
     }
 };

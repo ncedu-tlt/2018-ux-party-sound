@@ -54,6 +54,16 @@ export default {
         border-radius: 6px;
         outline: none;
     }
+
+    .small-search-input{
+        width: 240px;
+        height: 30px;
+        padding: 0 15px;
+        border: 1px solid #0C0094;
+        border-radius: 6px;
+        outline: none;
+    }
+
     .input-field:focus{
         border: 1px solid #0C0094;
     }

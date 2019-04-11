@@ -2,17 +2,11 @@
     <section class="playlist-search container">
         <div class="playlist-search-fields">
             <div class="playlist-search-fields__block">
-                <TextInput v-model="searchText" class-name="search-input" placeholder="Поиск" />
+                <TextInput v-model="playlistName" class-name="search-input" placeholder="Поиск" />
                 <Button type="search-button" label="Найти" @on-click="getAllData" />
             </div>
             <div class="playlist-search-fields__block">
-                <ListInput
-                    placeholder="Исполнители"
-                    :chosen="chosenSingers"
-                    :list-items="singers"
-                    @plus-clicked="addSinger"
-                    @x-clicked="deleteSinger"
-                />
+                <TextInput v-model="singerName" class-name="small-search-input" placeholder="Исполнитель" />
                 <ListInput
                     placeholder="Жанры"
                     :chosen="chosenGenres"
@@ -39,31 +33,22 @@ export default {
     data: function () {
         return {
             genres: ['Жанр1', 'Жанр2'],
-            singers: ['Исполнитель1', 'Исполнитель2'],
             chosenGenres: [],
-            chosenSingers: [],
-            searchText: ''
+            singerName: '',
+            playlistName: ''
         };
     },
     methods: {
-        addSinger: function (singer) {
-            this.chosenSingers.push(singer);
-            this.singers.splice(this.singers.indexOf(singer), 1);
-        },
         addGenre: function (genre) {
             this.chosenGenres.push(genre);
             this.genres.splice(this.genres.indexOf(genre), 1);
-        },
-        deleteSinger: function (singer) {
-            this.chosenSingers.splice(this.chosenSingers.indexOf(singer), 1);
-            this.singers.push(singer);
         },
         deleteGenre: function (genre) {
             this.chosenGenres.splice(this.chosenGenres.indexOf(genre), 1);
             this.genres.push(genre);
         },
         getAllData: function () {
-            console.log(this.searchText);
+            this.$store.dispatch('FOUND_PLAYLISTS', { playlistName: this.playlistName, genresArray: this.chosenGenres, singer: this.singerName });
         }
     }
 };
@@ -78,6 +63,7 @@ export default {
             &__block{
                 display: flex;
                 justify-content: space-between;
+                align-items: flex-end;
                 width: 590px;
             }
         }
