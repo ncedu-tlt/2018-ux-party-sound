@@ -39,18 +39,15 @@ export default {
 <style lang="scss" scoped>
     .container {
         width: 100%;
-        background: #4183c4;
-
+        min-height: 89vh;
         .playlist-page {
             display: flex;
             flex-direction: column;
             width: 50%;
             margin-left: 20px;
-
             h1 {
                 font-weight: 100;
             }
-
             span {
                 color: white;
             }

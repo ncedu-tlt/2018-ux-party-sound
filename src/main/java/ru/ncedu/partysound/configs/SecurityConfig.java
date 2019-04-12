@@ -10,8 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ru.ncedu.partysound.repositories.UsersRepository;
 import ru.ncedu.partysound.security.CustomAuthenticationEntryPoint;
+import ru.ncedu.partysound.security.NonRedirectingAuthenticationSuccessHandler;
 import ru.ncedu.partysound.security.UsernamePasswordAuthenticationProvider;
 
 
@@ -23,13 +26,15 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomAuthenticationEntryPoint entryPoint;
+//    @Autowired
+//    private CustomAuthenticationEntryPoint entryPoint;
 
     @Autowired
     DataSource dataSource;
 
     private final UsersRepository usersRepository;
+    @Autowired
+    private NonRedirectingAuthenticationSuccessHandler NonRedirectingAuthenticationSuccessHandler;
 
     public SecurityConfig(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
@@ -53,14 +58,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/protected/* ").authenticated()
                 .and()
                     .formLogin()
-                    .loginProcessingUrl( "/api/auth/login")
+                    .loginProcessingUrl("/api/auth/login")
+                    .successHandler(NonRedirectingAuthenticationSuccessHandler)
+                    .failureHandler (((request, response, exception) -> response.sendError(HttpServletResponse.SC_FORBIDDEN)))
                 .and()
                     .logout()
-                .and()
-                    .exceptionHandling().authenticationEntryPoint( entryPoint)
-                .and()
-                    .httpBasic()
-                    .authenticationEntryPoint(entryPoint)
+                    .logoutSuccessHandler(((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)))
                 .and()
                     .exceptionHandling()
                     .authenticationEntryPoint(
@@ -68,8 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     )
                 .and()
                     .csrf()
-                    .disable();
-//                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+//                .disable();
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
 }
