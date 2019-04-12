@@ -30,7 +30,6 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
     @Override
     public Authentication authenticate(Authentication auth)
             throws AuthenticationException {
-
         String username = auth.getName();
         String password = auth.getCredentials()
                 .toString();

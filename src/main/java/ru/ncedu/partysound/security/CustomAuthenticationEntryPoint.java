@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component
+//@Component
 public class CustomAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
     @Override
