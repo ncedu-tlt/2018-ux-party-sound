@@ -1,6 +1,8 @@
 <template>
     <div class="playlist-element">
-        <TriangleButton :playlist-id="playlistId" :genres="genres" @on-playlist-clicked="parentMethod" />
+        <router-link :to="{ path: 'playlist/'+playlistId }">
+            <TriangleButton :playlist-id="playlistId" :color="color" @on-playlist-clicked="parentMethod" />
+        </router-link>
         <div class="playlist-element__info">
             <h4>{{ playlistName }}</h4>
             <div v-if="showGenres" class="genres-list">
