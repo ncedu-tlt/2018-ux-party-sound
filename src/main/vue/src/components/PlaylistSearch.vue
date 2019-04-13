@@ -13,6 +13,7 @@
                     :list-items="genres"
                     @plus-clicked="addGenre"
                     @x-clicked="deleteGenre"
+                    @on-input="filterGenres"
                 />
             </div>
         </div>
@@ -23,6 +24,8 @@ import ListInput from './ListInput.vue';
 import TextInput from './TextInput.vue';
 import Button from './Button.vue';
 
+import { getAllGenres } from '@/api/rest/genres.api';
+
 export default {
     name: 'PlaylistSearch',
     components: {
@@ -32,11 +35,19 @@ export default {
     },
     data: function () {
         return {
-            genres: ['Жанр1', 'Жанр2'],
+            genres: [],
             chosenGenres: [],
             singerName: '',
             playlistName: ''
         };
+    },
+    mounted() {
+        getAllGenres()
+            .then(res => {
+                this.genres = res.map(genre => {
+                    return genre.name;
+                });
+            });
     },
     methods: {
         addGenre: function (genre) {
@@ -48,19 +59,28 @@ export default {
             this.genres.push(genre);
         },
         getAllData: function () {
-            this.$store.dispatch('FOUND_PLAYLISTS', { playlistName: this.playlistName, genresArray: this.chosenGenres, singer: this.singerName });
+            this.$store.dispatch('FOUND_PLAYLISTS', {
+                playlistName: this.playlistName,
+                genresArray: this.chosenGenres,
+                singer: this.singerName
+            });
+        },
+        filterGenres: function (message) {
+            this.genres = this.genres.filter(genre => {
+                return ~genre.indexOf(message);
+            });
         }
     }
 };
 </script>
 <style scoped lang="scss">
-    .playlist-search{
+    .playlist-search {
         width: 100%;
         padding-top: 125px;
 
-        &-fields{
+        &-fields {
 
-            &__block{
+            &__block {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-end;

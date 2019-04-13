@@ -11,6 +11,12 @@ export function getPlaylistsByPage(pageNumber) {
         ));
 }
 
+/**
+ * @param { string } playlistName задает имя плейлиста, по которому необходимо искать.
+ * @param { string } genresArray задает жанры, по которым необходимо искать.
+ * @param { string } singer задает имя исполнителя, по которому необходимо искать.
+ * @param { int } pageNumber задает номер странички, с которой брать треки.
+ */
 export function getPlaylistsBySearchParams(playlistName, genresArray, singer, pageNumber) {
     return client.get('/filter', {
         params: {

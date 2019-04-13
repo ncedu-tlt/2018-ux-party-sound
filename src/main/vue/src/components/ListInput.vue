@@ -18,7 +18,7 @@
                     class="input-with-window__input"
                     type="text"
                     :placeholder="placeholder"
-                    @input="isOpen = openWindow"
+                    @input="onInput"
                 >
             </label>
             <div class="input-with-window__window">
@@ -70,6 +70,10 @@ export default {
         },
         onXButtonClick: function (item) {
             this.$emit('x-clicked', item);
+        },
+        onInput: function () {
+            this.$emit('on-input', this.message);
+            this.isOpen = this.openWindow;
         }
     }
 };
