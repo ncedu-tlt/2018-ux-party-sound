@@ -10,7 +10,7 @@
                 <ListInput
                     placeholder="Жанры"
                     :chosen="chosenGenres"
-                    :list-items="genres"
+                    :list-items="filteredGenres"
                     @plus-clicked="addGenre"
                     @x-clicked="deleteGenre"
                     @on-input="filterGenres"
@@ -35,7 +35,8 @@ export default {
     },
     data: function () {
         return {
-            genres: [],
+            allGenres: [],
+            filteredGenres: [],
             chosenGenres: [],
             singerName: '',
             playlistName: ''
@@ -44,7 +45,7 @@ export default {
     mounted() {
         getAllGenres()
             .then(res => {
-                this.genres = res.map(genre => {
+                this.allGenres = res.map(genre => {
                     return genre.name;
                 });
             });
@@ -52,11 +53,13 @@ export default {
     methods: {
         addGenre: function (genre) {
             this.chosenGenres.push(genre);
-            this.genres.splice(this.genres.indexOf(genre), 1);
+            this.filteredGenres.splice(this.filteredGenres.indexOf(genre), 1);
+            this.allGenres.splice(this.allGenres.indexOf(genre), 1);
         },
         deleteGenre: function (genre) {
             this.chosenGenres.splice(this.chosenGenres.indexOf(genre), 1);
-            this.genres.push(genre);
+            this.filteredGenres.push(genre);
+            this.allGenres.push(genre);
         },
         getAllData: function () {
             this.$store.dispatch('FOUND_PLAYLISTS', {
@@ -66,7 +69,7 @@ export default {
             });
         },
         filterGenres: function (message) {
-            this.genres = this.genres.filter(genre => {
+            this.filteredGenres = this.allGenres.filter(genre => {
                 return ~genre.indexOf(message);
             });
         }
