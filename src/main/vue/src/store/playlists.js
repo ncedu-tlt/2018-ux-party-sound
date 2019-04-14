@@ -39,14 +39,8 @@ const mutations = {
         state.isLoading = false;
         state.error = payload;
     },
-    SEARCH_PARAMS: (state, payload) => {
-        state.playlistName = payload.playlistName;
-        state.genresArray = payload.genresArray;
-        state.singer = payload.singer;
-        state.pageNumber = 0;
-    },
     CHANGE_PAGE_NUMBER: state => {
-        state.pageNumber++;
+        state.numberPagePlaylists++;
     }
 };
 
@@ -61,20 +55,19 @@ const actions = {
                 context.commit('PLAYLIST_LOADING_ERROR');
             });
     },
-    FOUND_PLAYLISTS: (context, payload) => {
+    FOUND_PLAYLISTS: context => {
         context.commit('START_PLAYLIST_LOADING');
-        context.commit('SEARCH_PARAMS', payload);
-        getPlaylistsBySearchParams(payload.playlistName, payload.genresArray, payload.singer, context.state.pageNumber)
+        getPlaylistsBySearchParams(context.state.playlistName, context.state.genresArray, context.state.singer, context.state.numberPagePlaylists)
             .then(res => {
                 context.commit('PLAYLIST_LOADING_SUCCESS', res);
             })
             .catch(e => {
-                context.commit('PLAYLIST_LOADING_ERROR');
+                context.commit('PLAYLIST_LOADING_ERROR', e);
             });
     },
     GET_NEW_PAGE: context => {
         context.commit('START_PLAYLIST_LOADING');
-        getPlaylistsBySearchParams(context.state.playlistName, context.state.genresArray, context.state.singer, context.state.pageNumber++)
+        getPlaylistsBySearchParams(context.state.playlistName, context.state.genresArray, context.state.singer, context.state.numberPagePlaylists++)
             .then(res => {
                 context.commit('CHANGE_PAGE_NUMBER');
                 context.commit('PAGE_LOADING_SUCCESS', res);

@@ -18,10 +18,11 @@
                     class="input-with-window__input"
                     type="text"
                     :placeholder="placeholder"
+                    @click="onInputClick"
                     @input="onInput"
                 >
             </label>
-            <div class="input-with-window__window">
+            <div class="input-with-window__window js-list-window">
                 <div v-for="item in listItems" :key="item" class="item">
                     <span>{{ item }}</span>
                     <button class="plus" @click="onPlusClick(item)">
@@ -59,11 +60,6 @@ export default {
             message: ''
         };
     },
-    computed: {
-        openWindow: function () {
-            return this.message !== '' && this.listItems.length !== 0;
-        }
-    },
     methods: {
         onPlusClick: function (item) {
             this.$emit('plus-clicked', item);
@@ -73,7 +69,11 @@ export default {
         },
         onInput: function () {
             this.$emit('on-input', this.message);
-            this.isOpen = this.openWindow;
+            this.isOpen = true;
+        },
+        onInputClick: function () {
+            this.$emit('on-input', this.message);
+            this.isOpen = !this.isOpen;
         }
     }
 };

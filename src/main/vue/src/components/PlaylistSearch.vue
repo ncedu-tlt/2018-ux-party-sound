@@ -24,8 +24,6 @@ import ListInput from './ListInput.vue';
 import TextInput from './TextInput.vue';
 import Button from './Button.vue';
 
-import { getAllGenres } from '@/api/rest/genres.api';
-
 export default {
     name: 'PlaylistSearch',
     components: {
@@ -33,45 +31,47 @@ export default {
         TextInput,
         Button
     },
-    data: function () {
-        return {
-            allGenres: [],
-            filteredGenres: [],
-            chosenGenres: [],
-            singerName: '',
-            playlistName: ''
-        };
+    computed: {
+        filteredGenres: function () {
+            return this.$store.getters.FILTERED_GENRES;
+        },
+        chosenGenres: function () {
+            return this.$store.getters.CHOSEN_GENRES;
+        },
+        playlistName: {
+            get: function () {
+                return this.$store.getters.SEARCH_PLAYLIST_NAME;
+            },
+            set: function (event) {
+                this.$store.dispatch('GET_PLAYLIST_NAME', event);
+            }
+        },
+        singerName: {
+            get: function () {
+                return this.$store.getters.SEARCH_SINGER_NAME;
+            },
+            set: function (event) {
+                this.$store.dispatch('GET_SINGER_NAME', event);
+            }
+        }
     },
     mounted() {
-        getAllGenres()
-            .then(res => {
-                this.allGenres = res.map(genre => {
-                    return genre.name;
-                });
-            });
+        if (this.$store.getters.ALL_GENRES.length === 0) {
+            this.$store.dispatch('GET_ALL_GENRES');
+        }
     },
     methods: {
         addGenre: function (genre) {
-            this.chosenGenres.push(genre);
-            this.filteredGenres.splice(this.filteredGenres.indexOf(genre), 1);
-            this.allGenres.splice(this.allGenres.indexOf(genre), 1);
+            this.$store.dispatch('ADD_GENRE', genre);
         },
         deleteGenre: function (genre) {
-            this.chosenGenres.splice(this.chosenGenres.indexOf(genre), 1);
-            this.filteredGenres.push(genre);
-            this.allGenres.push(genre);
+            this.$store.dispatch('DELETE_GENRE', genre);
         },
         getAllData: function () {
-            this.$store.dispatch('FOUND_PLAYLISTS', {
-                playlistName: this.playlistName,
-                genresArray: this.chosenGenres,
-                singer: this.singerName
-            });
+            this.$store.dispatch('FOUND_PLAYLISTS');
         },
         filterGenres: function (message) {
-            this.filteredGenres = this.allGenres.filter(genre => {
-                return ~genre.indexOf(message);
-            });
+            this.$store.dispatch('FILTER_GENRES_LIST', message);
         }
     }
 };
