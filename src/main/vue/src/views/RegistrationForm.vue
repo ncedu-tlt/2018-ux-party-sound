@@ -18,7 +18,8 @@
                 type="password"
                 class-name="input-field"
             />
-            <Button class="child" label="Зарегистрироваться" @click.native="setClientInfo" />
+            <Button class="child" label="Зарегистрироваться" @click.native="validation" />
+            <div class="response-massage"></div>
             <router-link to="/authorization">
                 <Button class="child" label="Войти" type="light" />
             </router-link>
@@ -44,14 +45,32 @@ export default {
         };
     },
     methods: {
+        validation() {
+            if (this.email.length === 0 || this.login.length === 0 || this.name.length === 0 || this.firstPassword.length === 0 || this.secondPassword.length === 0) {
+                document.getElementsByClassName('response-massage')[0].innerHTML = 'Все поля формы должны быть заполнены!';
+            } else {
+                if (this.firstPassword.length >= 8) {
+                    if (this.firstPassword !== this.secondPassword){
+                        document.getElementsByClassName('response-massage')[0].innerHTML = 'Пароли не совпадают!';
+                    } else {
+                        this.setClientInfo();
+                    }
+                } else {
+                    document.getElementsByClassName('response-massage')[0].innerHTML = 'Пароль слишкм короткий! Введите минимум 8 символов';
+                }
+            }
+        },
         async setClientInfo() {
-            const responce = await registration({
+            const response = await registration({
                 login: this.login,
                 password: this.firstPassword,
                 mail: this.email,
                 name: this.name
             });
-            console.log(responce);
+            // for (let i = 0; i < response.length; i++) {
+            //     let massage = '';
+            //
+            // }
         }
     }
 };
@@ -75,7 +94,11 @@ export default {
     .child {
         margin-bottom: 20px;
     }
-
+    .response-massage{
+        margin-bottom: 10px;
+        color: #ff8a8a;
+        font-weight: 600;
+    }
     .child:nth-child(5) {
         margin-bottom: 30px;
     }
