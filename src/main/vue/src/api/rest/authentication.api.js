@@ -9,8 +9,8 @@ export function registration(info) {
 }
 
 export function authorization(info) {
-    return client.post('/auth/login', info)
-        .then(res => (
-            res.data
-        ));
+    return client.post('/auth/login', info).then(
+        response => response.status,
+        error => error.response.status
+    );
 }
