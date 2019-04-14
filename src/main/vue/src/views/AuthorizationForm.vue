@@ -44,15 +44,10 @@ export default {
     },
     methods: {
         async setClientInfo() {
-            alert(await authorization({
-                username: this.login,
-                password: this.password
-            })
-            );
-            alert(
-                this.login +
-                this.password
-            );
+            let data = new FormData();
+            data.append('username', this.login);
+            data.append('password', this.password);
+            await authorization(data);
         }
     }
 };

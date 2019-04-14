@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ru.ncedu.partysound.repositories.UsersRepository;
@@ -41,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder()  {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -53,25 +54,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+                    .authorizeRequests()
                     .antMatchers("/api/auth/login").permitAll()
                     .antMatchers("/api/protected/* ").authenticated()
                 .and()
                     .formLogin()
                     .loginProcessingUrl("/api/auth/login")
                     .successHandler(NonRedirectingAuthenticationSuccessHandler)
-                    .failureHandler (((request, response, exception) -> response.sendError(HttpServletResponse.SC_FORBIDDEN)))
-                .and()
-                    .logout()
-                    .logoutSuccessHandler(((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)))
+                    .failureHandler((httpServletRequest, httpServletResponse, e) -> {httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);})
                 .and()
                     .exceptionHandling()
                     .authenticationEntryPoint(
-                            (request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
-                    )
+                        (request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                )
                 .and()
                     .csrf()
-//                .disable();
+    //                .disable();
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
