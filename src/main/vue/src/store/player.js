@@ -43,11 +43,11 @@ const mutations = {
         };
         state.successLoad = false;
     },
-    SET_LIST_FORM_JAMENDO: (state, { tracks1, trackId }) => {
-        state.tracks = tracks1;
-        for (let i = 0; i < tracks1.length; i++) {
-            if (tracks1[i].id === trackId) {
-                state.activeTrack = tracks1[i];
+    SET_LIST_FORM_JAMENDO: (state, { tracks, trackId }) => {
+        state.tracks = tracks;
+        for (let i = 0; i < tracks.length; i++) {
+            if (Number(tracks[i].id) === Number(trackId)) {
+                state.activeTrack = tracks[i];
                 break;
             }
         }
@@ -55,7 +55,7 @@ const mutations = {
     },
     SET_ACTIVE_TRACK_BY_ID: (state, id) => {
         for (let i = 0; i < state.tracks.length; i++) {
-            if (state.tracks[i].id === id) {
+            if (Number(state.tracks[i].id) === Number(id)) {
                 state.activeTrack = state.tracks[i];
                 break;
             }
@@ -70,7 +70,7 @@ const mutations = {
     SET_NEXT_TRACK: (state) => {
         let trackNumber = 0;
         for (let i = 0; i < state.tracks.length; i++) {
-            if (state.tracks[i].id === state.activeTrack.id) {
+            if (Number(state.tracks[i].id) === Number(state.activeTrack.id)) {
                 trackNumber = i;
                 break;
             }
@@ -84,7 +84,7 @@ const mutations = {
     SET_PREVIOUS_TRACK: (state) => {
         let trackNumber = 0;
         for (let i = 0; i < state.tracks.length; i++) {
-            if (state.tracks[i].id === state.activeTrack.id) {
+            if (Number(state.tracks[i].id) === Number(state.activeTrack.id)) {
                 trackNumber = i;
                 break;
             }
