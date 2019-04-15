@@ -1,6 +1,6 @@
 <template>
     <div class="APITest">
-        <FindTracksFromJamendo class="jamendo"/>
+        <FindTracksFromJamendo class="jamendo" />
         <div class="search_artists">
             <p>Демострация поиска исполнителей: </p>
             <input v-model="artistName" type="text" @keyup="findArtistsByName()">
@@ -176,6 +176,8 @@ export default {
         flex-direction: column;
     }
     .jamendo{
+        position: relative;
+        width: 600px;
         height:500px;
     }
 </style>

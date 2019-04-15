@@ -1,5 +1,4 @@
 <template>
-
     <main class="main-page">
         <section class="top-content">
             <section class="head">

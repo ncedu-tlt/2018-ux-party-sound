@@ -1,31 +1,32 @@
 <template>
     <section class="find">
         <form class="filters">
-            <div class="inputs">
-                <div class="box">
-                    <TextInput v-model="searchWord" class-name="search-input" placeholder="Поиск" />
-                </div>
-                <div class="box">
-                    <ListInput
-                        v-model="genreWord"
-                        placeholder="Жанры"
-                        :chosen="activeGenres"
-                        :list-items="genresByString"
-                        @plus-clicked="addGenre"
-                        @x-clicked="deleteGenre"
-                    />
-                </div>
-            </div>
-            <Button type="search-button" label="Найти" @click.native="getTracks" />
+            <TextInput v-model="searchWord" class-name="search-input" placeholder="Поиск" />
+            <ListInput
+                v-model="genreWord"
+                placeholder="Жанры"
+                :chosen="activeGenres"
+                :list-items="genresByString"
+                @plus-clicked="addGenre"
+                @x-clicked="deleteGenre"
+            />
+            <Button class="search_button" type="search-button" label="Найти" @click.native="getTracks" />
         </form>
         <div class="tracks_list">
             <TrackWithButtonSetTrack
-                v-for="track in tracksFromJamendo"
-                :id="track.id"
-                :key="track.id"
+                v-for="(track, index) in tracksFromJamendo"
+                :id="Number(track.id)"
+                :key="index"
                 :name="track.name"
                 :artist-name="track.artist_name"
                 :duration="track.duration"
+            />
+            <Button
+                v-if="tracksFromJamendo.length !== 0"
+                class="loadMore"
+                type="search-button"
+                label="Показать еще"
+                @click.native="loadMore()"
             />
         </div>
     </section>
@@ -48,7 +49,87 @@ export default {
     data: () => ({
         searchWord: '',
         genreWord: '',
-        genres: ['rock', '123', '12311'],
+        genres: [
+            'rock',
+            'punk',
+            'metal',
+            'pop',
+            'classical',
+            'gospel',
+            'folk',
+            'electronic',
+            'electrorock',
+            'disco',
+            'funk',
+            'experimental',
+            'downtempo',
+            'chillout',
+            'triphop',
+            'techno',
+            'newage',
+            'ambient',
+            'reggae',
+            'industrial',
+            'hiphop',
+            'breakbeat',
+            'dance',
+            'ska',
+            'drumnbass',
+            'rnb',
+            'jazz',
+            'nujazz',
+            'electropop',
+            'world',
+            'trance',
+            'filmscore',
+            'grunge',
+            'hardcore',
+            'chansonfrancaise',
+            'blues',
+            'house',
+            'eurodance',
+            'dub',
+            'country',
+            'postrock',
+            'jungle',
+            'soul',
+            'indie',
+            'idm',
+            'synthpop',
+            'symphonic',
+            'coldwave',
+            'newwave',
+            'celtic',
+            'ragga',
+            'rap',
+            'oriental',
+            'flamenco',
+            'latin',
+            'stoner',
+            'intro',
+            'americana',
+            'emo',
+            'salsa',
+            'progressiverock',
+            'singersongwriter',
+            'electronik',
+            'lofi',
+            'gothic',
+            'darkambient',
+            'drone',
+            'metalcore',
+            'samba',
+            'acidjazz',
+            'glitch',
+            'classicrock',
+            'opera',
+            'tribal',
+            'poprock',
+            'garage',
+            'cabaret',
+            'bluesrock',
+            'bossanova',
+            'asian'],
         activeGenres: []
     }),
     computed: {
@@ -71,7 +152,7 @@ export default {
         async getTracks() {
             this.$store.dispatch('GET_TRACKS_FROM_JAMENDO', {
                 nameSearch: this.searchWord,
-                limit: 10,
+                limit: 30,
                 tags: this.activeGenres
             });
         },
@@ -90,28 +171,63 @@ export default {
                 }
             }
             this.genres.push(genreForDel);
+        },
+        async loadMore() {
+            this.$store.dispatch('GET_NEXT_TRACKS_FROM_JAMENDO', {
+                nameSearch: this.searchWord,
+                limit: 30,
+                tags: this.activeGenres,
+                offset: this.tracksFromJamendo.length
+            });
         }
     }
 };
 </script>
 
 <style scoped lang="scss">
+
+    $scrollbarTrackColor: #dae1e8;
+    $scrollbarThumbColor: #bec8d3;
+    $scrollbarThumbHoverColor:#0C0094;
+    ::-webkit-scrollbar{
+        &-button {
+            height: 0;
+            width: 0;
+        }
+        &-track {
+            border-radius: 5px;
+            background-color: $scrollbarTrackColor;
+        }
+        &-thumb {
+            border-radius: 5px;
+            background-color:$scrollbarThumbColor;
+        }
+        &-thumb:hover{
+            background-color: $scrollbarThumbHoverColor;
+        }
+        width: 7px;
+    }
     .find{
         display: grid;
-        grid-template-rows: 200px 1fr;
+        grid-template-rows: 150px 1fr;
+        grid-gap: 5px;
         .filters {
-            width: 500px;
-            .inputs {
-                display: flex;
-                .box {
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: flex-end;
-                }
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            :first-child{
+                grid-column: 1 / 3;
+                grid-row: 1;
+            }
+            .search_button{
+                margin: auto auto 0 auto;
             }
         }
         .tracks_list{
             overflow-y: auto;
+            text-align: center;
+            .loadMore {
+                margin: 5px 0;
+            }
         }
     }
 </style>

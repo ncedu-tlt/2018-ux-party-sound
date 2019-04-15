@@ -25,7 +25,6 @@
             </router-link>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -72,7 +71,6 @@ export default {
         align-items: center;
         justify-content: center;
     }
-
 
     .field:nth-child(1) {
         margin-bottom: 20px

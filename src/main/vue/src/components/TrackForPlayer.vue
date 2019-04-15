@@ -1,6 +1,6 @@
 <template>
-    <div class="track center" @click="playOrStopTrack">
-        <div v-if="id === activeTrack.id && playing">
+    <div class="track center">
+        <div v-if="id === Number(activeTrack.id) && playing">
             <svg class="player_button">
                 <polygon points="10,8 10,21 14,21 14,8" fill="#0C0094" />
                 <polygon points="16,8 16,21 20,21 20,8" fill="#0C0094" />
@@ -11,17 +11,17 @@
                 <polygon points="10,8 10,21 24,15" fill="#0C0094" />
             </svg>
         </div>
-        <div class="text artist_name">
+        <span class="text artist_name">
             {{ artistName }}
-        </div>
-        <div class="text track_name">
+        </span>
+        <span class="text track_name">
             {{ trackName }}
-        </div>
-        <div v-if="id === activeTrack.id" class="text duration">
+        </span>
+        <div v-if="id === Number(activeTrack.id)" class="text duration">
             {{ currentTime }}
         </div>
         <div v-else class="text duration">
-            {{ parseInt(duration / 60) + ':' }}{{ 10 >= duration % 60 ? '0' : '' }}{{ duration % 60 }}
+            {{ parseInt(duration / 60) + ':' }}{{ 10 > duration % 60 ? '0' : '' }}{{ duration % 60 }}
         </div>
     </div>
 </template>
@@ -30,8 +30,8 @@ export default {
     name: 'TrackForPlayer',
     props: {
         id: {
-            type: String,
-            default: ''
+            type: Number,
+            default: 0
         },
         artistName: {
             type: String,
@@ -58,15 +58,6 @@ export default {
         },
         playing() {
             return this.$store.getters.IS_PLAYING;
-        }
-    },
-    methods: {
-        playOrStopTrack() {
-            if (this.id === this.activeTrack.id) {
-                this.$store.commit('SET_PLAYING', !this.playing);
-            } else {
-                this.$store.commit('SET_ACTIVE_TRACK_BY_ID', this.id);
-            }
         }
     }
 };
@@ -105,7 +96,7 @@ export default {
         position: relative;
         height: 50px;
         display: grid;
-        grid-template-columns: 40px 1fr 1.5fr 60px;
+        grid-template-columns: 40px 1fr 1.5fr 70px;
 
         &::before,
         &::after {
@@ -124,8 +115,9 @@ export default {
         }
 
         .text {
-            display: flex;
-            align-items: center;
+            margin: auto 0 auto 10px;
+            height: 20px;
+            overflow: hidden;
         }
     }
 </style>
