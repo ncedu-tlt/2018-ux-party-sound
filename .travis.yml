@@ -1,3 +1,11 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
+
+notifications:
+  slack:
+    rooms:
+      - secure: "kCcb4lLcMSTQRsWzcrKpswTFZIfrMOPZcim7PIa/dO59v8fDE6WSUD3r3QngxdKfTCcBv83xG+jxyze7WBbRk3PBDNnf0ltL/W6ArnEQGc0f1cj/OQbgkP7Z5SsFLLzAh8dpZ7VCj9dPSn4UlxaUeTbPAjl5XdasUCftOFjU9lfS31aqvgVsnOlMY9e/IiYMYivQOlHvhb1zWxw7Zms2kapw0WfjR4PZSQ8Kl0eRlvSQIacu6dY0BciwyzGogE2nSufV/4hloHO1s2VEP+4I7lFmx+sK/rqHgtLzrmTL7pfP4VKCu562N9bTAMFljqFipRhJZF103gGNy66rLdzMAeBd/c1o+67+I75P3stHeGCBtMuSZer6M/7tW1RIma71rftGM5qWzARKkOT0HrO71EtFU5MtyZS+Ikv3pOCVLyvyN7YcXoSH3OhH7WfsUBwXs4RC5bconmK7+yyx1CsBeyy08wMEVituM8NB0LG3ssScBUuq3ZPsQEtDhgIwiKLpfVHpC6GW2RzkfA2IWPbo9eWxDLPKzTSwmiOpHOLk+jHE1D890a9NIBQ5aDSmyfeXQYXNy61c5n4J5Sby+eQCwpGCAxiI1LJH0TLjvmx6o2ruCDUB6gukx8sr90mUKKFDG/+WYJhNFhekHZ6TeZAp2WAZ4INROgl4Dl+hdhNUMGA="
+    on_success: change
+    on_failure: always
+    on_pull_requests: true
