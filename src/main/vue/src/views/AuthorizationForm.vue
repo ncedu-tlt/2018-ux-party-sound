@@ -1,15 +1,31 @@
 <template>
-    <div class="content">
-        <div class="container">
-            <TextInput v-model="login" class="field" placeholder="E-mail или логин" type="text" />
-            <TextInput v-model="password" class="field" placeholder="Пароль" type="password" />
-            <Button class="forget-password" label="Забыли пароль?" type="light" />
+    <div class="authorization">
+        <div class="content">
+            <TextInput
+                v-model="login"
+                class="field"
+                placeholder="E-mail или логин"
+                type="text"
+                class-name="input-field"
+            />
+            <TextInput
+                v-model="password"
+                class="field"
+                placeholder="Пароль"
+                type="password"
+                class-name="input-field"
+            />
+            <div class="forget-password-container">
+                <Button label="Забыли пароль?" type="light" />
+            </div>
+
             <Button class="entry" label="Вход" @click.native="setClientInfo" />
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -43,20 +59,20 @@ export default {
 </script>
 
 <style scoped>
-    .content {
+    .authorization {
         width: 100%;
-        height: 100vh;
-        background: slateblue; /*временно, пока нет фоновой картинки*/
+        height: 89vh;
         display: flex;
+        justify-content: center;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 
     .field:nth-child(1) {
         margin-bottom: 20px
@@ -66,10 +82,10 @@ export default {
         margin-bottom: 10px
     }
 
-    .forget-password {
+    .forget-password-container {
         width: 100%;
-
-        text-align: end;
+        display: flex;
+        justify-content: flex-end;
     }
 
     .entry {

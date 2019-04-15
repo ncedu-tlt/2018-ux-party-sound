@@ -1,11 +1,23 @@
 <template>
     <div class="content">
         <div class="container">
-            <TextInput v-model="email" class="child" placeholder="E-mail" />
-            <TextInput v-model="login" class="child" placeholder="Логин" />
-            <TextInput v-model="name" class="child" placeholder="Имя" />
-            <TextInput v-model="firstPassword" class="child" placeholder="Пароль" type="password" />
-            <TextInput v-model="secondPassword" class="child" placeholder="Введите пароль еще раз" type="password" />
+            <TextInput v-model="email" class="child" placeholder="E-mail" class-name="input-field" />
+            <TextInput v-model="login" class="child" placeholder="Логин" class-name="input-field" />
+            <TextInput v-model="name" class="child" placeholder="Имя" class-name="input-field" />
+            <TextInput
+                v-model="firstPassword"
+                class="child"
+                placeholder="Пароль"
+                type="password"
+                class-name="input-field"
+            />
+            <TextInput
+                v-model="secondPassword"
+                class="child"
+                placeholder="Введите пароль еще раз"
+                type="password"
+                class-name="input-field"
+            />
             <Button class="child" label="Зарегистрироваться" @click.native="setClientInfo" />
             <router-link to="/authorization">
                 <Button class="child" label="Войти" type="light" />
@@ -47,9 +59,8 @@ export default {
 
 <style scoped>
     .content {
-        height: 100vh;
+        height: 89vh;
         width: 100%;
-        background: slateblue; /*временно, пока нет фоновой картинки*/
         display: flex;
         align-items: center;
         justify-content: center;

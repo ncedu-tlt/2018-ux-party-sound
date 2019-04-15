@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.ncedu.partysound.converters.PlaylistsMapper;
 import ru.ncedu.partysound.converters.TracksMapper;
+import ru.ncedu.partysound.enums.UserRoles;
 import ru.ncedu.partysound.models.domain.PlaylistTrackDAO;
 import ru.ncedu.partysound.models.domain.PlaylistsDAO;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
@@ -16,6 +17,7 @@ import ru.ncedu.partysound.models.dto.TracksDTO;
 import ru.ncedu.partysound.repositories.PlaylistsRepository;
 import ru.ncedu.partysound.services.PlaylistsService;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,5 +51,20 @@ public class PlaylistsServiceImpl implements PlaylistsService {
         PlaylistsWithTracksDTO playlistsWithTracksDTO = playlistsMapper.toPlaylistWithTracksDTO(playlistDAO);
         playlistsWithTracksDTO.setTracks(tracksDTOS);
         return playlistsWithTracksDTO;
+    }
+
+    @Override
+    public List<PlaylistsDTO> getTopPlaylists() {
+        List<BigInteger> topPlaylistsId = playlistsRepository.getTopPlaylistsId();
+        List<PlaylistsDAO> topPlaylists = getPlaylistsDAOS(topPlaylistsId);
+        return playlistsMapper.toPlaylistDTOs(topPlaylists);
+    }
+
+    private List<PlaylistsDAO> getPlaylistsDAOS(List<BigInteger> topPlaylistsId) {
+        List<PlaylistsDAO> playlistsDAOS = new ArrayList<>();
+        for(BigInteger id:topPlaylistsId){
+            playlistsDAOS.add(playlistsRepository.findById(id.longValue()));
+        }
+        return playlistsDAOS;
     }
 }
