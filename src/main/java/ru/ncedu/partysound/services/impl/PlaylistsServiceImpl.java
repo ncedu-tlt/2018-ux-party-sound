@@ -46,7 +46,7 @@ public class PlaylistsServiceImpl implements PlaylistsService {
         PlaylistsDAO playlistDAO = playlistsRepository.findById(playlistId);
         List<PlaylistTrackDAO> playlistTrackDAOS = playlistDAO.getTracks();
         List<TracksDTO> tracksDTOS = new ArrayList<>();
-        for(PlaylistTrackDAO track:playlistTrackDAOS){
+        for (PlaylistTrackDAO track : playlistTrackDAOS) {
             tracksDTOS.add(tracksMapper.toTracksDTO(track));
         }
         PlaylistsWithTracksDTO playlistsWithTracksDTO = playlistsMapper.toPlaylistWithTracksDTO(playlistDAO);
@@ -63,7 +63,7 @@ public class PlaylistsServiceImpl implements PlaylistsService {
 
     private List<PlaylistsDAO> getPlaylistsDAOS(List<BigInteger> topPlaylistsId) {
         List<PlaylistsDAO> playlistsDAOS = new ArrayList<>();
-        for(BigInteger id:topPlaylistsId){
+        for (BigInteger id : topPlaylistsId) {
             playlistsDAOS.add(playlistsRepository.findById(id.longValue()));
         }
         return playlistsDAOS;
@@ -71,8 +71,27 @@ public class PlaylistsServiceImpl implements PlaylistsService {
 
     @Override
     public List<PlaylistsDTO> getPlaylistsBySearchParams(int pageNumber, int pageSize, String playlistName, String[] genresArray, String singer) {
+
         Pageable playlistsPage = PageRequest.of(pageNumber, pageSize);
-        Page<PlaylistsDAO> playlistsDAOPage = playlistsRepository.findAllByNameAndAndGenresAndSingers(playlistName, genresArray, singer, playlistsPage);
+        Page<PlaylistsDAO> playlistsDAOPage;
+
+        boolean isPlaylistNameEmpty = playlistName.equals("");
+        boolean isGenresArrayEmpty = genresArray[0].equals("empty");
+        boolean isSingerEmpty = singer.equals("");
+
+        if (!isGenresArrayEmpty) {
+            playlistsDAOPage = playlistsRepository.findAllByNameAndAndGenresAndSingers(playlistName, genresArray, singer, playlistsPage);
+        } else {
+            if (!isSingerEmpty) {
+                playlistsDAOPage = playlistsRepository.findAllByNameAndSinger(playlistName, singer, playlistsPage);
+            } else {
+                if (!isPlaylistNameEmpty) {
+                    playlistsDAOPage = playlistsRepository.findAllByNameContainsAndPrivateAccessFalse(playlistName, playlistsPage);
+                } else {
+                    playlistsDAOPage = playlistsRepository.findAllByPrivateAccessFalse(playlistsPage);
+                }
+            }
+        }
         return playlistsMapper.toPlaylistDTOs(playlistsDAOPage.getContent());
     }
 }

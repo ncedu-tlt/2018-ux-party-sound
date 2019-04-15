@@ -4,10 +4,7 @@ const state = {
     isLoading: false,
     playlists: [],
     error: null,
-    numberPagePlaylists: 0,
-    playlistName: '',
-    genresArray: [],
-    singer: ''
+    numberPagePlaylists: 0
 };
 
 const getters = {
@@ -41,6 +38,9 @@ const mutations = {
     },
     CHANGE_PAGE_NUMBER: state => {
         state.numberPagePlaylists++;
+    },
+    ZEROIZE_PAGE_NUMBER: state => {
+        state.numberPagePlaylists = 0;
     }
 };
 
@@ -56,8 +56,9 @@ const actions = {
             });
     },
     FOUND_PLAYLISTS: context => {
+        context.commit('ZEROIZE_PAGE_NUMBER');
         context.commit('START_PLAYLIST_LOADING');
-        getPlaylistsBySearchParams(context.state.playlistName, context.state.genresArray, context.state.singer, context.state.numberPagePlaylists)
+        getPlaylistsBySearchParams(context.rootState.sortComponent.playlistName, context.rootState.sortComponent.chosenGenres, context.rootState.sortComponent.singerName, context.state.numberPagePlaylists)
             .then(res => {
                 context.commit('PLAYLIST_LOADING_SUCCESS', res);
             })
@@ -67,9 +68,9 @@ const actions = {
     },
     GET_NEW_PAGE: context => {
         context.commit('START_PLAYLIST_LOADING');
-        getPlaylistsBySearchParams(context.state.playlistName, context.state.genresArray, context.state.singer, context.state.numberPagePlaylists++)
+        context.commit('CHANGE_PAGE_NUMBER');
+        getPlaylistsBySearchParams(context.rootState.sortComponent.playlistName, context.rootState.sortComponent.chosenGenres, context.rootState.sortComponent.singerName, context.state.numberPagePlaylists)
             .then(res => {
-                context.commit('CHANGE_PAGE_NUMBER');
                 context.commit('PAGE_LOADING_SUCCESS', res);
             })
             .catch(e => {
