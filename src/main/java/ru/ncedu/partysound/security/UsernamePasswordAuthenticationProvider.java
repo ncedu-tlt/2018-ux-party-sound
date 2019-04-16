@@ -33,8 +33,8 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         String username = auth.getName();
         String password = auth.getCredentials()
                 .toString();
-        UsersDAO usersDAO;
-        if((usersDAO = userRepository.findByLogin(username)) != null && passwordEncoder.matches(password,userRepository.findByLogin(username).getPassword())) {
+        UsersDAO usersDAO = userRepository.findByLogin(username);
+        if(usersDAO != null && passwordEncoder.matches(password,usersDAO.getPassword())) {
             Object principal = new UserPrincipal(usersDAO.getLogin());
             return new UsernamePasswordAuthenticationToken(principal, password, AuthorityUtils.createAuthorityList("ROLE_USER"));
         } else {
