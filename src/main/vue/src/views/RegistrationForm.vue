@@ -19,7 +19,8 @@
                 class-name="input-field"
             />
             <Button class="child" label="Зарегистрироваться" @click.native="validation" />
-            <div class="response-massage"></div>
+            <div class="response-message error-js"/>
+            <div class="success-response" :class="{'is-visible' : isSuccessfully===true}">Вы успешно зарегистрировались!</div>
             <router-link to="/authorization">
                 <Button class="child" label="Войти" type="light" />
             </router-link>
@@ -30,7 +31,7 @@
 <script>
 import TextInput from '../components/TextInput';
 import Button from '../components/Button';
-import { registration } from '../api/rest/authentication.api';
+import {registration} from '../api/rest/authentication.api';
 
 export default {
     name: 'RegistrationForm',
@@ -41,22 +42,26 @@ export default {
             login: '',
             name: '',
             firstPassword: '',
-            secondPassword: ''
+            secondPassword: '',
+            isSuccessfully: false
         };
     },
     methods: {
         validation() {
             if (this.email.length === 0 || this.login.length === 0 || this.name.length === 0 || this.firstPassword.length === 0 || this.secondPassword.length === 0) {
-                document.getElementsByClassName('response-massage')[0].innerHTML = 'Все поля формы должны быть заполнены!';
+                document.getElementsByClassName('error-js')[0].innerHTML = 'Все поля формы должны быть заполнены!';
+                this.isSuccessfully = true;
             } else {
                 if (this.firstPassword.length >= 8) {
                     if (this.firstPassword !== this.secondPassword){
-                        document.getElementsByClassName('response-massage')[0].innerHTML = 'Пароли не совпадают!';
+                        document.getElementsByClassName('error-js')[0].innerHTML = 'Пароли не совпадают!';
+                        this.isSuccessfully = true;
                     } else {
                         this.setClientInfo();
                     }
                 } else {
-                    document.getElementsByClassName('response-massage')[0].innerHTML = 'Пароль слишкм короткий! Введите минимум 8 символов';
+                    document.getElementsByClassName('error-js')[0].innerHTML = 'Пароль слишкм короткий! Введите минимум 8 символов';
+                    this.isSuccessfully = true;
                 }
             }
         },
@@ -67,16 +72,31 @@ export default {
                 mail: this.email,
                 name: this.name
             });
-            // for (let i = 0; i < response.length; i++) {
-            //     let massage = '';
-            //
-            // }
+            let wordForMessage = {
+                mail: 'E-mail',
+                password: 'Пароль ',
+                login: 'Логин',
+                Size: ' должен быть от 8 до 32 символов',
+                Duplicate: ' уже занят',
+                Invalid: ' не корректный'
+            };
+            let message = '';
+            for (let i = 0; i < response.length; i++) {
+                message = message + ' ' + wordForMessage[response[i].field] + wordForMessage[response[i].code];
+                document.getElementsByClassName('error-js')[0].innerHTML = message;
+            }
+            if (response.length === 0) {
+                this.isSuccessfully = true;
+                document.getElementsByClassName('error-js')[0].innerHTML = '';
+            } else {
+                this.isSuccessfully = false;
+            }
         }
     }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .content {
         height: 89vh;
         width: 100%;
@@ -94,10 +114,22 @@ export default {
     .child {
         margin-bottom: 20px;
     }
-    .response-massage{
+    .response-message{
         margin-bottom: 10px;
         color: #ff8a8a;
         font-weight: 600;
+    }
+    .success-response{
+        display: none;
+        margin-bottom: 10px;
+        color: white;
+        background: #31ad54;
+        border-radius: 10px;
+        padding: 20px;
+        font-weight: 600;
+        &.is-visible{
+            display: flex;
+        }
     }
     .child:nth-child(5) {
         margin-bottom: 30px;

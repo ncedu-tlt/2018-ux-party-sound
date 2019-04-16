@@ -20,7 +20,7 @@
             </div>
 
             <Button class="entry" label="Вход" @click.native="validation" />
-            <div class="error-massage"/>
+            <div class="error-message"/>
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>
@@ -46,7 +46,7 @@ export default {
     methods: {
         validation() {
             if (this.login.length === 0 || this.password.length === 0) {
-                document.getElementsByClassName('error-massage')[0].innerHTML = 'Все поля должны быть заполнены!';
+                document.getElementsByClassName('error-message')[0].innerHTML = 'Все поля должны быть заполнены!';
             } else {
                 this.setClientInfo();
             }
@@ -57,7 +57,7 @@ export default {
             data.append('password', this.password);
             let response = await authorization(data);
             if (response === 401) {
-                document.getElementsByClassName('error-massage')[0].innerHTML = 'Пользователь, с введенными данными, не найден';
+                document.getElementsByClassName('error-message')[0].innerHTML = 'Пользователь, с введенными данными, не найден';
             }
         }
     }
@@ -93,7 +93,7 @@ export default {
                 margin-top: 20px;
             }
 
-            .error-massage{
+            .error-message{
                 max-width: 322px;
                 text-align: center;
                 margin-top: 10px;
