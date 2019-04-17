@@ -2,6 +2,9 @@
   "name": "party-sound",
   "description": "A collaborative audio player",
   "env": {
+    "JAMENDO_CLIENT_ID": {
+      "required": true 
+    }
   },
   "buildpacks": [
     {
