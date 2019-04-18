@@ -2,8 +2,8 @@
     <svg width="50" height="55" @click="onPlaylistClick(playlistId)">
         <linearGradient :id="linearGradientId">
             <stop
-                v-for="fill in makeColorsArray"
-                :key="fill.color"
+                v-for="(fill, index) in makeColorsArray"
+                :key="index"
                 :offset="fill.offset"
                 :stop-color="fill.color"
             />
@@ -40,11 +40,11 @@ export default {
         makeColorsArray: function () {
             let existingGenresColors = genresColors.filter(genreColor => {
                 return this.genres.some(genre => {
-                    return genreColor.genre === genre;
+                    return genreColor.genre === genre.name;
                 });
             });
 
-            const RANGE = 100 / (existingGenresColors.length - 1);
+            const RANGE = existingGenresColors.length === 1 ? 100 : 100 / (existingGenresColors.length - 1);
             let offset = -1 * RANGE;
 
             if (existingGenresColors.length === 0) {

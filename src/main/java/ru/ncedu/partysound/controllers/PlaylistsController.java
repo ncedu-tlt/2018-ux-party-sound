@@ -2,7 +2,6 @@ package ru.ncedu.partysound.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
@@ -14,7 +13,7 @@ import java.util.List;
 public class PlaylistsController {
     @Autowired
     private final PlaylistsService playlistsService;
-    
+
     public PlaylistsController(PlaylistsService playlistsService) {
         this.playlistsService = playlistsService;
     }
@@ -26,7 +25,16 @@ public class PlaylistsController {
     }
 
     @GetMapping(value = "/api/topPlaylists")
-    public List<PlaylistsDTO> getTopPlaylists(){
+    public List<PlaylistsDTO> getTopPlaylists() {
         return playlistsService.getTopPlaylists();
+    }
+
+    @GetMapping("/api/filter")
+    public List<PlaylistsDTO> getPlaylists(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
+                                           @RequestParam(value = "pageSize", defaultValue = "15") int pageSize,
+                                           @RequestParam(value = "playlistName", defaultValue = "") String playlistName,
+                                           @RequestParam(value = "genresArray", defaultValue = "empty") String[] genresArray,
+                                           @RequestParam(value = "singer", defaultValue = "") String singer) {
+        return playlistsService.getPlaylistsBySearchParams(pageNumber, pageSize, playlistName, genresArray, singer);
     }
 }
