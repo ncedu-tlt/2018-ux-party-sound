@@ -31,7 +31,7 @@
 <script>
 import TextInput from '../components/TextInput';
 import Button from '../components/Button';
-import {registration} from '../api/rest/authentication.api';
+import { registration } from '../api/rest/authentication.api';
 
 export default {
     name: 'RegistrationForm',
@@ -50,18 +50,18 @@ export default {
         validation() {
             if (this.email.length === 0 || this.login.length === 0 || this.name.length === 0 || this.firstPassword.length === 0 || this.secondPassword.length === 0) {
                 document.getElementsByClassName('error-js')[0].innerHTML = 'Все поля формы должны быть заполнены!';
-                this.isSuccessfully = true;
+                this.isSuccessfully = false;
             } else {
                 if (this.firstPassword.length >= 8) {
                     if (this.firstPassword !== this.secondPassword){
                         document.getElementsByClassName('error-js')[0].innerHTML = 'Пароли не совпадают!';
-                        this.isSuccessfully = true;
+                        this.isSuccessfully = false;
                     } else {
                         this.setClientInfo();
                     }
                 } else {
                     document.getElementsByClassName('error-js')[0].innerHTML = 'Пароль слишкм короткий! Введите минимум 8 символов';
-                    this.isSuccessfully = true;
+                    this.isSuccessfully = false;
                 }
             }
         },
