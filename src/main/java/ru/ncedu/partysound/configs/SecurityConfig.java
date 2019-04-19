@@ -27,9 +27,6 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private CustomAuthenticationEntryPoint entryPoint;
-
     @Autowired
     DataSource dataSource;
 
@@ -69,7 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .and()
                     .csrf()
-    //                .disable();
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
