@@ -40,7 +40,7 @@ export default {
     data() {
         return {
             login: '',
-            password: '',
+            password: ''
         };
     },
     methods: {
