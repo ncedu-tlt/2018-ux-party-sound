@@ -20,13 +20,12 @@
             </div>
 
             <Button class="entry" label="Вход" @click.native="validation" />
-            <div class="error-message"/>
+            <div class="error-message" />
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>
         </div>
     </div>
-
 </template>
 
 <script>

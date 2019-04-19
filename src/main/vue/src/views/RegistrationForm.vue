@@ -19,8 +19,10 @@
                 class-name="input-field"
             />
             <Button class="child" label="Зарегистрироваться" @click.native="validation" />
-            <div class="response-message error-js"/>
-            <div class="success-response" :class="{'is-visible' : isSuccessfully===true}">Вы успешно зарегистрировались!</div>
+            <div class="response-message error-js" />
+            <div class="success-response" :class="{'is-visible' : isSuccessfully===true}">
+                Вы успешно зарегистрировались!
+            </div>
             <router-link to="/authorization">
                 <Button class="child" label="Войти" type="light" />
             </router-link>
@@ -53,7 +55,7 @@ export default {
                 this.isSuccessfully = false;
             } else {
                 if (this.firstPassword.length >= 8) {
-                    if (this.firstPassword !== this.secondPassword){
+                    if (this.firstPassword !== this.secondPassword) {
                         document.getElementsByClassName('error-js')[0].innerHTML = 'Пароли не совпадают!';
                         this.isSuccessfully = false;
                     } else {

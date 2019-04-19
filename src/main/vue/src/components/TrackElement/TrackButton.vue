@@ -2,16 +2,18 @@
     <div class="track-button" @click="playOrStopTrack">
         <div v-if="index === activeTrackNumber && playing">
             <svg width="27" height="30">
-                <rect height="30" width="7" x="2"/>
-                <rect height="30" width="7" x="13"/>
+                <rect height="30" width="7" x="2" />
+                <rect height="30" width="7" x="13" />
             </svg>
         </div>
         <div v-else class="stop">
             <svg width="27" height="30">
-                <polygon points="0,0 0,30 27,15"/>
+                <polygon points="0,0 0,30 27,15" />
             </svg>
         </div>
-        <div class="track-name">{{trackName}}</div>
+        <div class="track-name">
+            {{ trackName }}
+        </div>
     </div>
 </template>
 
