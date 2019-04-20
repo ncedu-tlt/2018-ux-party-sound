@@ -2,7 +2,7 @@
     <div class="container playlist-page">
         <div class="playlist-page">
             <h1><span>Плейлист</span> {{ playlist.name }}</h1>
-            <div v-for="(track, index) in playlist.tracks">
+            <div v-for="(track, index) in playlist.tracks" :key="index">
                 <PlaylistTrack :track-name="track.name" :index="index" />
             </div>
         </div>

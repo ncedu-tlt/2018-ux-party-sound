@@ -12,8 +12,8 @@ export function registration(info) {
 export function authorization(info) {
     return client.post('/auth/login', info).then(
         response => {
-            response.status;
             router.push('/');
+            return response.status;
         },
         error => error.response.status
     );
