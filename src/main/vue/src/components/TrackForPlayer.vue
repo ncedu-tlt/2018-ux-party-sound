@@ -1,26 +1,26 @@
 <template>
-    <div class="track center">
-        <div v-if="id === Number(activeTrack.id) && playing">
+    <div class="track">
+        <div v-if="id === Number(activeTrack.id) && playing" class="player_button_box">
             <svg class="player_button">
                 <polygon points="10,8 10,21 14,21 14,8" fill="#0C0094" />
                 <polygon points="16,8 16,21 20,21 20,8" fill="#0C0094" />
             </svg>
         </div>
-        <div v-else class="stop">
+        <div v-else class="player_button_box">
             <svg class="player_button">
                 <polygon points="10,8 10,21 24,15" fill="#0C0094" />
             </svg>
         </div>
-        <span class="text artist_name">
-            {{ artistName }}
-        </span>
-        <span class="text track_name">
-            {{ trackName }}
-        </span>
+        <div class="text artist_name">
+            <span>{{ artistName }}</span>
+        </div>
+        <div class="text track_name">
+            <span>{{ trackName }}</span>
+        </div>
         <div v-if="id === Number(activeTrack.id)" class="text duration">
             {{ currentTime }}
         </div>
-        <div v-else class="text duration">
+        <div v-else class="text">
             {{ parseInt(duration / 60) + ':' }}{{ 10 > duration % 60 ? '0' : '' }}{{ duration % 60 }}
         </div>
     </div>
@@ -65,8 +65,10 @@ export default {
 <style scoped lang="scss">
     $mainColor: #0C0094;
     $whiteColor: #fff;
-
-    .center {
+    .track:hover{
+        cursor: pointer;
+    }
+    .track {
         &::before {
             border-radius: 5px;
             border-top: 2px solid $mainColor;
@@ -86,17 +88,13 @@ export default {
             transform: scale3d(1,1,1);
             transition: transform 0.5s;
         }
-    }
-    .track:hover{
-        cursor: pointer;
-    }
-    .track {
+
         margin-right: 5px;
         box-sizing: border-box;
         position: relative;
         height: 50px;
         display: grid;
-        grid-template-columns: 40px 1fr 1.5fr 70px;
+        grid-template-columns: 40px calc((100%)/5*2 - 44px) calc((100%)/5*3 - 66px) 70px;
 
         &::before,
         &::after {
@@ -114,8 +112,14 @@ export default {
             height: 25px;
         }
 
+        .player_button_box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .text {
-            margin: auto 0 auto 10px;
+            text-indent: 15px;
+            margin: auto 0;
             height: 20px;
             overflow: hidden;
         }
