@@ -1,7 +1,6 @@
 <template>
     <div class="playlist-track">
-        <TrackButton :track-name="trackName" :index="index"/>
-        <img class="delete-track" src="../../assets/delete.png">
+        <TrackButton :track-name="trackName" :index="index" />
     </div>
 </template>
 <script>

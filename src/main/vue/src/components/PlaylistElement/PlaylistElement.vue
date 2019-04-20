@@ -1,16 +1,14 @@
 <template>
     <div class="playlist-element">
-        <router-link :to="{ path: 'playlist/'+playlistId }">
-            <TriangleButton :playlist-id="playlistId" :color="color" @on-playlist-clicked="parentMethod" />
-        </router-link>
-        <div class="playlist-element__info">
+        <TriangleButton :playlist-id="playlistId" :color="color" @on-playlist-clicked="parentMethod" />
+        <router-link :to="{ path: 'playlist/'+playlistId }" class="playlist-element__info">
             <h4>{{ playlistName }}</h4>
             <div v-if="showGenres" class="genres-list">
                 <span v-for="(genre, index) in genres" :key="index">
                     {{ genre.name }}
                 </span>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 
@@ -63,6 +61,8 @@ export default {
         align-items: center;
 
         &__info {
+            text-decoration: none;
+            color: #000;
             margin-left: 20px;
             h4 {
                 margin: 0;
@@ -77,7 +77,6 @@ export default {
                 overflow-y: hidden;
                 display: flex;
                 flex-wrap: wrap;
-
                 span{
                     margin-right: 8px;
                     font-size: 14px;

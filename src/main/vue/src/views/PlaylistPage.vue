@@ -23,7 +23,6 @@ export default {
     },
     async created() {
         this.playlist = await this.getTracks();
-        this.$store.commit('SET_ACTIVE_PLAYLIST', this.playlist);
     },
     methods: {
         async getTracks() {
