@@ -2,9 +2,6 @@
     <main>
         <header>
             <div class="content container">
-                <router-link to="/">
-                    <h1>Party <b>Sound</b></h1>
-                </router-link>
                 <div class="right-menu">
                     <router-link to="/authorization">
                         <Button label="Вход" type="light" />
@@ -63,6 +60,7 @@ export default {
         align-items: center;
         justify-content: space-between;
         width: 170px;
+        margin-left: auto;
     }
 
 </style>

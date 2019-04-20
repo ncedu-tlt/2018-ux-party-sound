@@ -89,11 +89,11 @@ export default {
         font-size: 16px;
         color: #FFFFFF;
         border-radius: 6px;
+        transition: 300ms;
     }
 
     .search-button:hover {
-        transition: 400ms;
-        transform: scale(1.03);
-        background: #0B0088;
+        transition: 300ms;
+        opacity: 0.8;
     }
 </style>
