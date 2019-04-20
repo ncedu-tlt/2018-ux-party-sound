@@ -5,6 +5,7 @@
             :artist-name="artistName"
             :track-name="name"
             :duration="duration"
+            class="track"
             @click.native="playOrStopTrack"
         />
         <button class="plus" @click="addTrackInPlaylist">
@@ -69,7 +70,7 @@ export default {
 
     .track_with_plus{
         display: grid;
-        grid-template-columns: 1fr 40px;
+        grid-template-columns: calc(100% - 40px) 40px;
         .plus {
             width: 100%;
             height: 100%;

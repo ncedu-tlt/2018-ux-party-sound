@@ -1,6 +1,6 @@
 <template>
     <section class="find">
-        <form class="filters">
+        <form class="filters" @keypress.enter="getTracks">
             <TextInput v-model="searchWord" class-name="search-input" placeholder="Поиск" />
             <ListInput
                 v-model="genreWord"
@@ -211,6 +211,7 @@ export default {
         display: grid;
         grid-template-rows: 150px 1fr;
         grid-gap: 5px;
+        position: relative;
         .filters {
             display: grid;
             grid-template-columns: 1fr 1fr;
