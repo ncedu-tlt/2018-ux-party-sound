@@ -4,7 +4,7 @@
         <router-link :to="{ path: 'playlist/'+playlistId }" class="playlist-element__info">
             <h4>{{ playlistName }}</h4>
             <div v-if="showGenres" class="genres-list">
-                <span v-for="(genre, index) in genres" :key="index">
+                <span v-for="(genre, index) in genreColor" :key="index" :style="{backgroundColor: genre.color.color}">
                     {{ genre.name }}
                 </span>
             </div>
@@ -14,6 +14,7 @@
 
 <script>
 import TriangleButton from './TriangleButton';
+import genresColors from '@/constants/genresColors';
 
 export default {
     name: 'PlaylistElement',
@@ -42,6 +43,16 @@ export default {
         showGenres: {
             type: Boolean,
             default: true
+        }
+    },
+    computed: {
+        genreColor: function () {
+            return this.genres.map(genre => {
+                return { name: genre.name,
+                    color: genresColors.filter(color => {
+                        return genre.name === color.genre;
+                    })[0] };
+            });
         }
     },
     methods: {
@@ -76,12 +87,18 @@ export default {
 
             .genres-list {
                 max-width: 230px;
-                max-height: 35px;
+                max-height: 46px;
                 overflow-y: hidden;
                 display: flex;
                 flex-wrap: wrap;
                 span{
+                    background-color: #008800;
+                    padding: 1px 5px;
+                    border-radius: 8px;
+                    color: white;
+                    font-weight: lighter;
                     margin-right: 8px;
+                    margin-bottom: 5px;
                     font-size: 14px;
                 }
             }

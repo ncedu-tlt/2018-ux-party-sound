@@ -14,26 +14,18 @@
             y="8"
             width="10"
             height="40"
-            fill="#FF7F23"
+            :fill="generatedColor"
         />
         <rect
             x="29"
             y="8"
             width="10"
             height="40"
-            fill="#FF7F23"
+            :fill="generatedColor"
         />
     </svg>
     <svg v-else width="50" height="55" @click="onPlaylistClick(playlistId)">
-        <linearGradient :id="linearGradientId">
-            <stop
-                v-for="(fill, index) in makeColorsArray"
-                :key="index"
-                :offset="fill.offset"
-                :stop-color="fill.color"
-            />
-        </linearGradient>
-        <polygon points="0,0 0,55 50,27" :fill="linearGradientUrl" />
+        <polygon points="0,0 0,55 50,27" :fill="generatedColor" />
     </svg>
 </template>
 
@@ -86,6 +78,10 @@ export default {
                     return { color: genreColor.color, offset: offset + '%' };
                 });
             }
+        },
+        generatedColor: function () {
+            let index = Math.floor(Math.random() * 8);
+            return genresColors[index].color;
         }
     },
     methods: {

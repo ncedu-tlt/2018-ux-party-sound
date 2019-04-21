@@ -16,13 +16,13 @@
                 <linearGradient
                     id="paint0_linear"
                     x1="771.52"
-                    y1="-10"
+                    y1="400"
                     x2="771.52"
-                    y2="1329.36"
+                    y2="1700"
                     gradientUnits="userSpaceOnUse"
                 >
                     <stop stop-color="#E56DA7" />
-                    <stop offset="1" stop-color="#8E17EC" stop-opacity="0.2" />
+                    <stop offset="1" stop-color="#8E17EC" stop-opacity="0" />
                 </linearGradient>
             </defs>
         </svg>
@@ -40,7 +40,6 @@ export default {
         position: absolute;
         top: 0;
         z-index: -100;
-        height: 100%;
     }
 
     svg {
