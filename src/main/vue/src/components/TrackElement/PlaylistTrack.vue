@@ -1,6 +1,6 @@
 <template>
     <div class="playlist-track">
-        <TrackButton @click.native="clickOnTrack" :track-name="trackName" :index="index" :track-id="trackId" />
+        <TrackButton :track-name="trackName" :index="index" :track-id="trackId" @click.native="clickOnTrack" />
     </div>
 </template>
 <script>

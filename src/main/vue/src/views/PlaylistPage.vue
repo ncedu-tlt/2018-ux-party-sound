@@ -3,7 +3,7 @@
         <div class="playlist-page">
             <h1><span>Плейлист</span> {{ playlist.name }}</h1>
             <div v-for="(track, index) in playlist.tracks" :key="index">
-                <PlaylistTrack @click-on-track="setPlaylistAndTrack" :track-name="track.name" :index="index" :track-id="Number(track.id)" />
+                <PlaylistTrack :track-name="track.name" :index="index" :track-id="Number(track.id)" @click-on-track="setPlaylistAndTrack" />
             </div>
         </div>
     </div>
@@ -21,9 +21,6 @@ export default {
             playlist: Object
         };
     },
-    async created() {
-        this.playlist = await this.getTracks();
-    },
     computed: {
         playing: function () {
             return this.$store.getters.IS_PLAYING;
@@ -34,6 +31,9 @@ export default {
         playlistId: function () {
             return this.$store.getters.PLAYLIST_ID;
         }
+    },
+    async created() {
+        this.playlist = await this.getTracks();
     },
     methods: {
         async getTracks() {
