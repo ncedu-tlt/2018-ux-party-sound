@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import playlists from './playlists';
-import activePlaylist from './Player';
 import sortComponent from './sortComponent';
 import player from './player';
 import tracksList from './tracksList';
@@ -12,8 +11,7 @@ export default new Vuex.Store({
     modules: {
         playlists,
         player,
-        tracksList
-        activePlaylist,
+        tracksList,
         sortComponent
     },
     strict: process.env.NODE_ENV !== 'production'
