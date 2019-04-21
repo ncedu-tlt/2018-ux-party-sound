@@ -1,6 +1,6 @@
 <template>
     <div class="playlist-track">
-        <TrackButton :track-name="trackName" :index="index" />
+        <TrackButton @click.native="clickOnTrack" :track-name="trackName" :index="index" :track-id="trackId" />
     </div>
 </template>
 <script>
@@ -17,6 +17,15 @@ export default {
         index: {
             type: Number,
             default: 0
+        },
+        trackId: {
+            type: Number,
+            default: 0
+        }
+    },
+    methods: {
+        clickOnTrack: function () {
+            this.$emit('click-on-track', this.trackId);
         }
     }
 };
