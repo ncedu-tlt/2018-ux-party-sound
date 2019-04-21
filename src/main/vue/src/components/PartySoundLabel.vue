@@ -15,14 +15,16 @@
         margin-top: 50px;
     }
     .logotype{
-        width: 380px;
-        height: 285px;
+        width: 350px;
+        height: 255px;
         background: url("./../assets/sound.svg") center no-repeat;
+        background-size: contain;
     }
     .titles{
         margin-left: 50px;
     }
     h1{
+        font-family: 'Comfortaa', serif;
         font-weight: 300;
         font-size: 135px;
         line-height: 140px;
@@ -31,8 +33,9 @@
         margin: 0;
     }
     h2{
+        font-family: 'Comfortaa', serif;
         font-style: normal;
-        font-weight: normal;
+        font-weight: 300;
         font-size: 55px;
         line-height: normal;
         color: white;

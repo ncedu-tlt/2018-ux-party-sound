@@ -87,14 +87,14 @@ export default {
 
             .genres-list {
                 max-width: 230px;
-                max-height: 46px;
+                max-height: 50px;
                 overflow-y: hidden;
                 display: flex;
                 flex-wrap: wrap;
                 span{
                     background-color: #008800;
-                    padding: 1px 5px;
-                    border-radius: 8px;
+                    padding: 2px 5px;
+                    border-radius: 10px;
                     color: white;
                     font-weight: lighter;
                     margin-right: 8px;

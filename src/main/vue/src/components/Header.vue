@@ -66,6 +66,7 @@ export default {
     }
 
     h2{
+        font-family: 'Comfortaa', serif;
         color: white;
         font-weight: 300;
         font-size: 32px;
@@ -73,8 +74,8 @@ export default {
     }
 
     .logotype{
-        width: 75px;
-        height: 50px;
+        width: 70px;
+        height: 45px;
         background: url("./../assets/sound.svg") center no-repeat;
         background-size: contain;
     }

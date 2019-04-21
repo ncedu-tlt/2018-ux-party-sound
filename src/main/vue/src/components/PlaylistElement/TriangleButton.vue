@@ -31,7 +31,6 @@
 
 <script>
 import genresColors from './../../constants/genresColors';
-import { green, darkBlue } from '@/constants/colors';
 
 export default {
     name: 'TriangleButton',
@@ -56,28 +55,6 @@ export default {
     computed: {
         isPlaying: function () {
             return this.playlistId === this.$store.getters.PLAYLIST_ID && this.$store.getters.IS_PLAYING;
-        },
-        makeColorsArray: function () {
-            let existingGenresColors = genresColors.filter(genreColor => {
-                return this.genres.some(genre => {
-                    return genreColor.genre === genre.name;
-                });
-            });
-
-            const RANGE = existingGenresColors.length === 1 ? 100 : 100 / (existingGenresColors.length - 1);
-            let offset = -1 * RANGE;
-
-            if (existingGenresColors.length === 0) {
-                return [
-                    { color: darkBlue, offset: 0 },
-                    { color: green, offset: 100 }
-                ];
-            } else {
-                return existingGenresColors.map(genreColor => {
-                    offset += RANGE;
-                    return { color: genreColor.color, offset: offset + '%' };
-                });
-            }
         },
         generatedColor: function () {
             let index = Math.floor(Math.random() * 8);
