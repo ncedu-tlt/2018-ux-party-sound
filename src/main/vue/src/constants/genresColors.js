@@ -1,4 +1,4 @@
-import { blue, brown, darkBlue, green, lightBlue, pinkStrong, red, silver } from './colors';
+import { blue, brown, darkBlue, green, copper, pinkStrong, red, silver } from './colors';
 
 export default [
     {
@@ -11,7 +11,7 @@ export default [
     },
     {
         genre: 'indie',
-        color: lightBlue
+        color: copper
     },
     {
         genre: 'triphop',

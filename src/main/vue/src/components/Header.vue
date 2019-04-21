@@ -2,6 +2,10 @@
     <main>
         <header>
             <div class="content container">
+                <router-link to="/" class="header-logo">
+                    <div class="logotype" />
+                    <h2>Party <b>Sound</b></h2>
+                </router-link>
                 <div class="right-menu">
                     <router-link to="/authorization">
                         <Button label="Вход" type="light" />
@@ -54,6 +58,25 @@ export default {
         left: 0;
         font-weight: 300;
         font-size: 40px;
+    }
+
+    .header-logo{
+        display: flex;
+        align-items: center;
+    }
+
+    h2{
+        color: white;
+        font-weight: 300;
+        font-size: 32px;
+        margin-left: 15px;
+    }
+
+    .logotype{
+        width: 75px;
+        height: 50px;
+        background: url("./../assets/sound.svg") center no-repeat;
+        background-size: contain;
     }
     .right-menu {
         display: flex;
