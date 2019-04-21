@@ -46,8 +46,11 @@ export default {
     },
     methods: {
         parentMethod: function (playlistId) {
-            this.$store.dispatch('GET_ACTIVE_PLAYLIST', playlistId);
-            // alert(`Начали проигрывать плейлист с id=${playlistId}`);
+            if (this.$store.getters.PLAYLIST_ID !== playlistId) {
+                this.$store.dispatch('GET_ACTIVE_PLAYLIST', playlistId);
+            } else {
+                this.$store.commit('SET_PLAYING', !this.$store.getters.IS_PLAYING);
+            }
         }
     }
 };

@@ -1,5 +1,30 @@
 <template>
-    <svg width="50" height="55" @click="onPlaylistClick(playlistId)">
+    <svg
+        v-if="isPlaying"
+        width="50"
+        height="55"
+        viewBox="0 0 50 55"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        @click="onPlaylistClick(playlistId)"
+    >
+        <rect width="50" height="55" />
+        <rect
+            x="10"
+            y="8"
+            width="10"
+            height="40"
+            fill="#FF7F23"
+        />
+        <rect
+            x="29"
+            y="8"
+            width="10"
+            height="40"
+            fill="#FF7F23"
+        />
+    </svg>
+    <svg v-else width="50" height="55" @click="onPlaylistClick(playlistId)">
         <linearGradient :id="linearGradientId">
             <stop
                 v-for="(fill, index) in makeColorsArray"
@@ -37,6 +62,9 @@ export default {
         };
     },
     computed: {
+        isPlaying: function () {
+            return this.playlistId === this.$store.getters.PLAYLIST_ID && this.$store.getters.IS_PLAYING;
+        },
         makeColorsArray: function () {
             let existingGenresColors = genresColors.filter(genreColor => {
                 return this.genres.some(genre => {
@@ -69,7 +97,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    polygon {
+    svg {
         cursor: pointer;
         transition: opacity 300ms;
 
