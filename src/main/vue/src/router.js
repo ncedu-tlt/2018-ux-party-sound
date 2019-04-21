@@ -5,6 +5,7 @@ import Main from './views/Main.vue';
 import RegistrationForm from './views/RegistrationForm';
 import AuthorizationForm from './views/AuthorizationForm';
 import APITest from './views/APITest';
+import PlaylistPage from './views/PlaylistPage';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ export default new VueRouter({
                     path: 'api-test',
                     name: 'APITest',
                     component: APITest
+                },
+                {
+                    path: 'playlist/:id',
+                    name: 'PlaylistPage',
+                    component: PlaylistPage
                 }
             ]
         }

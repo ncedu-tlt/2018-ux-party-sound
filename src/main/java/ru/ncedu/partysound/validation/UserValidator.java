@@ -28,23 +28,23 @@ public class UserValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "NotEmpty");
         if (user.getLogin().length() < 2 || user.getLogin().length() > 32) {
-            errors.rejectValue("login", "Size.userForm.username");
+            errors.rejectValue("login", "Size");
         }
         if (usersRepository.findByLogin(user.getLogin()) != null) {
-            errors.rejectValue("login", "Duplicate.userForm.username");
+            errors.rejectValue("login", "Duplicate");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
+            errors.rejectValue("password", "Size");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mail", "NotEmpty");
         if (usersRepository.findByMail(user.getMail()) != null) {
-            errors.rejectValue("mail", "Duplicate.userForm.mail");
+            errors.rejectValue("mail", "Duplicate");
         }
         if (!user.getMail().matches("\\w+@\\w+.\\w+")) {
-            errors.rejectValue("mail", "Invalid.userForm.mail");
+            errors.rejectValue("mail", "Invalid");
         }
 
     }

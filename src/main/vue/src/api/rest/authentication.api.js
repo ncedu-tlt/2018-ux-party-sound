@@ -1,4 +1,5 @@
 import client from '@/api/rest/client';
+import router from '../../router';
 
 export function registration(info) {
     return client.post('/auth/registration', info)
@@ -9,8 +10,11 @@ export function registration(info) {
 }
 
 export function authorization(info) {
-    return client.post('/auth/login', info)
-        .then(res => (
-            res.data
-        ));
+    return client.post('/auth/login', info).then(
+        response => {
+            router.push('/');
+            return response.status;
+        },
+        error => error.response.status
+    );
 }
