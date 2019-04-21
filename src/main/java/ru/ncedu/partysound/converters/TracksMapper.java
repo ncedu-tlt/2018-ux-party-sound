@@ -13,7 +13,8 @@ import ru.ncedu.partysound.models.dto.TracksWithGenresDTO;
 public interface TracksMapper {
     TracksDAO toDAO(TracksWithGenresDTO tracksWithGenresDTO);
 
-    @Mappings ({@Mapping(target = "name", source = "track.name"),
+    @Mappings ({@Mapping(target = "id", source = "track.id"),
+            @Mapping(target = "name", source = "track.name"),
             @Mapping(target = "artistName", source = "track.artistName"),
             @Mapping(target = "url", source = "track.url"),
             @Mapping(target = "duration", source = "track.duration")})

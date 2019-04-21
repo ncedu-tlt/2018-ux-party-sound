@@ -6,11 +6,12 @@
         <div class="trackBox">
             <Track
                 v-for="(track, index) in tracks"
+                :id="Number(track.id)"
                 :key="index"
-                :index="index"
-                :artist-name="track.artistName"
+                :artist-name="track.artistName || track.artist_name"
                 :track-name="track.name"
                 :duration="track.duration"
+                @click.native="playOrStopTrack(track.id)"
             />
         </div>
     </div>
@@ -38,6 +39,21 @@ export default {
         },
         maxHeight() {
             return this.viewPlaylist ? document.documentElement.clientHeight : 0;
+        },
+        playing() {
+            return this.$store.getters.IS_PLAYING;
+        },
+        activeTrack() {
+            return this.$store.getters.ACTIVE_TRACK;
+        }
+    },
+    methods: {
+        playOrStopTrack(id) {
+            if (id === this.activeTrack.id) {
+                this.$store.commit('SET_PLAYING', !this.playing);
+            } else {
+                this.$store.commit('SET_ACTIVE_TRACK_BY_ID', id);
+            }
         }
     }
 };
@@ -86,10 +102,12 @@ export default {
             Track {
                 margin-right: 4px;
             }
+
+            height: calc(100% - 150px);
             overflow-y: auto;
             overflow-x: hidden;
             max-width: 800px;
-            margin: 0 auto 70px auto;
+            margin: 0 auto;
         }
     }
 </style>
