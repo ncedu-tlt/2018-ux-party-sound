@@ -3,10 +3,10 @@
         <form class="filters" @keypress.enter="getTracks">
             <TextInput v-model="searchWord" class-name="search-input" placeholder="Поиск" />
             <ListInput
-                v-model="genreWord"
                 placeholder="Жанры"
                 :chosen="activeGenres"
                 :list-items="genresByString"
+                @on-input="setGenreWord"
                 @plus-clicked="addGenre"
                 @x-clicked="deleteGenre"
             />
@@ -179,6 +179,9 @@ export default {
                 tags: this.activeGenres,
                 offset: this.tracksFromJamendo.length
             });
+        },
+        async setGenreWord(genreWord) {
+            this.genreWord = genreWord;
         }
     }
 };
