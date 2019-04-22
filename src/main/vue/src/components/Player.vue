@@ -80,7 +80,7 @@ export default {
     }),
     computed: {
         trackName() {
-            return this.activeTrack.name;
+            return this.activeTrack.artistName !== undefined ? this.activeTrack.artistName + ' - ' + this.activeTrack.name : this.activeTrack.name;
         },
         percentComplete() {
             return parseInt(this.currentTime / this.durationSeconds * 100);

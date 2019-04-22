@@ -43,3 +43,8 @@ export function createdPlaylist({ playlistName, playlistDescription }) {
             res.data
         ));
 }
+
+export function getTopPlaylists() {
+    return client.get('/topPlaylists')
+        .then(res => res.data);
+}
