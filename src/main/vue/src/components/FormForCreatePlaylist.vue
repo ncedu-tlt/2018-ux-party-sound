@@ -42,6 +42,7 @@ export default {
                 this.$emit('close-window');
             } else {
                 this.message = 'Произошла ошибка';
+                setTimeout(this.message = '', 1000);
             }
         }
     }
