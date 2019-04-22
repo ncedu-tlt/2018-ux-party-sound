@@ -1,5 +1,6 @@
 <template>
     <div class="authorized-user">
+        <FormForCreatePlaylist v-if="isOpenFormForCreatePlaylist" @close-window="setOpenFormForCreatePlaylist(false)"/>
         <div class="static" @click="isOpen=!isOpen">
             <div class="name">
                 {{ name }}
@@ -7,7 +8,7 @@
             <div class="arrow" :class="{'open-arrow':isOpen===true}" />
         </div>
         <div class="dropdown-menu" :class="{'open-dropdown-menu':isOpen===true}">
-            <div class="item">
+            <div class="item" @click="setOpenFormForCreatePlaylist(true)">
                 Создать плейлист
             </div>
             <div class="item logout-js" @click="logoutOfAccount()">
@@ -19,12 +20,15 @@
 
 <script>
 import { logout } from '../api/rest/authentication.api';
+import FormForCreatePlaylist from '../components/FormForCreatePlaylist';
 
 export default {
     name: 'AuthorizedUser',
+    components: { FormForCreatePlaylist },
     data: function () {
         return {
-            isOpen: false
+            isOpen: false,
+            isOpenFormForCreatePlaylist: true
         };
     },
     computed: {
@@ -36,6 +40,9 @@ export default {
         this.$store.dispatch('GET_USER_INFO');
     },
     methods: {
+        setOpenFormForCreatePlaylist(value) {
+            this.isOpenFormForCreatePlaylist = value;
+        },
         async logoutOfAccount() {
             const resp = await logout();
             if (resp !== 200) {
