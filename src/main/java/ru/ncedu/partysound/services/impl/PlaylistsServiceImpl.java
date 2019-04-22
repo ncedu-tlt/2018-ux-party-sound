@@ -6,17 +6,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import ru.ncedu.partysound.converters.PlaylistsMapper;
 import ru.ncedu.partysound.converters.TracksMapper;
-import ru.ncedu.partysound.enums.UserRoles;
-import ru.ncedu.partysound.models.domain.PlaylistTrackDAO;
-import ru.ncedu.partysound.models.domain.PlaylistsDAO;
+import ru.ncedu.partysound.models.domain.*;
+import ru.ncedu.partysound.models.dto.PlaylistForCreateDTO;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
 import ru.ncedu.partysound.models.dto.PlaylistsWithTracksDTO;
 import ru.ncedu.partysound.models.dto.TracksDTO;
+import ru.ncedu.partysound.repositories.PlaylistUserRoleRepository;
 import ru.ncedu.partysound.repositories.PlaylistsRepository;
+import ru.ncedu.partysound.repositories.UsersRepository;
 import ru.ncedu.partysound.services.PlaylistsService;
+import ru.ncedu.partysound.services.RolesService;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -27,11 +28,18 @@ public class PlaylistsServiceImpl implements PlaylistsService {
 
     @Autowired
     private final PlaylistsRepository playlistsRepository;
+    private final RolesService rolesService;
+    private final UsersRepository usersRepository;
+    private final PlaylistUserRoleRepository playlistUserRoleRepository;
     private final PlaylistsMapper playlistsMapper = Mappers.getMapper(PlaylistsMapper.class);
     private final TracksMapper tracksMapper = Mappers.getMapper(TracksMapper.class);
 
-    public PlaylistsServiceImpl(PlaylistsRepository playlistsRepository) {
+
+    public PlaylistsServiceImpl(PlaylistsRepository playlistsRepository, RolesService rolesService, UsersRepository usersRepository, PlaylistUserRoleRepository playlistUserRoleRepository) {
         this.playlistsRepository = playlistsRepository;
+        this.rolesService = rolesService;
+        this.usersRepository = usersRepository;
+        this.playlistUserRoleRepository = playlistUserRoleRepository;
     }
 
     @Override
@@ -93,5 +101,25 @@ public class PlaylistsServiceImpl implements PlaylistsService {
             }
         }
         return playlistsMapper.toPlaylistDTOs(playlistsDAOPage.getContent());
+    }
+
+    @Override
+    public boolean createPlaylist(PlaylistForCreateDTO playlistForCreateDTO, String login) {
+        RolesDAO rolesDAO = rolesService.createAuthor();
+
+        PlaylistsDAO playlistsDAO = new PlaylistsDAO();
+        playlistsDAO.setDescription(playlistForCreateDTO.getDescription());
+        playlistsDAO.setName(playlistForCreateDTO.getName());
+        playlistsDAO.setPrivateAccess(false);
+        playlistsRepository.save(playlistsDAO);
+
+        PlaylistUserRoleDAO playlistUserRoleDAO = new PlaylistUserRoleDAO();
+
+        playlistUserRoleDAO.setId(new PlaylistUserRoleId(playlistsDAO.getId(), usersRepository.findByLogin(login).getId(), rolesDAO.getId()));
+        playlistUserRoleDAO.setPlaylist(playlistsDAO);
+        playlistUserRoleDAO.setUser(usersRepository.findByLogin(login));
+        playlistUserRoleDAO.setRole(rolesDAO);
+        playlistUserRoleRepository.save(playlistUserRoleDAO);
+        return true;
     }
 }

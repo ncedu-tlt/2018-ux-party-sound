@@ -1,5 +1,6 @@
 package ru.ncedu.partysound.services;
 
+import ru.ncedu.partysound.models.dto.PlaylistForCreateDTO;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
 import ru.ncedu.partysound.models.dto.PlaylistsWithTracksDTO;
 
@@ -13,4 +14,6 @@ public interface PlaylistsService {
     List<PlaylistsDTO> getTopPlaylists();
 
     List<PlaylistsDTO> getPlaylistsBySearchParams(int pageNumber, int pageSize, String playlistName, String[] genresArray, String singer);
+
+    boolean createPlaylist (PlaylistForCreateDTO playlistForCreateDTO, String login);
 }

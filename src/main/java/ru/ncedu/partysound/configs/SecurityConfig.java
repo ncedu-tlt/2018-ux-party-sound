@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                     .authorizeRequests()
                     .antMatchers("/api/auth/login").permitAll()
-                    .antMatchers("/api/protected/* ").authenticated()
+                    .antMatchers("/api/protected/* ", "/api/create-playlist").authenticated()
                 .and()
                     .formLogin()
                     .loginProcessingUrl("/api/auth/login")

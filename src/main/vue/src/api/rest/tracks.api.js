@@ -8,9 +8,10 @@ export function createTrack(track) {
 }
 /**
  * @param { long } playlistId принимает id трека, по которому будут взяты треки
+ * playlistsWithTracksDTO
  */
-export function getTracksByPlaylistId(playlistId) {
-    return client.get('/tracks', { params: { playlistId: playlistId } })
+export function getTracksByPlaylistIdWithRight(playlistId) {
+    return client.get('/tracks/with-right', { params: { playlistId: playlistId } })
         .then(res => (
             res.data
         ));

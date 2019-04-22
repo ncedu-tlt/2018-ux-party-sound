@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getTracksByPlaylistId } from '../api/rest/tracks.api';
+import { getTracksByPlaylistIdWithRight } from '../api/rest/tracks.api';
 import PlaylistTrack from '../components/TrackElement/PlaylistTrack';
 
 export default {
@@ -18,15 +18,18 @@ export default {
     components: { PlaylistTrack },
     data: function () {
         return {
-            playlist: Object
+            playlist: Object,
+            right: Object
         };
     },
     async created() {
-        this.playlist = await this.getTracks();
+        const tracksWithRight = await this.getTracksWithRight();
+        this.playlist = tracksWithRight.playlistsWithTracksDTO;
+        this.right = tracksWithRight.rolesDTO;
     },
     methods: {
-        async getTracks() {
-            const response = await getTracksByPlaylistId(
+        async getTracksWithRight() {
+            const response = await getTracksByPlaylistIdWithRight(
                 this.$route.params.id
             );
             return response;

@@ -1,12 +1,12 @@
 package ru.ncedu.partysound.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.ncedu.partysound.models.dto.PlaylistForCreateDTO;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
 import ru.ncedu.partysound.services.PlaylistsService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -36,5 +36,12 @@ public class PlaylistsController {
                                            @RequestParam(value = "genresArray", defaultValue = "empty") String[] genresArray,
                                            @RequestParam(value = "singer", defaultValue = "") String singer) {
         return playlistsService.getPlaylistsBySearchParams(pageNumber, pageSize, playlistName, genresArray, singer);
+    }
+
+    @PostMapping("/api/create-playlist")
+    public boolean createPlaylist(@RequestBody PlaylistForCreateDTO playlistForCreateDTO, Principal principal) {
+        System.out.println(playlistForCreateDTO.getName());
+        playlistsService.createPlaylist(playlistForCreateDTO, principal.getName());
+        return true;
     }
 }

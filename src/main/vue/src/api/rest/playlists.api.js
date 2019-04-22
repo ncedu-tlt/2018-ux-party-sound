@@ -33,3 +33,13 @@ export function getPlaylistsBySearchParams(playlistName, genresArray, singer, pa
             res.data
         ));
 }
+
+export function createdPlaylist({ playlistName, playlistDescription }) {
+    return client.post('/create-playlist', {
+        name: playlistName,
+        description: playlistDescription
+    })
+        .then(res => (
+            res.data
+        ));
+}

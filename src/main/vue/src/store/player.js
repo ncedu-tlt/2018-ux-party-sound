@@ -1,4 +1,4 @@
-import { getTracksByPlaylistId } from '../api/rest/tracks.api';
+import { getTracksByPlaylistIdWithRight } from '../api/rest/tracks.api';
 
 const state = {
     tracks: [],
@@ -99,10 +99,10 @@ const mutations = {
 
 const actions = {
     GET_ACTIVE_PLAYLIST: ({ commit }, playlistId) => {
-        getTracksByPlaylistId(playlistId)
+        getTracksByPlaylistIdWithRight(playlistId)
             .then(res => {
                 commit('SET_ACTIVE_PLAYLIST', {
-                    ...res,
+                    ...res.playlistsWithTracksDTO,
                     playlistId: playlistId
                 });
             })
