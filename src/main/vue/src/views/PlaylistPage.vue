@@ -3,14 +3,14 @@
         <div class="playlist-page">
             <h1><span>Плейлист</span> {{ playlist.name }}</h1>
             <div v-for="(track, index) in playlist.tracks" :key="index">
-                <PlaylistTrack :can-delete-track="right.deleteTrack" :track-name="track.name" :index="index" :track-id="Number(track.id)" @click-on-track="setPlaylistAndTrack" />
+                <PlaylistTrack :can-delete-track="right.deleteTrack" :track-name="track.name" :index="index" :track-id="Number(track.id)" @click-on-track="setPlaylistAndTrack" @click-on-minus="emitDeleteTrack"/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { getTracksByPlaylistIdWithRight } from '../api/rest/tracks.api';
+import { getTracksByPlaylistIdWithRight, deleteTrack } from '../api/rest/tracks.api';
 import PlaylistTrack from '../components/TrackElement/PlaylistTrack';
 
 export default {
@@ -39,6 +39,21 @@ export default {
         this.right = tracksWithRight.rolesDTO;
     },
     methods: {
+        async emitDeleteTrack(trackId) {
+            const isDelete = await deleteTrack({
+                playlistId: this.$route.params.id,
+                trackId: trackId
+            });
+            if (isDelete) {
+                for (let i = 0; i < this.playlist.tracks.length; i++) {
+                    if (Number(this.playlist.tracks[i].id) === Number(trackId)) {
+                        this.playlist.tracks.splice(i, 1);
+                        break;
+                    }
+                }
+                this.$store.commit('DELETE_TRACK_BY_ID', trackId);
+            }
+        },
         async getTracksWithRight() {
             const response = await getTracksByPlaylistIdWithRight(
                 this.$route.params.id
