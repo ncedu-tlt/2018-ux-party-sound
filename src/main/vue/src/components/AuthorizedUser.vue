@@ -1,7 +1,6 @@
 <template>
     <div class="authorized-user">
         <div class="static" @click="isOpen=!isOpen">
-            <img class="photo" :src="photo">
             <div class="name">
                 {{ name }}
             </div>
@@ -9,9 +8,9 @@
         </div>
         <div class="dropdown-menu" :class="{'open-dropdown-menu':isOpen===true}">
             <div class="item">
-                Профиль
+                Создать плейлист
             </div>
-            <div class="item">
+            <div class="item logout-js" @click="logoutOfAccount()">
                 Выход
             </div>
         </div>
@@ -19,43 +18,48 @@
 </template>
 
 <script>
+import { logout } from '../api/rest/authentication.api';
+
 export default {
     name: 'AuthorizedUser',
-    props: {
-        name: {
-            type: String,
-            required: true
-        },
-        photo: {
-            type: String,
-            required: true
-        }
-    },
-
-    data() {
+    data: function () {
         return {
             isOpen: false
         };
+    },
+    computed: {
+        name() {
+            return this.$store.getters.NAME;
+        }
+    },
+    created() {
+        this.$store.dispatch('GET_USER_INFO');
+    },
+    methods: {
+        async logoutOfAccount() {
+            const resp = await logout();
+            if (resp !== 200) {
+                alert('Выйти из профиля не удалось');
+            } else {
+                this.$store.commit('AUTHORIZED', false);
+                this.$store.commit('SET_NAME', '');
+            }
+        }
     }
 };
 </script>
 
 <style scoped>
-    .authorized-user{
+    .authorized-user {
         position: relative;
-
-    }
-    .static{
-        cursor: pointer;
         display: flex;
         align-items: center;
     }
-    .photo {
-        border-radius: 50%;
-        background: aqua;
-        height: 50px;
-        width: 50px;
-        object-fit: cover;
+
+    .static {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
     }
 
     .name {
@@ -74,34 +78,38 @@ export default {
         margin-bottom: 5px;
         transition: 400ms;
     }
-    .open-arrow{
+
+    .open-arrow {
         margin-top: 9px;
         transform: rotate(-135deg);
         transition: 400ms;
     }
-    .dropdown-menu{
+
+    .dropdown-menu {
         position: absolute;
-        bottom: -90px;
-        right: 0;
+        bottom: -50px;
+        right: -30px;
         background: white;
         border-radius: 7px;
         padding: 10px;
         height: 50px;
-        width: 100px;
+        width: 140px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        box-shadow:1px 2px 12px 0 rgba(0,0,0,0.49);
+        box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.49);
         opacity: 0;
         pointer-events: none;
         transition: 400ms;
     }
-    .open-dropdown-menu{
+
+    .open-dropdown-menu {
         transition: 400ms;
         opacity: 1;
         pointer-events: auto;
     }
-    .item{
+
+    .item {
         cursor: pointer;
     }
 </style>

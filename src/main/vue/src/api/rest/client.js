@@ -15,7 +15,7 @@ const client = axios.create({
  * Redirecting to login page, when trying to perform unauthorized call.
  */
 client.interceptors.response.use(null, error => {
-    if (error.response.status === 401 || error.response.status === 403) {
+    if ((error.response.status === 401 || error.response.status === 403) && window.location.pathname !== '/') {
         router.push('/authorization');
     }
     return Promise.reject(error);

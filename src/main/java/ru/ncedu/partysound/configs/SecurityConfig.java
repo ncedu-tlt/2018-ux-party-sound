@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                     .authorizeRequests()
                     .antMatchers("/api/auth/login").permitAll()
-                    .antMatchers("/api/protected/* ", "/api/create-playlist").authenticated()
+                    .antMatchers("/api/protected/* ", "/api/create-playlist", "/api/auth/userInfo").authenticated()
                 .and()
                     .formLogin()
                     .loginProcessingUrl("/api/auth/login")
@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureHandler((httpServletRequest, httpServletResponse, e) -> {httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);})
                 .and()
                     .logout()
+                    .logoutUrl("/api/auth/logout")
                     .logoutSuccessHandler(((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)))
                 .and()
                     .exceptionHandling()
