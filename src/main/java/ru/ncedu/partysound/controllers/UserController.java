@@ -8,6 +8,8 @@ import ru.ncedu.partysound.models.domain.UsersDAO;
 import ru.ncedu.partysound.services.UserService;
 import ru.ncedu.partysound.validation.UserValidator;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/auth")
 public class UserController {
@@ -29,6 +31,12 @@ public class UserController {
         }
         userService.save(userForm);
         return  new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/userInfo")
+    public String getAuthUser(Principal principal) {
+
+        return principal.getName();
     }
 
 }

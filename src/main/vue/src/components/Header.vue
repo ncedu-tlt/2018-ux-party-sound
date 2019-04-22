@@ -5,7 +5,7 @@
                 <router-link to="/">
                     <h1>Party <b>Sound</b></h1>
                 </router-link>
-                <div class="right-menu">
+                <div v-if="authorized === false" class="right-menu">
                     <router-link to="/authorization">
                         <Button label="Вход" type="light" />
                     </router-link>
@@ -13,6 +13,7 @@
                         <Button label="Регистрация" type="light" />
                     </router-link>
                 </div>
+                <AuthorizedUser v-else />
             </div>
         </header>
         <router-view />
@@ -23,10 +24,19 @@
 <script>
 import Button from './Button';
 import Player from './Player';
+import AuthorizedUser from './AuthorizedUser';
 
 export default {
     name: 'Header',
-    components: { Button, Player }
+    components: { AuthorizedUser, Button, Player },
+    computed: {
+        authorized() {
+            return this.$store.getters.IS_AUTHORIZED;
+        }
+    },
+    created() {
+        this.$store.dispatch('GET_USER_INFO');
+    }
 };
 </script>
 

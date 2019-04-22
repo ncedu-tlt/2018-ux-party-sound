@@ -18,3 +18,12 @@ export function authorization(info) {
         error => error.response.status
     );
 }
+
+export function logout() {
+    return client.post('/auth/logout').then(
+        response => {
+            return response.status;
+        },
+        error => error.response.status
+    );
+}
