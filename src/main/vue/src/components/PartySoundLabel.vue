@@ -24,8 +24,8 @@
         margin-left: 50px;
     }
     h1{
-        font-family: 'Comfortaa', serif;
-        font-weight: 300;
+        font-family: 'Arvo', serif;
+        font-weight: 500;
         font-size: 135px;
         line-height: 140px;
         color: white;
@@ -33,9 +33,9 @@
         margin: 0;
     }
     h2{
-        font-family: 'Comfortaa', serif;
+        font-family: 'Arvo', serif;
         font-style: normal;
-        font-weight: 300;
+        font-weight: 500;
         font-size: 55px;
         line-height: normal;
         color: white;

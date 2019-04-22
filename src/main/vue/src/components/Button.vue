@@ -25,13 +25,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     button {
         cursor: pointer;
         outline: none;
         font-size: 18px;
         border: none;
         padding: 0 0 2px 0;
+        transition: 300ms;
+
+        &:hover {
+             transition: 300ms;
+             opacity: 0.8;
+         }
     }
 
     .default {
@@ -42,13 +48,6 @@ export default {
         background: #0C0094;
         border-radius: 4px;
         box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.49);
-        transition: 400ms;
-    }
-
-    .default:hover {
-        transition: 400ms;
-       transform: scale(1.03);
-        background: #0B0088;
     }
 
     .light {
@@ -63,14 +62,10 @@ export default {
         position: absolute;
         width: 0;
         height: 1px;
-        transition: all .3s linear;
     }
     .light:after{
         top: 100%;
         left: 0;
-    }
-   .light:hover:after{
-        width: 100%;
     }
 
     .awesome {
@@ -89,11 +84,5 @@ export default {
         font-size: 16px;
         color: #FFFFFF;
         border-radius: 6px;
-        transition: 300ms;
-    }
-
-    .search-button:hover {
-        transition: 300ms;
-        opacity: 0.8;
     }
 </style>
