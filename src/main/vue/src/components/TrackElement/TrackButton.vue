@@ -1,6 +1,6 @@
 <template>
-    <div class="track-button" @click="playOrStopTrack">
-        <div v-if="index === activeTrackNumber && playing">
+    <div class="track-button">
+        <div v-if="Number($route.params.id) === playlistId && trackId === activeTrack.id && playing">
             <svg width="27" height="30">
                 <rect height="30" width="7" x="2" />
                 <rect height="30" width="7" x="13" />
@@ -29,23 +29,21 @@ export default {
         index: {
             type: Number,
             default: 0
+        },
+        trackId: {
+            type: Number,
+            default: 0
         }
     },
     computed: {
-        activeTrackNumber() {
-            return this.$store.getters.ACTIVE_TRACK_NUMBER;
+        activeTrack() {
+            return this.$store.getters.ACTIVE_TRACK;
         },
         playing() {
             return this.$store.getters.IS_PLAYING;
-        }
-    },
-    methods: {
-        playOrStopTrack() {
-            if (this.index === this.activeTrackNumber) {
-                this.$store.commit('SET_PLAYING', !this.playing);
-            } else {
-                this.$store.commit('SET_ACTIVE_TRACK_NUMBER', this.index);
-            }
+        },
+        playlistId() {
+            return this.$store.getters.PLAYLIST_ID;
         }
     }
 };
