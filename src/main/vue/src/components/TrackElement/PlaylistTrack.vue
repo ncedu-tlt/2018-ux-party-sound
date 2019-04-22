@@ -1,6 +1,7 @@
 <template>
     <div class="playlist-track">
         <TrackButton :track-name="trackName" :index="index" :track-id="trackId" @click.native="clickOnTrack" />
+        <div v-if="canDeleteTrack" class="minus">X</div>
     </div>
 </template>
 <script>
@@ -21,6 +22,10 @@ export default {
         trackId: {
             type: Number,
             default: 0
+        },
+        canDeleteTrack: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -37,6 +42,10 @@ export default {
         align-items: center;
         justify-content: space-between;
         margin: 10px 0;
+        .minus {
+            cursor: pointer;
+            font-weight: 900;
+        }
         .delete-track{
             height: 25px;
             opacity: .5;

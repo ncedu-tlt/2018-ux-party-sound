@@ -67,12 +67,12 @@ public class TracksController {
     @GetMapping("/with-right")
     public PlaylistRoleDTO getPlaylistByIdWithRight(@RequestParam(value = "playlistId")long playlistId, Principal principal){
         PlaylistRoleDTO playlistRoleDTO = new PlaylistRoleDTO();
-        if (principal != null){
+        try{
             PlaylistUserRoleDAO playlistUserRoleDAO = playlistUserRoleRepository.findByPlaylistAndUser(playlistsRepository.findById(playlistId),
                     usersRepository.findByLogin(principal.getName()));
             RolesDTO rolesDTO = rolesMapper.toDTO(playlistUserRoleDAO.getRole());
             playlistRoleDTO.setRolesDTO(rolesDTO);
-        } else {
+        } catch (NullPointerException e){
             RolesDTO rolesDTO = new RolesDTO();
             rolesDTO.setName("ghost");
             rolesDTO.setAddTrack(false);
