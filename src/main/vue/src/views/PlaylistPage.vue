@@ -3,7 +3,14 @@
         <div class="playlist-page">
             <h1><span>Плейлист</span> {{ playlist.name }}</h1>
             <div v-for="(track, index) in playlist.tracks" :key="index">
-                <PlaylistTrack :can-delete-track="right.deleteTrack" :track-name="track.name" :index="index" :track-id="Number(track.id)" @click-on-track="setPlaylistAndTrack" @click-on-minus="emitDeleteTrack"/>
+                <PlaylistTrack
+                    :can-delete-track="right.deleteTrack"
+                    :track-name="track.name"
+                    :index="index"
+                    :track-id="Number(track.id)"
+                    @click-on-track="setPlaylistAndTrack"
+                    @click-on-minus="emitDeleteTrack"
+                />
             </div>
         </div>
     </div>

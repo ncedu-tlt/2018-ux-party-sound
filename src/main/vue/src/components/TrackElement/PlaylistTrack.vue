@@ -1,7 +1,9 @@
 <template>
     <div class="playlist-track">
         <TrackButton :track-name="trackName" :index="index" :track-id="trackId" @click.native="clickOnTrack" />
-        <div v-if="canDeleteTrack" class="minus" @click="clickOnMinus">X</div>
+        <div v-if="canDeleteTrack" class="minus" @click="clickOnMinus">
+            X
+        </div>
     </div>
 </template>
 <script>
