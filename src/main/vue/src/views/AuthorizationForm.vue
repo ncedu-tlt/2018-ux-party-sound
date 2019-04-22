@@ -4,7 +4,7 @@
             <TextInput
                 v-model="login"
                 class="field"
-                placeholder="E-mail или логин"
+                placeholder="Логин"
                 type="text"
                 class-name="input-field"
             />
@@ -57,6 +57,8 @@ export default {
             let response = await authorization(data);
             if (response === 401) {
                 document.getElementsByClassName('error-message')[0].innerHTML = 'Пользователь, с введенными данными, не найден';
+            } else {
+                this.$store.dispatch('GET_USER_INFO');
             }
         }
     }
