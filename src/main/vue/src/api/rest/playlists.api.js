@@ -33,3 +33,8 @@ export function getPlaylistsBySearchParams(playlistName, genresArray, singer, pa
             res.data
         ));
 }
+
+export function getTopPlaylists() {
+    return client.get('/topPlaylists')
+        .then(res => res.data);
+}

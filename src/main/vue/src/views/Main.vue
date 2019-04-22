@@ -2,7 +2,6 @@
     <main class="main-page">
         <section class="top-content">
             <section class="head">
-                <TopPlaylists class="top-playlists" />
                 <PartySoundLabel class="patry-sound-label" />
             </section>
             <FindPlaylist class="find-playlist" @click.native="scrollWindow" />
@@ -14,7 +13,6 @@
     </main>
 </template>
 <script>
-import TopPlaylists from './../components/TopPlaylists.vue';
 import PartySoundLabel from './../components/PartySoundLabel.vue';
 import FindPlaylist from './../components/FindPlaylist.vue';
 import PlaylistsList from './../components/PlaylistsList.vue';
@@ -24,7 +22,6 @@ import PlaylistSearch from './../components/PlaylistSearch.vue';
 export default {
     name: 'Main',
     components: {
-        TopPlaylists,
         PartySoundLabel,
         FindPlaylist,
         PlaylistsList,
@@ -62,6 +59,7 @@ export default {
                 width: 700px;
                 display: flex;
                 align-items: center;
+                justify-content: center;
                 .top-playlists{
                     animation: move 1s 1 ease-out;
                 }

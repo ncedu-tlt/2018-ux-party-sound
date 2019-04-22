@@ -17,6 +17,7 @@
 <script>
 import PlaylistElement from './PlaylistElement/PlaylistElement.vue';
 import { fakeData } from './fakeData';
+import { getTopPlaylists } from '@/api/rest/playlists.api';
 
 export default {
     name: 'TopPlaylists',
@@ -27,8 +28,17 @@ export default {
         return {
             fakeProps: fakeData.filter((elem, index) => {
                 return index < 5;
-            })
+            }),
+            topPlaylists: []
         };
+    },
+    mounted() {
+        if (this.topPlaylists.length === 0) {
+            getTopPlaylists()
+                .then(res => {
+                    this.topPlaylists = res;
+                });
+        }
     }
 };
 </script>

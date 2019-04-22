@@ -1,6 +1,6 @@
 <template>
     <button type="button" class="find-playlist">
-        <span>Найти плэйлист</span>
+        <span>Найти плейлист</span>
         <div class="down-arrow">
             <div class="animate-arrow" />
             <div class="animate-arrow" />

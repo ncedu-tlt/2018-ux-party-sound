@@ -2,8 +2,9 @@
     <main>
         <header>
             <div class="content container">
-                <router-link to="/">
-                    <h1>Party <b>Sound</b></h1>
+                <router-link to="/" class="header-logo">
+                    <div class="logotype" />
+                    <h2>Party <b>Sound</b></h2>
                 </router-link>
                 <div class="right-menu">
                     <router-link to="/authorization">
@@ -58,11 +59,32 @@ export default {
         font-weight: 300;
         font-size: 40px;
     }
+
+    .header-logo{
+        display: flex;
+        align-items: center;
+    }
+
+    h2{
+        font-family: 'Arvo', serif;
+        color: white;
+        font-weight: 500;
+        font-size: 32px;
+        margin-left: 15px;
+    }
+
+    .logotype{
+        width: 70px;
+        height: 45px;
+        background: url("./../assets/sound.svg") center no-repeat;
+        background-size: contain;
+    }
     .right-menu {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 170px;
+        margin-left: auto;
     }
 
 </style>
