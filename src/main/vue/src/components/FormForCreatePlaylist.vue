@@ -10,12 +10,12 @@
             </label>
             <label>
                 Описание плейлиста
-                <textarea v-model="playlistDescription"/>
+                <textarea v-model="playlistDescription" />
             </label>
             <button @click="createPlaylist">
                 Создать плейлист
             </button>
-            {{message}}
+            {{ message }}
         </div>
     </div>
 </template>

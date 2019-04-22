@@ -1,6 +1,6 @@
 <template>
     <div class="authorized-user">
-        <FormForCreatePlaylist v-if="isOpenFormForCreatePlaylist" @close-window="setOpenFormForCreatePlaylist(false)"/>
+        <FormForCreatePlaylist v-if="isOpenFormForCreatePlaylist" @close-window="setOpenFormForCreatePlaylist(false)" />
         <div class="static" @click="isOpen=!isOpen">
             <div class="name">
                 {{ name }}
