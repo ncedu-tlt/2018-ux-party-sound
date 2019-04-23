@@ -47,6 +47,12 @@ export default {
         ListInput,
         Button
     },
+    props: {
+        viewPlaylist: {
+            type: Boolean,
+            default: false
+        }
+    },
     data: () => ({
         searchWord: '',
         genreWord: '',
@@ -133,12 +139,6 @@ export default {
             'asian'],
         activeGenres: []
     }),
-    props: {
-        viewPlaylist: {
-            type: Boolean,
-            default: false
-        }
-    },
     computed: {
         genresByString() {
             return this.genres.filter((str) => {

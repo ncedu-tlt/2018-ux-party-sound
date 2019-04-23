@@ -19,7 +19,7 @@
                 <div v-if="isOpenFindTracks" class="close" @click="isOpenFindTracks = false">
                     Х
                 </div>
-                <FindTracksFromJamendo @click-on-track="addTrack" v-if="isOpenFindTracks" class="tracks_jamendo_list"/>
+                <FindTracksFromJamendo v-if="isOpenFindTracks" class="tracks_jamendo_list" @click-on-track="addTrack" />
             </div>
         </div>
     </div>
@@ -61,7 +61,6 @@ export default {
     },
     methods: {
         async addTrack(id) {
-            console.log(this.tracksInSearchJamendo);
             for (let index in this.tracksInSearchJamendo) {
                 if (Number(this.tracksInSearchJamendo[index].id) === Number(id)) {
                     const track = this.tracksInSearchJamendo[index];
@@ -78,7 +77,6 @@ export default {
                             genresString: track.musicinfo.tags.genres
                         }
                     });
-                    console.log(q);
                     if (q) {
                         this.playlist.tracks = this.playlist.tracks.concat(track);
                         this.$store.commit('ADD_TRACK_IN_PLAYLIST', track);

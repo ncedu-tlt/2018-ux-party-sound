@@ -98,7 +98,6 @@ const mutations = {
     DELETE_TRACK_BY_ID: (state, id) => {
         for (let i = 0; i < state.tracks.length; i++) {
             if (Number(state.tracks[i].id) === Number(id)) {
-                console.log(state.tracks.splice(i, 1));
                 state.tracks = state.tracks.splice(i, 1);
                 break;
             }
