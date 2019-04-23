@@ -10,6 +10,9 @@ import PlaylistPage from './views/PlaylistPage';
 Vue.use(VueRouter);
 
 export default new VueRouter({
+    scrollBehavior() {
+        return { x: 0, y: 0 };
+    },
     routes: [
         {
             path: '/',
