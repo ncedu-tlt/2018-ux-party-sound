@@ -60,7 +60,6 @@ public class PlaylistsController {
 
     @PostMapping("/api/create-playlist")
     public boolean createPlaylist(@RequestBody PlaylistForCreateDTO playlistForCreateDTO, Principal principal) {
-        System.out.println(playlistForCreateDTO.getName());
         playlistsService.createPlaylist(playlistForCreateDTO, principal.getName());
         return true;
     }

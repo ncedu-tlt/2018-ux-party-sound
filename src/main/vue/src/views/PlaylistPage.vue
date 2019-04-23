@@ -74,6 +74,7 @@ export default {
                             albumName: track.album_name,
                             albumId: track.album_id,
                             url: track.audio,
+                            duration: track.duration,
                             genresString: track.musicinfo.tags.genres
                         }
                     });
@@ -113,8 +114,11 @@ export default {
                     this.$store.commit('SET_ACTIVE_TRACK_BY_ID', trackId);
                 }
             } else {
+                const playlist = await getTracksByPlaylistIdWithRight(
+                    this.$route.params.id
+                );
                 this.$store.commit('SET_ACTIVE_PLAYLIST', {
-                    ...this.playlist,
+                    ...playlist.playlistsWithTracksDTO,
                     playlistId: Number(this.$route.params.id)
                 });
                 this.$store.commit('SET_ACTIVE_TRACK_BY_ID', trackId);
