@@ -98,10 +98,14 @@ const mutations = {
     DELETE_TRACK_BY_ID: (state, id) => {
         for (let i = 0; i < state.tracks.length; i++) {
             if (Number(state.tracks[i].id) === Number(id)) {
-                state.tracks.splice(i, 1);
+                console.log(state.tracks.splice(i, 1));
+                state.tracks = state.tracks.splice(i, 1);
                 break;
             }
         }
+    },
+    ADD_TRACK_IN_PLAYLIST: (state, track) => {
+        state.tracks = state.tracks.concat(track);
     }
 };
 

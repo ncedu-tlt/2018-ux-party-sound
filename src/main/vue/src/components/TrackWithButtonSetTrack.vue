@@ -60,7 +60,7 @@ export default {
             }
         },
         addTrackInPlaylist() {
-            alert('Ну тут будет добален трек с id ' + this.id);
+            this.$emit('click-on-track', this.id);
         }
     }
 };

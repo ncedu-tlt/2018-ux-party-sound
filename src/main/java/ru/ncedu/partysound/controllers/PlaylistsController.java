@@ -1,21 +1,20 @@
 package ru.ncedu.partysound.controllers;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.ncedu.partysound.models.domain.PlaylistTrackId;
-import ru.ncedu.partysound.models.domain.PlaylistUserRoleDAO;
-import ru.ncedu.partysound.models.domain.PlaylistsDAO;
-import ru.ncedu.partysound.models.domain.UsersDAO;
+import ru.ncedu.partysound.converters.TracksMapper;
+import ru.ncedu.partysound.models.domain.*;
 import ru.ncedu.partysound.models.dto.PlaylistForCreateDTO;
 import ru.ncedu.partysound.models.dto.PlaylistsDTO;
-import ru.ncedu.partysound.repositories.PlaylistTrackRepository;
-import ru.ncedu.partysound.repositories.PlaylistUserRoleRepository;
-import ru.ncedu.partysound.repositories.PlaylistsRepository;
-import ru.ncedu.partysound.repositories.UsersRepository;
+import ru.ncedu.partysound.models.dto.TrackForPlaylistDTO;
+import ru.ncedu.partysound.repositories.*;
 import ru.ncedu.partysound.services.PlaylistsService;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class PlaylistsController {
@@ -25,13 +24,18 @@ public class PlaylistsController {
     private final PlaylistTrackRepository playlistTrackRepository;
     private final PlaylistsRepository playlistsRepository;
     private final PlaylistUserRoleRepository playlistUserRoleRepository;
+    private final GenresRepository genresRepository;
+    private final TracksRepository tracksRepository;
+    private final TracksMapper tracksMapper = Mappers.getMapper(TracksMapper.class);
 
-    public PlaylistsController(PlaylistsService playlistsService, UsersRepository usersRepository, PlaylistTrackRepository playlistTrackRepository, PlaylistsRepository playlistsRepository, PlaylistUserRoleRepository playlistUserRoleRepository) {
+    public PlaylistsController(PlaylistsService playlistsService, UsersRepository usersRepository, PlaylistTrackRepository playlistTrackRepository, PlaylistsRepository playlistsRepository, PlaylistUserRoleRepository playlistUserRoleRepository, GenresRepository genresRepository, TracksRepository tracksRepository) {
         this.playlistsService = playlistsService;
         this.usersRepository = usersRepository;
         this.playlistTrackRepository = playlistTrackRepository;
         this.playlistsRepository = playlistsRepository;
         this.playlistUserRoleRepository = playlistUserRoleRepository;
+        this.genresRepository = genresRepository;
+        this.tracksRepository = tracksRepository;
     }
 
     @GetMapping(value = "/api/playlists")
@@ -75,6 +79,25 @@ public class PlaylistsController {
                 return false;
             }
         }
+        return true;
+    }
+
+    @PostMapping("/api/tract/add-on-playlist")
+    public boolean addTrackOnPlaylist(@RequestBody TrackForPlaylistDTO trackForPlaylistDTO, Principal principal) {
+        List<String> genres = trackForPlaylistDTO.getTrack().getGenresString();
+        Set<GenresDAO> genresDAOS = new HashSet<>();
+        genres.forEach(genre -> {
+            genresDAOS.addAll(genresRepository.findAllByName(genre));
+        });
+        TracksDAO tracksDAO = tracksMapper.toDAO(trackForPlaylistDTO.getTrack());
+        tracksDAO.setGenres(genresDAOS);
+        TracksDAO newTrackDAO = tracksRepository.save(tracksDAO);
+        PlaylistTrackDAO playlistTrackDAO = new PlaylistTrackDAO();
+        playlistTrackDAO.setId(new PlaylistTrackId(trackForPlaylistDTO.getPlaylistId(), newTrackDAO.getId()));
+        playlistTrackDAO.setPlaylist(playlistsRepository.findById(trackForPlaylistDTO.getPlaylistId()));
+        playlistTrackDAO.setTrack(newTrackDAO);
+        playlistTrackDAO.setTrackNumberInPlaylist(1);
+        playlistTrackRepository.save(playlistTrackDAO);
         return true;
     }
 }

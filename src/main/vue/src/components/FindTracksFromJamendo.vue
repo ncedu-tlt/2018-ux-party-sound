@@ -20,6 +20,7 @@
                 :name="track.name"
                 :artist-name="track.artist_name"
                 :duration="track.duration"
+                @click-on-track="clickOnTrack"
             />
             <Button
                 v-if="tracksFromJamendo.length !== 0"
@@ -132,11 +133,20 @@ export default {
             'asian'],
         activeGenres: []
     }),
+    props: {
+        viewPlaylist: {
+            type: Boolean,
+            default: false
+        }
+    },
     computed: {
         genresByString() {
             return this.genres.filter((str) => {
                 return str.search(new RegExp(this.genreWord, 'i')) !== -1;
             });
+        },
+        maxHeight() {
+            return this.viewPlaylist ? document.documentElement.clientHeight : 0;
         },
         tracksFromJamendo() {
             return this.$store.getters.TRACKS_FROM_JAMENDO;
@@ -149,11 +159,15 @@ export default {
         }
     },
     methods: {
+        clickOnTrack(id) {
+            this.$emit('click-on-track', id);
+        },
         async getTracks() {
             this.$store.dispatch('GET_TRACKS_FROM_JAMENDO', {
                 nameSearch: this.searchWord,
                 limit: 30,
-                tags: this.activeGenres
+                tags: this.activeGenres,
+                include: 'musicinfo'
             });
         },
         async addGenre(genre) {
@@ -177,7 +191,8 @@ export default {
                 nameSearch: this.searchWord,
                 limit: 30,
                 tags: this.activeGenres,
-                offset: this.tracksFromJamendo.length
+                offset: this.tracksFromJamendo.length,
+                include: 'musicinfo'
             });
         },
         async setGenreWord(genreWord) {

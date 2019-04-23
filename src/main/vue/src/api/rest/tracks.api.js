@@ -6,6 +6,17 @@ export function createTrack(track) {
             res.data
         ));
 }
+
+export function addTrackInPlaylist({ playlistId, track }) {
+    return client.post('/tract/add-on-playlist', {
+        playlistId: playlistId,
+        track: track
+    })
+        .then(res => (
+            res.data
+        ));
+}
+
 /**
  * @param { long } playlistId принимает id трека, по которому будут взяты треки
  */

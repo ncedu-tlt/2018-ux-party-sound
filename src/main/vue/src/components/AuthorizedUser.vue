@@ -28,7 +28,7 @@ export default {
     data: function () {
         return {
             isOpen: false,
-            isOpenFormForCreatePlaylist: true
+            isOpenFormForCreatePlaylist: false
         };
     },
     computed: {
