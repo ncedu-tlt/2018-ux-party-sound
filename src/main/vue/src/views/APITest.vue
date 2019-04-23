@@ -1,5 +1,8 @@
 <template>
     <div class="APITest">
+        <div class="but" @click="createPlaylist">
+            ЖМИ, ЧТОБЫ СОЗДАТЬ ПЛЕЙЛИСТ!
+        </div>
         <FindTracksFromJamendo class="jamendo" />
         <div class="search_artists">
             <p>Демострация поиска исполнителей: </p>
@@ -77,6 +80,7 @@
 import { createTrack } from '@/api/rest/tracks.api';
 import { getTracks } from '@/api/rest/track.jamendo.api';
 import { findArtistsByName } from '@/api/rest/artists.jamendo.api';
+// import { createdPlaylist } from '@/api/rest/playlists.api';
 import FindTracksFromJamendo from '@/components/FindTracksFromJamendo';
 
 const DEFAULT_TIME = '0_10000';
@@ -103,6 +107,12 @@ export default {
         });
     },
     methods: {
+        async createPlaylist() {
+            // console.log(await createdPlaylist({
+            //     playlistName: 'playlistName',
+            //     playlistDescription: 'playlistDescription'
+            // }));
+        },
         async findArtistsByName() {
             this.artists = await findArtistsByName({ limit: 5, namesearch: this.artistName });
         },
@@ -179,5 +189,11 @@ export default {
         position: relative;
         width: 600px;
         height:500px;
+    }
+    .but{
+        height: 400px;
+        width: 400px;
+        background-color: red;
+        color: white;
     }
 </style>

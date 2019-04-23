@@ -1,6 +1,6 @@
 <template>
     <div class="track-button">
-        <div v-if="Number($route.params.id) === playlistId && trackId === activeTrack.id && playing">
+        <div v-if="Number($route.params.id) === playlistId && Number(trackId) === Number(activeTrack.id) && playing">
             <svg width="27" height="30">
                 <rect height="30" width="7" x="2" />
                 <rect height="30" width="7" x="13" />

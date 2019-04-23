@@ -1,4 +1,4 @@
-import { getTracksByPlaylistId } from '../api/rest/tracks.api';
+import { getTracksByPlaylistIdWithRight } from '../api/rest/tracks.api';
 
 const state = {
     tracks: [],
@@ -94,15 +94,28 @@ const mutations = {
         } else {
             state.activeTrack = state.tracks[trackNumber - 1];
         }
+    },
+    DELETE_TRACK_BY_ID: (state, id) => {
+        for (let i = 0; i < state.tracks.length; i++) {
+            if (Number(state.tracks[i].id) === Number(id)) {
+                state.tracks.splice(i, 1);
+                break;
+            }
+        }
+    },
+    ADD_TRACK_IN_PLAYLIST: (state, track) => {
+        console.log(track);
+        console.log(state.tracks);
+        state.tracks = state.tracks.concat(track);
     }
 };
 
 const actions = {
     GET_ACTIVE_PLAYLIST: ({ commit }, playlistId) => {
-        getTracksByPlaylistId(playlistId)
+        getTracksByPlaylistIdWithRight(playlistId)
             .then(res => {
                 commit('SET_ACTIVE_PLAYLIST', {
-                    ...res,
+                    ...res.playlistsWithTracksDTO,
                     playlistId: playlistId
                 });
             })

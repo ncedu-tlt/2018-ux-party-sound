@@ -10,18 +10,28 @@ public class TracksWithGenresDTO {
     private String name;
     private String artistName;
     private long artistId;
+    private int duration;
     private List<String> genresString;
 
     public TracksWithGenresDTO() {
     }
 
-    public TracksWithGenresDTO(long id, String url, String name, String artistName, long artistId, List<String> genresString) {
+    public TracksWithGenresDTO(long id, String url, String name, String artistName, long artistId, int duration, List<String> genresString) {
         this.id = id;
         this.url = url;
         this.name = name;
         this.artistName = artistName;
         this.artistId = artistId;
+        this.duration = duration;
         this.genresString = genresString;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public long getId() {
