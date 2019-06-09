@@ -1,29 +1,19 @@
 import client from '@/api/rest/client';
-import router from '../../router';
 
-export function registration(info) {
-    return client.post('/auth/registration', info)
-        .then(
-            response => Promise.resolve(response.data),
-            error => Promise.reject(error)
-        );
+export function registration(regDataObject) {
+    return client.post('/auth/registration', regDataObject)
+        .then(response => response.data)
+        .catch(error => error);
 }
 
-export function authorization(info) {
-    return client.post('/auth/login', info).then(
-        response => {
-            router.push('/');
-            return response.status;
-        },
-        error => error.response.status
-    );
+export function authorization(authDataObject) {
+    return client.post('/auth/login', authDataObject)
+        .then(response => response.status)
+        .catch(error => error.response.status);
 }
 
 export function logout() {
-    return client.post('/auth/logout').then(
-        response => {
-            return response.status;
-        },
-        error => error.response.status
-    );
+    return client.post('/auth/logout')
+        .then(response => response.status)
+        .catch(error => error.response.status);
 }

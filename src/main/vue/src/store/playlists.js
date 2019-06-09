@@ -58,7 +58,12 @@ const actions = {
     FOUND_PLAYLISTS: context => {
         context.commit('ZEROIZE_PAGE_NUMBER');
         context.commit('START_PLAYLIST_LOADING');
-        getPlaylistsBySearchParams(context.rootState.sortComponent.playlistName, context.rootState.sortComponent.chosenGenres, context.rootState.sortComponent.singerName, context.state.numberPagePlaylists)
+        getPlaylistsBySearchParams({
+            playlistName: context.rootState.sortComponent.playlistName,
+            genresArray: context.rootState.sortComponent.chosenGenres,
+            singer: context.rootState.sortComponent.singerName,
+            pageNumber: context.state.numberPagePlaylists
+        })
             .then(res => {
                 context.commit('PLAYLIST_LOADING_SUCCESS', res);
             })
@@ -69,7 +74,12 @@ const actions = {
     GET_NEW_PAGE: context => {
         context.commit('START_PLAYLIST_LOADING');
         context.commit('CHANGE_PAGE_NUMBER');
-        getPlaylistsBySearchParams(context.rootState.sortComponent.playlistName, context.rootState.sortComponent.chosenGenres, context.rootState.sortComponent.singerName, context.state.numberPagePlaylists)
+        getPlaylistsBySearchParams({
+            playlistName: context.rootState.sortComponent.playlistName,
+            genresArray: context.rootState.sortComponent.chosenGenres,
+            singer: context.rootState.sortComponent.singerName,
+            pageNumber: context.state.numberPagePlaylists
+        })
             .then(res => {
                 context.commit('PAGE_LOADING_SUCCESS', res);
             })
