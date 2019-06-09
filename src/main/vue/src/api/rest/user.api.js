@@ -1,9 +1,6 @@
 import client from '@/api/rest/client';
 
-export function getUserInfo() {
-    return client.get('/auth/userInfo')
-        .then(
-            response => Promise.resolve(response.data),
-            error => Promise.reject(error)
-        );
+export async function getUserInfo() {
+    const response = await client.get('/auth/userInfo');
+    return response.data;
 }

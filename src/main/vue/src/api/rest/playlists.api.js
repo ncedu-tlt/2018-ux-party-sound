@@ -4,11 +4,9 @@ import qs from 'qs';
 /**
  * @param { int } pageNumber задает номер странички, с которой брать треки.
  */
-export function getPlaylistsByPage(pageNumber) {
-    return client.get('/playlists', { params: { pageNumber: pageNumber } })
-        .then(res => (
-            res.data
-        ));
+export async function getPlaylistsByPage(pageNumber) {
+    const response = await client.get('/playlists', { params: { pageNumber: pageNumber } });
+    return response.data;
 }
 
 /**
@@ -17,8 +15,8 @@ export function getPlaylistsByPage(pageNumber) {
  * @param { string } singer задает имя исполнителя, по которому необходимо искать.
  * @param { int } pageNumber задает номер странички, с которой брать треки.
  */
-export function getPlaylistsBySearchParams({ playlistName, genresArray, singer, pageNumber }) {
-    return client.get('/filter', {
+export async function getPlaylistsBySearchParams({ playlistName, genresArray, singer, pageNumber }) {
+    const response = await client.get('/filter', {
         params: {
             playlistName: playlistName,
             singer: singer,
@@ -28,23 +26,19 @@ export function getPlaylistsBySearchParams({ playlistName, genresArray, singer, 
         paramsSerializer: function (params) {
             return qs.stringify(params, { arrayFormat: 'repeat' });
         }
-    })
-        .then(res => (
-            res.data
-        ));
+    });
+    return response.data;
 }
 
-export function createdPlaylist({ playlistName, playlistDescription }) {
-    return client.post('/create-playlist', {
+export async function createdPlaylist({ playlistName, playlistDescription }) {
+    const response = await client.post('/create-playlist', {
         name: playlistName,
         description: playlistDescription
-    })
-        .then(res => (
-            res.data
-        ));
+    });
+    return response.data;
 }
 
-export function getTopPlaylists() {
-    return client.get('/topPlaylists')
-        .then(res => res.data);
+export async function getTopPlaylists() {
+    const response = await client.get('/topPlaylists');
+    return response.data;
 }

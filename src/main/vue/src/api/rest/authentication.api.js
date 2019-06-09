@@ -1,19 +1,16 @@
 import client from '@/api/rest/client';
 
-export function registration(regDataObject) {
-    return client.post('/auth/registration', regDataObject)
-        .then(response => response.data)
-        .catch(error => error);
+export async function registration(regDataObject) {
+    const response = await client.post('/auth/registration', regDataObject);
+    return response.data;
 }
 
-export function authorization(authDataObject) {
-    return client.post('/auth/login', authDataObject)
-        .then(response => response.status)
-        .catch(error => error.response.status);
+export async function authorization(authDataObject) {
+    const response = await client.post('/auth/login', authDataObject);
+    return response.data;
 }
 
-export function logout() {
-    return client.post('/auth/logout')
-        .then(response => response.status)
-        .catch(error => error.response.status);
+export async function logout() {
+    const response = await client.post('/auth/logout');
+    return response.data;
 }
