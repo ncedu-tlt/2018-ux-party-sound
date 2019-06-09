@@ -4,9 +4,9 @@
         <div class="top-list__playlists">
             <PlaylistElement
                 v-for="prop in fakeProps"
+                :id="prop.playlistId"
                 :key="prop.playlistId"
-                :playlist-id="prop.playlistId"
-                :playlist-name="prop.playlistName"
+                :name="prop.playlistName"
                 :genres="prop.genres"
                 :show-genres="false"
                 class="playlist"

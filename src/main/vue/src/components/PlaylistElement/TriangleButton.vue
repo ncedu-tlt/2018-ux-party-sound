@@ -6,7 +6,7 @@
         viewBox="0 0 50 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        @click="onPlaylistClick(playlistId)"
+        @click="playlistClick(id)"
     >
         <rect width="50" height="55" />
         <rect
@@ -24,7 +24,7 @@
             :fill="generatedColor"
         />
     </svg>
-    <svg v-else width="50" height="55" @click="onPlaylistClick(playlistId)">
+    <svg v-else width="50" height="55" @click="playlistClick(id)">
         <polygon points="0,0 0,55 50,27" :fill="generatedColor" />
     </svg>
 </template>
@@ -35,7 +35,7 @@ import genresColors from './../../constants/genresColors';
 export default {
     name: 'TriangleButton',
     props: {
-        playlistId: {
+        id: {
             type: Number,
             required: true
         },
@@ -54,7 +54,7 @@ export default {
     },
     computed: {
         isPlaying: function () {
-            return this.playlistId === this.$store.getters.PLAYLIST_ID && this.$store.getters.IS_PLAYING;
+            return this.id === this.$store.getters.PLAYLIST_ID && this.$store.getters.IS_PLAYING;
         },
         generatedColor: function () {
             let index = Math.floor(Math.random() * 8);
@@ -62,8 +62,8 @@ export default {
         }
     },
     methods: {
-        onPlaylistClick: function (playlistId) {
-            this.$emit('on-playlist-clicked', playlistId);
+        playlistClick: function (playlistId) {
+            this.$emit('playlist-click', playlistId);
         }
     }
 };

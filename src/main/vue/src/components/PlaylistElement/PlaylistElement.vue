@@ -1,8 +1,8 @@
 <template>
     <div class="playlist-element">
-        <TriangleButton :playlist-id="playlistId" :color="color" @on-playlist-clicked="parentMethod" />
-        <router-link :to="{ path: 'playlist/'+playlistId }" class="playlist-element__info">
-            <h4>{{ playlistName }}</h4>
+        <TriangleButton :id="id" :color="color" @playlist-click="parentMethod" />
+        <router-link :to="{ path: 'playlist/'+id }" class="playlist-element__info">
+            <h4>{{ name }}</h4>
             <div v-if="showGenres" class="genres-list">
                 <span v-for="(genre, index) in genreColor" :key="index" :style="{backgroundColor: genre.color.color}">
                     {{ genre.name }}
@@ -22,11 +22,11 @@ export default {
         TriangleButton
     },
     props: {
-        playlistId: {
+        id: {
             type: Number,
             required: true
         },
-        playlistName: {
+        name: {
             type: String,
             required: true
         },

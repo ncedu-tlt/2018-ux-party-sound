@@ -3,9 +3,9 @@
         <div class="playlists-list">
             <PlaylistElement
                 v-for="(prop, index) in playlists"
+                :id="prop.id"
                 :key="index"
-                :playlist-id="prop.id"
-                :playlist-name="prop.name"
+                :name="prop.name"
                 color="blue"
                 :genres="prop.genres"
                 class="playlist"
