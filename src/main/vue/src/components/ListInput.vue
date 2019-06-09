@@ -7,7 +7,7 @@
                 </span>
                 <button
                     class="chosen-list__item__x-button"
-                    @click="onXButtonClick(item)"
+                    @click="deleteGenre(item)"
                 />
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="input-with-window__window js-list-window">
                 <div v-for="item in listItems" :key="item" class="item">
                     <span>{{ item }}</span>
-                    <button class="plus" @click="onPlusClick(item)">
+                    <button class="plus" @click="addGenre(item)">
                         +
                     </button>
                 </div>
@@ -61,11 +61,11 @@ export default {
         };
     },
     methods: {
-        onPlusClick: function (item) {
-            this.$emit('plus-clicked', item);
+        addGenre: function (item) {
+            this.$emit('add-genre', item);
         },
-        onXButtonClick: function (item) {
-            this.$emit('x-clicked', item);
+        deleteGenre: function (item) {
+            this.$emit('delete-genre', item);
         },
         onInput: function () {
             this.$emit('on-input', this.message);

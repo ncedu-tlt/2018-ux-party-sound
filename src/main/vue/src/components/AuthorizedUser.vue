@@ -5,7 +5,7 @@
             <div class="name">
                 {{ name }}
             </div>
-            <div class="arrow" :class="{'open-arrow':isOpen===true}" />
+            <div class="arrow" :class="{ 'open-arrow': isOpen === true }" />
         </div>
         <div class="dropdown-menu" :class="{'open-dropdown-menu':isOpen===true}">
             <div class="item" @click="setOpenFormForCreatePlaylist(true)">

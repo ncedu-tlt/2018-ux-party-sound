@@ -7,8 +7,8 @@
                 :chosen="activeGenres"
                 :list-items="genresByString"
                 @on-input="setGenreWord"
-                @plus-clicked="addGenre"
-                @x-clicked="deleteGenre"
+                @add-genre="addGenre"
+                @delete-genre="deleteGenre"
             />
             <Button class="search_button" type="search-button" label="Найти" @click.native="getTracks" />
         </form>

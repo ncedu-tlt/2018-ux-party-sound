@@ -1,7 +1,7 @@
 <template>
     <div class="playlist-track">
-        <TrackButton :track-name="trackName" :index="index" :track-id="trackId" @click.native="clickOnTrack" />
-        <div v-if="canDeleteTrack" class="minus" @click="clickOnMinus">
+        <TrackButton :id="trackId" :name="trackName" :index="index" @click.native="clickOnTrack" />
+        <div v-if="canDeleteTrack" class="minus" @click="deleteTrack">
             X
         </div>
     </div>
@@ -34,8 +34,8 @@ export default {
         clickOnTrack: function () {
             this.$emit('click-on-track', this.trackId);
         },
-        clickOnMinus: function () {
-            this.$emit('click-on-minus', this.trackId);
+        deleteTrack: function () {
+            this.$emit('delete-track', this.trackId);
         }
     }
 };

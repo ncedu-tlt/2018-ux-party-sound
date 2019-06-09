@@ -11,8 +11,8 @@
                     placeholder="Жанры"
                     :chosen="chosenGenres"
                     :list-items="filteredGenres"
-                    @plus-clicked="addGenre"
-                    @x-clicked="deleteGenre"
+                    @add-genre="addGenre"
+                    @delete-genre="deleteGenre"
                     @on-input="filterGenres"
                 />
             </div>
