@@ -20,7 +20,9 @@
             </div>
 
             <Button class="entry" label="Вход" @click.native="validation" />
-            <div class="error-message" />
+            <div class="error-message">
+                {{ errorMessage }}
+            </div>
             <router-link to="/registration">
                 <Button class="register" label="Зарегистрироваться" type="light" />
             </router-link>
@@ -39,13 +41,14 @@ export default {
     data() {
         return {
             login: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         };
     },
     methods: {
         validation() {
             if (this.login.length === 0 || this.password.length === 0) {
-                document.getElementsByClassName('error-message')[0].innerHTML = 'Все поля должны быть заполнены!';
+                this.errorMessage = 'Все поля должны быть заполнены!';
             } else {
                 this.setClientInfo();
             }
@@ -56,7 +59,7 @@ export default {
             data.append('password', this.password);
             let response = await authorization(data);
             if (response === 401) {
-                document.getElementsByClassName('error-message')[0].innerHTML = 'Пользователь, с введенными данными, не найден';
+                this.errorMessage = 'Пользователь, с введенными данными, не найден';
             } else {
                 this.$store.dispatch('GET_USER_INFO');
             }

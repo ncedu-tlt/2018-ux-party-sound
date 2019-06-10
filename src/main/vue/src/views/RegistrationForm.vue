@@ -19,7 +19,9 @@
                 class-name="input-field"
             />
             <Button class="child" label="Зарегистрироваться" @click.native="validation" />
-            <div class="response-message error-js" />
+            <div class="response-message error-js">
+                {{ errorMessage }}
+            </div>
             <div class="success-response" :class="{'is-visible' : isSuccessfully===true}">
                 Вы успешно зарегистрировались!
             </div>
@@ -45,24 +47,25 @@ export default {
             name: '',
             firstPassword: '',
             secondPassword: '',
-            isSuccessfully: false
+            isSuccessfully: false,
+            errorMessage: ''
         };
     },
     methods: {
         validation() {
             if (this.email.length === 0 || this.login.length === 0 || this.name.length === 0 || this.firstPassword.length === 0 || this.secondPassword.length === 0) {
-                document.getElementsByClassName('error-js')[0].innerHTML = 'Все поля формы должны быть заполнены!';
+                this.errorMessage = 'Все поля формы должны быть заполнены!';
                 this.isSuccessfully = false;
             } else {
                 if (this.firstPassword.length >= 8) {
                     if (this.firstPassword !== this.secondPassword) {
-                        document.getElementsByClassName('error-js')[0].innerHTML = 'Пароли не совпадают!';
+                        this.errorMessage = 'Пароли не совпадают!';
                         this.isSuccessfully = false;
                     } else {
                         this.setClientInfo();
                     }
                 } else {
-                    document.getElementsByClassName('error-js')[0].innerHTML = 'Пароль слишкм короткий! Введите минимум 8 символов';
+                    this.errorMessage = 'Пароль слишкм короткий! Введите минимум 8 символов';
                     this.isSuccessfully = false;
                 }
             }
@@ -85,11 +88,11 @@ export default {
             let message = '';
             for (let i = 0; i < response.length; i++) {
                 message = message + ' ' + wordForMessage[response[i].field] + wordForMessage[response[i].code];
-                document.getElementsByClassName('error-js')[0].innerHTML = message;
+                this.errorMessage = message;
             }
             if (response.length === 0) {
                 this.isSuccessfully = true;
-                document.getElementsByClassName('error-js')[0].innerHTML = '';
+                this.errorMessage = '';
             } else {
                 this.isSuccessfully = false;
             }

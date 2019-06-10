@@ -44,8 +44,8 @@ export default {
             this.isOpenFormForCreatePlaylist = value;
         },
         async logoutOfAccount() {
-            const resp = await logout();
-            if (resp !== 200) {
+            const res = await logout();
+            if (res.status !== 200) {
                 alert('Выйти из профиля не удалось');
             } else {
                 this.$store.commit('AUTHORIZED', false);

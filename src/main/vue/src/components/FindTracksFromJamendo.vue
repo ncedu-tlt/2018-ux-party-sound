@@ -162,7 +162,7 @@ export default {
         clickOnTrack(id) {
             this.$emit('click-on-track', id);
         },
-        async getTracks() {
+        getTracks() {
             this.$store.dispatch('GET_TRACKS_FROM_JAMENDO', {
                 nameSearch: this.searchWord,
                 limit: 30,
@@ -170,7 +170,7 @@ export default {
                 include: 'musicinfo'
             });
         },
-        async addGenre(genre) {
+        addGenre(genre) {
             this.activeGenres.push(genre);
             for (let i = 0; i < this.genres.length; i++) {
                 if (this.genres[i] === genre) {
@@ -178,7 +178,7 @@ export default {
                 }
             }
         },
-        async deleteGenre(genreForDel) {
+        deleteGenre(genreForDel) {
             for (let i = 0; i < this.activeGenres.length; i++) {
                 if (this.activeGenres[i] === genreForDel) {
                     this.activeGenres.splice(i, 1);
@@ -186,7 +186,7 @@ export default {
             }
             this.genres.push(genreForDel);
         },
-        async loadMore() {
+        loadMore() {
             this.$store.dispatch('GET_NEXT_TRACKS_FROM_JAMENDO', {
                 nameSearch: this.searchWord,
                 limit: 30,
@@ -195,7 +195,7 @@ export default {
                 include: 'musicinfo'
             });
         },
-        async setGenreWord(genreWord) {
+        setGenreWord(genreWord) {
             this.genreWord = genreWord;
         }
     }

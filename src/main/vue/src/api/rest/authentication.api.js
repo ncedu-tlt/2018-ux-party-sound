@@ -12,5 +12,5 @@ export async function authorization(authDataObject) {
 
 export async function logout() {
     const response = await client.post('/auth/logout');
-    return response.data;
+    return response;
 }
