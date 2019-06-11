@@ -18,6 +18,7 @@
 </template>
 <script>
 import Track from './TrackForPlayer';
+import { mapState } from 'vuex';
 
 export default {
     name: 'PlayerPlaylist',
@@ -31,20 +32,14 @@ export default {
         }
     },
     computed: {
-        playlistName() {
-            return this.$store.getters.PLAYLIST_NAME;
-        },
-        tracks() {
-            return this.$store.getters.TRACKS;
-        },
+        ...mapState([
+            'playlistName',
+            'tracks',
+            'playing',
+            'activeTrack'
+        ]),
         maxHeight() {
             return this.viewPlaylist ? document.documentElement.clientHeight : 0;
-        },
-        playing() {
-            return this.$store.getters.IS_PLAYING;
-        },
-        activeTrack() {
-            return this.$store.getters.ACTIVE_TRACK;
         }
     },
     methods: {

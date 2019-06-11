@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'TrackButton',
     props: {
@@ -36,15 +38,11 @@ export default {
         }
     },
     computed: {
-        activeTrack() {
-            return this.$store.getters.ACTIVE_TRACK;
-        },
-        playing() {
-            return this.$store.getters.IS_PLAYING;
-        },
-        playlistId() {
-            return this.$store.getters.PLAYLIST_ID;
-        }
+        ...mapState([
+            'playlistId',
+            'activeTrack',
+            'playing'
+        ])
     }
 };
 </script>

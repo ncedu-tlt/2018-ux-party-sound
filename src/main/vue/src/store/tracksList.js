@@ -5,11 +5,6 @@ const state = {
     successLoadFromJamendoAPI: true
 };
 
-const getters = {
-    TRACKS_FROM_JAMENDO: state => (state.tracksFromJamendo),
-    IS_SUCCESS_LOAD_FROM_JAMENDO_API: state => (state.successLoadFromJamendoAPI)
-};
-
 const mutations = {
     SET_TRACKS_FROM_JAMENDO: (state, res) => {
         state.tracksFromJamendo = res.results;
@@ -37,8 +32,8 @@ const actions = {
 };
 
 export default {
+    namespaced: true,
     state,
-    getters,
     mutations,
     actions
 };

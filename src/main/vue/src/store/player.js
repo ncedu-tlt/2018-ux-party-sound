@@ -15,13 +15,9 @@ const state = {
 };
 
 const getters = {
-    TRACKS: state => (state.tracks),
-    PLAYLIST_ID: state => (state.playlistId),
-    ACTIVE_TRACK: state => (state.activeTrack),
-    IS_SUCCESS_LOAD: state => (state.successLoad),
-    CURRENT_SECONDS: state => (state.currentSeconds),
-    IS_PLAYING: state => (state.playing),
-    PLAYLIST_NAME: state => (state.playlistName)
+    isPlaying: (state) => (id) => {
+        return id === state.playlistId && state.playing;
+    }
 };
 
 const mutations = {
@@ -104,8 +100,6 @@ const mutations = {
         }
     },
     ADD_TRACK_IN_PLAYLIST: (state, track) => {
-        console.log(track);
-        console.log(state.tracks);
         state.tracks = state.tracks.concat(track);
     }
 };
@@ -126,6 +120,7 @@ const actions = {
 };
 
 export default {
+    namespaced: true,
     state,
     getters,
     mutations,

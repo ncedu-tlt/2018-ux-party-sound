@@ -38,6 +38,7 @@ import TrackWithButtonSetTrack from './TrackWithButtonSetTrack';
 import TextInput from './TextInput.vue';
 import ListInput from './ListInput.vue';
 import Button from './Button.vue';
+import {mapState} from 'vuex';
 
 export default {
     name: 'FindTracksFromJamendo',
@@ -148,15 +149,11 @@ export default {
         maxHeight() {
             return this.viewPlaylist ? document.documentElement.clientHeight : 0;
         },
-        tracksFromJamendo() {
-            return this.$store.getters.TRACKS_FROM_JAMENDO;
-        },
-        activeTrack() {
-            return this.$store.getters.ACTIVE_TRACK;
-        },
-        playing() {
-            return this.$store.getters.IS_PLAYING;
-        }
+        ...mapState([
+            'tracksFromJamendo',
+            'activeTrack',
+            'playing'
+        ])
     },
     methods: {
         clickOnTrack(id) {

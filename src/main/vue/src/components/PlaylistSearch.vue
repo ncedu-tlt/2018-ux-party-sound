@@ -2,11 +2,11 @@
     <section class="playlist-search container">
         <div class="playlist-search-fields">
             <div class="playlist-search-fields__block">
-                <TextInput v-model="playlistName" class-name="search-input" placeholder="Поиск" />
+                <TextInput v-model="playlistNameComputed" class-name="search-input" placeholder="Поиск" />
                 <Button type="search-button" label="Найти" @on-click="getAllData" />
             </div>
             <div class="playlist-search-fields__block">
-                <TextInput v-model="singerName" class-name="small-search-input" placeholder="Исполнитель" />
+                <TextInput v-model="singerNameComputed" class-name="small-search-input" placeholder="Исполнитель" />
                 <ListInput
                     placeholder="Жанры"
                     :chosen="chosenGenres"
@@ -23,6 +23,7 @@
 import ListInput from './ListInput.vue';
 import TextInput from './TextInput.vue';
 import Button from './Button.vue';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'PlaylistSearch',
@@ -32,46 +33,60 @@ export default {
         Button
     },
     computed: {
-        filteredGenres: function () {
-            return this.$store.getters.FILTERED_GENRES;
-        },
-        chosenGenres: function () {
-            return this.$store.getters.CHOSEN_GENRES;
-        },
-        playlistName: {
+        ...mapState('sortComponent', [
+            'filteredGenres',
+            'chosenGenres',
+            'playlistName',
+            'singerName',
+            'allGenres'
+        ]),
+        playlistNameComputed: {
             get: function () {
-                return this.$store.getters.SEARCH_PLAYLIST_NAME;
+                return this.playlistName;
             },
             set: function (event) {
-                this.$store.dispatch('GET_PLAYLIST_NAME', event);
+                this.PLAYLIST_NAME_INPUT(event);
             }
         },
-        singerName: {
+        singerNameComputed: {
             get: function () {
-                return this.$store.getters.SEARCH_SINGER_NAME;
+                return this.singerName;
             },
             set: function (event) {
-                this.$store.dispatch('GET_SINGER_NAME', event);
+                this.SINGER_NAME_INPUT(event);
             }
         }
     },
     mounted() {
-        if (this.$store.getters.ALL_GENRES.length === 0) {
-            this.$store.dispatch('GET_ALL_GENRES');
+        if (this.allGenres.length === 0) {
+            this.GET_ALL_GENRES();
         }
     },
     methods: {
+        ...mapActions('sortComponent', [
+            'PLAYLIST_NAME_INPUT',
+            'SINGER_NAME_INPUT',
+            'GET_ALL_GENRES'
+        ]),
+        ...mapActions('playlists', [
+            'FOUND_PLAYLISTS'
+        ]),
+        ...mapMutations('sortComponent', [
+            'CHOSE_GENRES',
+            'DELETE_GENRE',
+            'FILTER_GENRES'
+        ]),
         addGenre: function (genre) {
-            this.$store.dispatch('ADD_GENRE', genre);
+            this.CHOSE_GENRES(genre);
         },
         deleteGenre: function (genre) {
-            this.$store.dispatch('DELETE_GENRE', genre);
+            this.DELETE_GENRE(genre);
         },
         getAllData: function () {
-            this.$store.dispatch('FOUND_PLAYLISTS');
+            this.FOUND_PLAYLISTS();
         },
         filterGenres: function (message) {
-            this.$store.dispatch('FILTER_GENRES_LIST', message);
+            this.FILTER_GENRES(message);
         }
     }
 };

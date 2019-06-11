@@ -26,6 +26,8 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'TrackForPlayer',
     props: {
@@ -47,17 +49,16 @@ export default {
         }
     },
     computed: {
+        ...mapState([
+            'currentSeconds',
+            'activeTrack',
+            'playing'
+        ]),
         currentTime() {
-            let beautifulTime = parseInt(this.$store.getters.CURRENT_SECONDS / 60) + ':';
-            beautifulTime += this.$store.getters.CURRENT_SECONDS % 60 < 10 ? '0' : '';
-            beautifulTime += this.$store.getters.CURRENT_SECONDS % 60;
+            let beautifulTime = parseInt(this.currentSeconds / 60) + ':';
+            beautifulTime += this.currentSeconds % 60 < 10 ? '0' : '';
+            beautifulTime += this.currentSeconds % 60;
             return beautifulTime;
-        },
-        activeTrack() {
-            return this.$store.getters.ACTIVE_TRACK;
-        },
-        playing() {
-            return this.$store.getters.IS_PLAYING;
         }
     }
 };

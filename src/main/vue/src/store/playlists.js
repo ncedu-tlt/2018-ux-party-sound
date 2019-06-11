@@ -2,21 +2,9 @@ import { getPlaylistsByPage, getPlaylistsBySearchParams } from '../api/rest/play
 
 const state = {
     isLoading: false,
-    playlists: [],
+    playlistsArray: [],
     error: null,
     numberPagePlaylists: 0
-};
-
-const getters = {
-    IS_LOADING: state => {
-        return state.isLoading;
-    },
-    PLAYLISTS: state => {
-        return state.playlists;
-    },
-    ERROR: state => {
-        return state.error;
-    }
 };
 
 const mutations = {
@@ -26,17 +14,17 @@ const mutations = {
     },
     PLAYLIST_LOADING_SUCCESS: (state, payload) => {
         state.isLoading = false;
-        state.playlists = payload;
+        state.playlistsArray = payload;
     },
     PAGE_LOADING_SUCCESS: (state, payload) => {
         state.isLoading = false;
-        state.playlists = state.playlists.concat(payload);
+        state.playlistsArray = state.playlistsArray.concat(payload);
     },
     PLAYLIST_LOADING_ERROR: (state, payload) => {
         state.isLoading = false;
         state.error = payload;
     },
-    CHANGE_PAGE_NUMBER: state => {
+    INCREMENT_PAGE_NUMBER: state => {
         state.numberPagePlaylists++;
     },
     ZEROIZE_PAGE_NUMBER: state => {
@@ -73,7 +61,7 @@ const actions = {
     },
     GET_NEW_PAGE: context => {
         context.commit('START_PLAYLIST_LOADING');
-        context.commit('CHANGE_PAGE_NUMBER');
+        context.commit('INCREMENT_PAGE_NUMBER');
         getPlaylistsBySearchParams({
             playlistName: context.rootState.sortComponent.playlistName,
             genresArray: context.rootState.sortComponent.chosenGenres,
@@ -90,8 +78,8 @@ const actions = {
 };
 
 export default {
+    namespaced: true,
     state,
-    getters,
     mutations,
     actions
 };

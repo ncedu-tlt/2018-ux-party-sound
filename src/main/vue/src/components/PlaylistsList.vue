@@ -2,7 +2,7 @@
     <section class="playlists-section container">
         <div class="playlists-list">
             <PlaylistElement
-                v-for="(prop, index) in playlists"
+                v-for="(prop, index) in playlistsArray"
                 :id="prop.id"
                 :key="index"
                 :name="prop.name"
@@ -15,6 +15,7 @@
 </template>
 <script>
 import PlaylistElement from './PlaylistElement/PlaylistElement.vue';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'PlaylistsList',
@@ -22,14 +23,20 @@ export default {
         PlaylistElement
     },
     computed: {
-        playlists: function () {
-            return this.$store.getters.PLAYLISTS;
-        }
+        ...mapState('playlists', [
+            'playlistsArray'
+        ])
     },
     mounted() {
-        if (this.$store.getters.PLAYLISTS.length === 0) {
-            this.$store.dispatch('POPULATE_PLAYLISTS');
+        let isPlaylistsEmpty = this.playlistsArray.length === 0;
+        if (isPlaylistsEmpty) {
+            this.POPULATE_PLAYLISTS();
         }
+    },
+    methods: {
+        ...mapActions('playlists', [
+            'POPULATE_PLAYLISTS'
+        ])
     }
 };
 </script>

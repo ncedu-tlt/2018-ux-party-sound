@@ -5,15 +5,6 @@ const state = {
     authorized: false
 };
 
-const getters = {
-    NAME: state => {
-        return state.name;
-    },
-    IS_AUTHORIZED: state => {
-        return state.authorized;
-    }
-};
-
 const mutations = {
     SET_NAME: (state, payload) => {
         state.name = payload;
@@ -37,8 +28,8 @@ const actions = {
 };
 
 export default {
+    namespaced: true,
     state,
-    getters,
     mutations,
     actions
 };

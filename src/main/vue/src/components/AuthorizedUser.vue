@@ -21,6 +21,7 @@
 <script>
 import { logout } from '../api/rest/authentication.api';
 import FormForCreatePlaylist from '../components/FormForCreatePlaylist';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'AuthorizedUser',
@@ -32,14 +33,17 @@ export default {
         };
     },
     computed: {
-        name() {
-            return this.$store.getters.NAME;
-        }
+        ...mapState('user', [
+            'name'
+        ])
     },
     created() {
-        this.$store.dispatch('GET_USER_INFO');
+        this.GET_USER_INFO();
     },
     methods: {
+        ...mapActions('user', [
+            'GET_USER_INFO'
+        ]),
         setOpenFormForCreatePlaylist(value) {
             this.isOpenFormForCreatePlaylist = value;
         },

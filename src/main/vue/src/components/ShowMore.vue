@@ -4,11 +4,16 @@
     </button>
 </template>
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'ShowMore',
     computed: {
+        ...mapState([
+            'playlists'
+        ]),
         showButton: function () {
-            return this.$store.getters.PLAYLISTS.length % 15 === 0;
+            return this.playlists.length % 15 === 0;
         }
     },
     methods: {

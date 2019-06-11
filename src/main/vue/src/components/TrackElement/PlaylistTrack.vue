@@ -1,6 +1,6 @@
 <template>
     <div class="playlist-track">
-        <TrackButton :id="trackId" :name="trackName" :index="index" @click.native="clickOnTrack" />
+        <TrackButton :id="id" :name="trackName" :index="index" @click.native="clickOnTrack" />
         <div v-if="canDeleteTrack" class="minus" @click="deleteTrack">
             X
         </div>
@@ -21,7 +21,7 @@ export default {
             type: Number,
             default: 0
         },
-        trackId: {
+        id: {
             type: Number,
             default: 0
         },
@@ -32,10 +32,10 @@ export default {
     },
     methods: {
         clickOnTrack: function () {
-            this.$emit('click-on-track', this.trackId);
+            this.$emit('click-on-track', this.id);
         },
         deleteTrack: function () {
-            this.$emit('delete-track', this.trackId);
+            this.$emit('delete-track', this.id);
         }
     }
 };

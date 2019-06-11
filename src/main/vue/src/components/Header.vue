@@ -26,17 +26,23 @@
 import Button from './Button';
 import Player from './Player';
 import AuthorizedUser from './AuthorizedUser';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'Header',
     components: { AuthorizedUser, Button, Player },
     computed: {
-        authorized() {
-            return this.$store.getters.IS_AUTHORIZED;
-        }
+        ...mapState([
+            'authorized'
+        ])
     },
     created() {
-        this.$store.dispatch('GET_USER_INFO');
+        this.GET_USER_INFO();
+    },
+    methods: {
+        ...mapActions('user', [
+            'GET_USER_INFO'
+        ])
     }
 };
 </script>

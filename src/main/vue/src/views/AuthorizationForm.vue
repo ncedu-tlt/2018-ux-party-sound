@@ -34,6 +34,7 @@
 import TextInput from '../components/TextInput';
 import Button from '../components/Button';
 import { authorization } from '../api/rest/authentication.api';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'AuthorizationForm',
@@ -46,6 +47,9 @@ export default {
         };
     },
     methods: {
+        ...mapActions('user', [
+            'GET_USER_INFO'
+        ]),
         validation() {
             if (this.login.length === 0 || this.password.length === 0) {
                 this.errorMessage = 'Все поля должны быть заполнены!';
@@ -61,7 +65,7 @@ export default {
             if (response === 401) {
                 this.errorMessage = 'Пользователь, с введенными данными, не найден';
             } else {
-                this.$store.dispatch('GET_USER_INFO');
+                this.GET_USER_INFO();
             }
         }
     }

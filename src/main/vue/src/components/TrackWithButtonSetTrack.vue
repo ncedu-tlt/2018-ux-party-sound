@@ -16,6 +16,7 @@
 
 <script>
 import Track from './TrackForPlayer';
+import { mapState } from 'vuex';
 
 export default {
     name: 'TrackWithButtonSetTrack',
@@ -41,15 +42,11 @@ export default {
         }
     },
     computed: {
-        tracks() {
-            return this.$store.getters.TRACKS_FROM_JAMENDO;
-        },
-        activeTrack() {
-            return this.$store.getters.ACTIVE_TRACK;
-        },
-        playing() {
-            return this.$store.getters.IS_PLAYING;
-        }
+        ...mapState([
+            'tracks',
+            'activeTrack',
+            'playing'
+        ])
     },
     methods: {
         playOrStopTrack() {

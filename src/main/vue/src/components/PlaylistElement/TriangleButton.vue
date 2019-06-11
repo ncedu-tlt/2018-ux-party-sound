@@ -48,13 +48,13 @@ export default {
     },
     data: function () {
         return {
-            linearGradientId: 'linear-gradient-' + this.playlistId,
-            linearGradientUrl: `url(#linear-gradient-${this.playlistId})`
+            linearGradientId: 'linear-gradient-' + this.id,
+            linearGradientUrl: `url(#linear-gradient-${this.id})`
         };
     },
     computed: {
         isPlaying: function () {
-            return this.id === this.$store.getters.PLAYLIST_ID && this.$store.getters.IS_PLAYING;
+            return this.$store.getters.isPlaying(this.id);
         },
         generatedColor: function () {
             let index = Math.floor(Math.random() * 8);
@@ -62,8 +62,8 @@ export default {
         }
     },
     methods: {
-        playlistClick: function (playlistId) {
-            this.$emit('playlist-click', playlistId);
+        playlistClick: function (id) {
+            this.$emit('playlist-click', id);
         }
     }
 };

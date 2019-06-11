@@ -67,6 +67,7 @@
 
 <script>
 import PlayerPlaylist from './PlayerPlaylist';
+import { mapMutations, mapState } from 'vuex';
 export default {
     name: 'Player',
     components: {
@@ -85,24 +86,14 @@ export default {
         percentComplete() {
             return parseInt(this.currentTime / this.durationSeconds * 100);
         },
-        playing() {
-            return this.$store.getters.IS_PLAYING;
-        },
-        playlistId() {
-            return this.$store.getters.PLAYLIST_ID;
-        },
-        activeTrack() {
-            return this.$store.getters.ACTIVE_TRACK;
-        },
-        load() {
-            return this.$store.getters.IS_SUCCESS_LOAD;
-        },
-        tracks() {
-            return this.$store.getters.TRACKS;
-        },
-        currentTime() {
-            return this.$store.getters.CURRENT_SECONDS;
-        }
+        ...mapState('player', [
+            'playing',
+            'playlistId',
+            'activeTrack',
+            'load',
+            'tracks',
+            'currentTime'
+        ])
     },
     watch: {
         volume() {
@@ -112,7 +103,7 @@ export default {
             if (value) {
                 this.player.play()
                     .catch(e => {
-                        this.$store.commit('SET_PLAYING', false);
+                        this.SET_PLAYING(false);
                     });
             } else {
                 this.player.pause();
@@ -120,7 +111,7 @@ export default {
         },
         activeTrack() {
             this.player.setAttribute('src', this.activeTrack.url || this.activeTrack.audio);
-            this.$store.commit('SET_PLAYING', true);
+            this.SET_PLAYING(true);
             this.player.play();
         }
     },
@@ -132,13 +123,19 @@ export default {
         this.player.volume = this.volume / 100;
     },
     methods: {
+        ...mapMutations('player', [
+            'SET_PLAYING',
+            'SET_CURRENT_SECONDS',
+            'SET_NEXT_TRACK',
+            'SET_PREVIOUS_TRACK'
+        ]),
         reverseViewPlaylist() {
             if (this.tracks.length !== 0) {
                 this.viewPlaylist = !this.viewPlaylist;
             }
         },
         reversePlaying() {
-            this.$store.commit('SET_PLAYING', !this.playing);
+            this.SET_PLAYING(!this.playing);
         },
         loaded() {
             if (this.player.readyState >= 2) {
@@ -146,7 +143,7 @@ export default {
             }
         },
         update(e) {
-            this.$store.commit('SET_CURRENT_SECONDS', parseInt(this.player.currentTime));
+            this.SET_CURRENT_SECONDS(parseInt(this.player.currentTime));
         },
         seek(e) {
             const el = this.$refs.seek.getBoundingClientRect();
@@ -157,10 +154,10 @@ export default {
             }
         },
         playNextTrack() {
-            this.$store.commit('SET_NEXT_TRACK');
+            this.SET_NEXT_TRACK();
         },
         playPreviousTrack() {
-            this.$store.commit('SET_PREVIOUS_TRACK');
+            this.SET_PREVIOUS_TRACK();
         }
     }
 };
