@@ -84,7 +84,7 @@ export default {
             return this.activeTrack.artistName !== undefined ? this.activeTrack.artistName + ' - ' + this.activeTrack.name : this.activeTrack.name;
         },
         percentComplete() {
-            return parseInt(this.currentTime / this.durationSeconds * 100);
+            return parseInt(this.currentSeconds / this.durationSeconds * 100);
         },
         ...mapState('player', [
             'playing',
@@ -92,7 +92,7 @@ export default {
             'activeTrack',
             'load',
             'tracks',
-            'currentTime'
+            'currentSeconds'
         ])
     },
     watch: {

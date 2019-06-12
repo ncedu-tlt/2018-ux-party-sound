@@ -56,7 +56,8 @@ export default {
             });
         },
         ...mapState('player', [
-            'playlistId'
+            'playlistId',
+            'playing'
         ])
     },
     methods: {
@@ -70,7 +71,7 @@ export default {
             if (this.playlistId !== playlistId) {
                 this.GET_ACTIVE_PLAYLIST(playlistId);
             } else {
-                this.SET_PLAYING(this.playlistId);
+                this.SET_PLAYING(!this.playing);
             }
         }
     }
