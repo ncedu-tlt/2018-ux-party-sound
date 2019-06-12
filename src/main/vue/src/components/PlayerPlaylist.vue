@@ -18,7 +18,7 @@
 </template>
 <script>
 import Track from './TrackForPlayer';
-import { mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'PlayerPlaylist',
@@ -32,7 +32,7 @@ export default {
         }
     },
     computed: {
-        ...mapState([
+        ...mapState('player', [
             'playlistName',
             'tracks',
             'playing',
@@ -43,11 +43,15 @@ export default {
         }
     },
     methods: {
+        ...mapMutations('player', [
+            'SET_PLAYING',
+            'SET_ACTIVE_TRACK_BY_ID'
+        ]),
         playOrStopTrack(id) {
             if (id === this.activeTrack.id) {
-                this.$store.commit('SET_PLAYING', !this.playing);
+                this.SET_PLAYING(!this.playing);
             } else {
-                this.$store.commit('SET_ACTIVE_TRACK_BY_ID', id);
+                this.SET_ACTIVE_TRACK_BY_ID(id);
             }
         }
     }

@@ -16,7 +16,7 @@
 
 <script>
 import Track from './TrackForPlayer';
-import { mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'TrackWithButtonSetTrack',
@@ -42,18 +42,22 @@ export default {
         }
     },
     computed: {
-        ...mapState([
+        ...mapState('player', [
             'tracks',
             'activeTrack',
             'playing'
         ])
     },
     methods: {
+        ...mapMutations('player', [
+            'SET_PLAYING',
+            'SET_LIST_FORM_JAMENDO'
+        ]),
         playOrStopTrack() {
             if (this.id === Number(this.activeTrack.id)) {
-                this.$store.commit('SET_PLAYING', !this.playing);
+                this.SET_PLAYING(!this.playing);
             } else {
-                this.$store.commit('SET_LIST_FORM_JAMENDO', { tracks: this.tracks, trackId: this.id });
+                this.SET_LIST_FORM_JAMENDO({ tracks: this.tracks, trackId: this.id });
             }
         },
         addTrackInPlaylist() {

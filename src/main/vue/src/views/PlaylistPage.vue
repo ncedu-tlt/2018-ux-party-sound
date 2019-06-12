@@ -29,6 +29,7 @@
 import { getTracksByPlaylistIdWithRight, deleteTrack, addTrackInPlaylist } from '../api/rest/tracks.api';
 import PlaylistTrack from '../components/TrackElement/PlaylistTrack';
 import FindTracksFromJamendo from '../components/FindTracksFromJamendo';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'PlaylistPage',
@@ -41,18 +42,14 @@ export default {
         };
     },
     computed: {
-        playing: function () {
-            return this.$store.getters.IS_PLAYING;
-        },
-        activeTrack: function () {
-            return this.$store.getters.ACTIVE_TRACK;
-        },
-        playlistId: function () {
-            return this.$store.getters.PLAYLIST_ID;
-        },
-        tracksInSearchJamendo: function () {
-            return this.$store.getters.TRACKS_FROM_JAMENDO;
-        }
+        ...mapState('player', [
+            'playing',
+            'activeTrack',
+            'playlistId'
+        ]),
+        ...mapState('tracksList', [
+            'tracksFromJamendo'
+        ])
     },
     async created() {
         const tracksWithRight = await this.getTracksWithRight();
@@ -60,10 +57,17 @@ export default {
         this.right = tracksWithRight.rolesDTO;
     },
     methods: {
+        ...mapMutations('player', [
+            'ADD_TRACK_IN_PLAYLIST',
+            'DELETE_TRACK_BY_ID',
+            'SET_PLAYING',
+            'SET_ACTIVE_TRACK_BY_ID',
+            'SET_ACTIVE_PLAYLIST'
+        ]),
         async addTrack(id) {
-            for (let index in this.tracksInSearchJamendo) {
-                if (Number(this.tracksInSearchJamendo[index].id) === Number(id)) {
-                    const track = this.tracksInSearchJamendo[index];
+            for (let index in this.tracksFromJamendo) {
+                if (Number(this.tracksFromJamendo[index].id) === Number(id)) {
+                    const track = this.tracksFromJamendo[index];
                     const q = await addTrackInPlaylist({
                         playlistId: this.$route.params.id,
                         track: {
@@ -80,7 +84,7 @@ export default {
                     });
                     if (q) {
                         this.playlist.tracks = this.playlist.tracks.concat(track);
-                        this.$store.commit('ADD_TRACK_IN_PLAYLIST', track);
+                        this.ADD_TRACK_IN_PLAYLIST(track);
                     }
                 }
             }
@@ -97,7 +101,7 @@ export default {
                         break;
                     }
                 }
-                this.$store.commit('DELETE_TRACK_BY_ID', trackId);
+                this.DELETE_TRACK_BY_ID(trackId);
             }
         },
         async getTracksWithRight() {
@@ -109,19 +113,19 @@ export default {
         async setPlaylistAndTrack(trackId) {
             if (Number(this.$route.params.id) === Number(this.playlistId)) {
                 if (Number(trackId) === Number(this.activeTrack.id)) {
-                    this.$store.commit('SET_PLAYING', !this.playing);
+                    this.SET_PLAYING(!this.playing);
                 } else {
-                    this.$store.commit('SET_ACTIVE_TRACK_BY_ID', trackId);
+                    this.SET_ACTIVE_TRACK_BY_ID(trackId);
                 }
             } else {
                 const playlist = await getTracksByPlaylistIdWithRight(
                     this.$route.params.id
                 );
-                this.$store.commit('SET_ACTIVE_PLAYLIST', {
+                this.SET_ACTIVE_PLAYLIST({
                     ...playlist.playlistsWithTracksDTO,
                     playlistId: Number(this.$route.params.id)
                 });
-                this.$store.commit('SET_ACTIVE_TRACK_BY_ID', trackId);
+                this.SET_ACTIVE_TRACK_BY_ID(trackId);
             }
         }
     }
@@ -132,11 +136,13 @@ export default {
     .container {
         width: 100%;
         min-height: 89vh;
+
         .playlist-page {
             display: flex;
             flex-direction: column;
             width: 50%;
             margin-left: 20px;
+
             .window {
                 display: block;
                 position: fixed;
@@ -146,12 +152,14 @@ export default {
                 width: 100%;
                 height: 0;
                 transition: 1s;
+
                 .tracks_jamendo_list {
                     width: 500px;
                     height: calc(100% - 150px);
                     margin: 0 auto;
                 }
-                .close{
+
+                .close {
                     margin-left: calc(100% - 50px);
                     margin-top: 10px;
                     cursor: pointer;
@@ -160,9 +168,11 @@ export default {
                     font-size: 30px;
                 }
             }
+
             .full {
                 height: 100%;
             }
+
             .add_tracks {
                 cursor: pointer;
                 margin: 0 auto;
@@ -174,9 +184,11 @@ export default {
                 align-items: center;
                 justify-content: center;
             }
+
             h1 {
                 font-weight: 100;
             }
+
             span {
                 color: white;
             }

@@ -21,7 +21,7 @@
 <script>
 import { logout } from '../api/rest/authentication.api';
 import FormForCreatePlaylist from '../components/FormForCreatePlaylist';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'AuthorizedUser',
@@ -44,6 +44,10 @@ export default {
         ...mapActions('user', [
             'GET_USER_INFO'
         ]),
+        ...mapMutations('user', [
+            'AUTHORIZED',
+            'SET_NAME'
+        ]),
         setOpenFormForCreatePlaylist(value) {
             this.isOpenFormForCreatePlaylist = value;
         },
@@ -52,8 +56,8 @@ export default {
             if (res.status !== 200) {
                 alert('Выйти из профиля не удалось');
             } else {
-                this.$store.commit('AUTHORIZED', false);
-                this.$store.commit('SET_NAME', '');
+                this.AUTHORIZED(false);
+                this.SET_NAME('');
             }
         }
     }

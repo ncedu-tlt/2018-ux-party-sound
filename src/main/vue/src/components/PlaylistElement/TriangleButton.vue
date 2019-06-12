@@ -1,6 +1,6 @@
 <template>
     <svg
-        v-if="isPlaying"
+        v-if="isPlaying(id)"
         width="50"
         height="55"
         viewBox="0 0 50 55"
@@ -31,6 +31,7 @@
 
 <script>
 import genresColors from './../../constants/genresColors';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'TriangleButton',
@@ -53,9 +54,9 @@ export default {
         };
     },
     computed: {
-        isPlaying: function () {
-            return this.$store.getters.isPlaying(this.id);
-        },
+        ...mapGetters('player', [
+            'isPlaying'
+        ]),
         generatedColor: function () {
             let index = Math.floor(Math.random() * 8);
             return genresColors[index].color;

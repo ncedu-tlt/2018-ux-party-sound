@@ -38,7 +38,7 @@ export default {
         }
     },
     computed: {
-        ...mapState([
+        ...mapState('player', [
             'playlistId',
             'activeTrack',
             'playing'

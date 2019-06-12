@@ -32,7 +32,7 @@ export default {
     name: 'Header',
     components: { AuthorizedUser, Button, Player },
     computed: {
-        ...mapState([
+        ...mapState('user', [
             'authorized'
         ])
     },

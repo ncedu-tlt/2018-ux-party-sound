@@ -4,21 +4,24 @@
     </button>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'ShowMore',
     computed: {
-        ...mapState([
-            'playlists'
+        ...mapState('playlists', [
+            'playlistsArray'
         ]),
         showButton: function () {
-            return this.playlists.length % 15 === 0;
+            return this.playlistsArray.length % 15 === 0;
         }
     },
     methods: {
+        ...mapActions('playlists', [
+            'GET_NEW_PAGE'
+        ]),
         getPlaylists: function () {
-            this.$store.dispatch('GET_NEW_PAGE');
+            this.GET_NEW_PAGE();
         }
     }
 };

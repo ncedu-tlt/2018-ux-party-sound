@@ -15,7 +15,7 @@
 <script>
 import TriangleButton from './TriangleButton';
 import genresColors from '@/constants/genresColors';
-import { mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'PlaylistElement',
@@ -55,16 +55,22 @@ export default {
                     })[0] };
             });
         },
-        ...mapState([
+        ...mapState('player', [
             'playlistId'
         ])
     },
     methods: {
+        ...mapActions('player', [
+            'GET_ACTIVE_PLAYLIST'
+        ]),
+        ...mapMutations('player', [
+            'SET_PLAYING'
+        ]),
         parentMethod: function (playlistId) {
             if (this.playlistId !== playlistId) {
-                this.$store.dispatch('GET_ACTIVE_PLAYLIST', playlistId);
+                this.GET_ACTIVE_PLAYLIST(playlistId);
             } else {
-                this.$store.commit('SET_PLAYING', !this.playlistId);
+                this.SET_PLAYING(this.playlistId);
             }
         }
     }
