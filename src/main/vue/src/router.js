@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Header from './components/TheHeader';
 import Main from './views/Main.vue';
-import RegistrationForm from './views/RegistrationForm';
+import RegistrationPage from './views/RegistrationPage';
 import AuthorizationForm from './views/AuthorizationForm';
 import APITest from './views/APITest';
 import PlaylistPage from './views/PlaylistPage';
@@ -31,7 +31,7 @@ export default new VueRouter({
                 {
                     path: '/registration',
                     name: 'registrationForm',
-                    component: RegistrationForm
+                    component: RegistrationPage
                 },
                 {
                     path: 'api-test',

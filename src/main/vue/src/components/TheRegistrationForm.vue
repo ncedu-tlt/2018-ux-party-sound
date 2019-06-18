@@ -1,44 +1,42 @@
 <template>
-    <div class="content">
-        <div class="container">
-            <TextInput v-model="email" class="child" placeholder="E-mail" class-name="input-field" />
-            <TextInput v-model="login" class="child" placeholder="Логин" class-name="input-field" />
-            <TextInput v-model="name" class="child" placeholder="Имя" class-name="input-field" />
-            <TextInput
-                v-model="firstPassword"
-                class="child"
-                placeholder="Пароль"
-                type="password"
-                class-name="input-field"
-            />
-            <TextInput
-                v-model="secondPassword"
-                class="child"
-                placeholder="Введите пароль еще раз"
-                type="password"
-                class-name="input-field"
-            />
-            <Button class="child" label="Зарегистрироваться" @click.native="validation" />
-            <div class="response-message error-js">
-                {{ errorMessage }}
-            </div>
-            <div class="success-response" :class="{'is-visible' : isSuccessfully===true}">
-                Вы успешно зарегистрировались!
-            </div>
-            <router-link to="/authorization">
-                <Button class="child" label="Войти" type="light" />
-            </router-link>
+    <form class="container">
+        <TextInput v-model="email" class="child" placeholder="E-mail" class-name="input-field" />
+        <TextInput v-model="login" class="child" placeholder="Логин" class-name="input-field" />
+        <TextInput v-model="name" class="child" placeholder="Имя" class-name="input-field" />
+        <TextInput
+            v-model="firstPassword"
+            class="child"
+            placeholder="Пароль"
+            type="password"
+            class-name="input-field"
+        />
+        <TextInput
+            v-model="secondPassword"
+            class="child"
+            placeholder="Введите пароль еще раз"
+            type="password"
+            class-name="input-field"
+        />
+        <Button class="child" label="Зарегистрироваться" @click.native="validation" />
+        <div class="response-message error-js">
+            {{ errorMessage }}
         </div>
-    </div>
+        <div class="success-response" :class="{'is-visible' : isSuccessfully===true}">
+            Вы успешно зарегистрировались!
+        </div>
+        <router-link to="/authorization">
+            <Button class="child" label="Войти" type="light" />
+        </router-link>
+    </form>
 </template>
 
 <script>
-import TextInput from '../components/BaseInput';
-import Button from '../components/BaseButton';
+import TextInput from './BaseInput';
+import Button from './BaseButton';
 import { registration } from '../api/rest/authentication.api';
 
 export default {
-    name: 'RegistrationForm',
+    name: 'TheRegistrationForm',
     components: { Button, TextInput },
     data() {
         return {
@@ -102,13 +100,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .content {
-        height: 89vh;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 
     .container {
         display: flex;
