@@ -14,7 +14,7 @@
     </section>
 </template>
 <script>
-import PlaylistElement from './PlaylistElement/PlaylistElement.vue';
+import PlaylistElement from './PlaylistElement.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {

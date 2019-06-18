@@ -20,9 +20,9 @@
     </section>
 </template>
 <script>
-import ListInput from './ListInput.vue';
-import TextInput from './TextInput.vue';
-import Button from './Button.vue';
+import ListInput from './BaseListInput.vue';
+import TextInput from './BaseInput.vue';
+import Button from './BaseButton.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {

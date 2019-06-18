@@ -35,9 +35,9 @@
 
 <script>
 import TrackWithButtonSetTrack from './TrackWithButtonSetTrack';
-import TextInput from './TextInput.vue';
-import ListInput from './ListInput.vue';
-import Button from './Button.vue';
+import TextInput from './BaseInput.vue';
+import ListInput from './BaseListInput.vue';
+import Button from './BaseButton.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {

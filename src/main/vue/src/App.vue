@@ -27,7 +27,7 @@
     }
 </style>
 <script>
-import Background from './components/Background';
+import Background from './components/TheBackground';
 export default {
     components: { Background }
 };

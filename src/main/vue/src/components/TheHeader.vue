@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import Button from './Button';
-import Player from './Player';
-import AuthorizedUser from './AuthorizedUser';
+import Button from './BaseButton';
+import Player from './ThePlayer';
+import AuthorizedUser from './TheAuthorizedUser';
 import { mapActions, mapState } from 'vuex';
 
 export default {

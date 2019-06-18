@@ -1,10 +1,14 @@
 <template>
     <div class="playlist-element">
-        <TriangleButton :id="id" :color="color" @playlist-click="parentMethod" />
+        <PlaylistElementTriangleButton
+            :id="id"
+            :color="color"
+            @playlist-click="parentMethod"
+        />
         <router-link :to="{ path: 'playlist/'+id }" class="playlist-element__info">
             <h4>{{ name }}</h4>
             <div v-if="showGenres" class="genres-list">
-                <span v-for="(genre, index) in genreColor" :key="index" :style="{backgroundColor: genre.color.color}">
+                <span v-for="(genre, index) in genreColor" :key="index" :style="{ backgroundColor: genre.color.color }">
                     {{ genre.name }}
                 </span>
             </div>
@@ -13,14 +17,14 @@
 </template>
 
 <script>
-import TriangleButton from './TriangleButton';
+import PlaylistElementTriangleButton from './PlaylistElementTriangleButton';
 import genresColors from '@/constants/genresColors';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'PlaylistElement',
     components: {
-        TriangleButton
+        PlaylistElementTriangleButton
     },
     props: {
         id: {

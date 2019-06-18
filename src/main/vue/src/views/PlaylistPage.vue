@@ -27,7 +27,7 @@
 
 <script>
 import { getTracksByPlaylistIdWithRight, deleteTrack, addTrackInPlaylist } from '../api/rest/tracks.api';
-import PlaylistTrack from '../components/TrackElement/PlaylistTrack';
+import PlaylistTrack from '../components/PlaylistTrack';
 import FindTracksFromJamendo from '../components/FindTracksFromJamendo';
 import { mapMutations, mapState } from 'vuex';
 

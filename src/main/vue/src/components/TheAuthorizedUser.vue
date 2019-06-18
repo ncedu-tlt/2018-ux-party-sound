@@ -20,7 +20,7 @@
 
 <script>
 import { logout } from '../api/rest/authentication.api';
-import FormForCreatePlaylist from '../components/FormForCreatePlaylist';
+import FormForCreatePlaylist from './CreatePlaylistForm';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {

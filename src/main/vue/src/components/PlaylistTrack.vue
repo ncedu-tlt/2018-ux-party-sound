@@ -1,16 +1,21 @@
 <template>
     <div class="playlist-track">
-        <TrackButton :id="id" :name="trackName" :index="index" @click.native="clickOnTrack" />
+        <PlaylistTrackButton
+            :id="id"
+            :name="trackName"
+            :index="index"
+            @click.native="clickOnTrack"
+        />
         <div v-if="canDeleteTrack" class="minus" @click="deleteTrack">
             X
         </div>
     </div>
 </template>
 <script>
-import TrackButton from './TrackButton';
+import PlaylistTrackButton from './PlaylistTrackButton';
 export default {
     name: 'PlaylistTrack',
-    components: { TrackButton },
+    components: { PlaylistTrackButton },
     props: {
         trackName: {
             type: String,

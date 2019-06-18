@@ -14,9 +14,9 @@
 </template>
 <script>
 import PartySoundLabel from './../components/PartySoundLabel.vue';
-import FindPlaylist from './../components/FindPlaylist.vue';
+import FindPlaylist from '../components/TheFindPlaylist.vue';
 import PlaylistsList from './../components/PlaylistsList.vue';
-import ShowMore from './../components/ShowMore.vue';
+import ShowMore from '../components/ShowMoreButton.vue';
 import PlaylistSearch from './../components/PlaylistSearch.vue';
 
 export default {

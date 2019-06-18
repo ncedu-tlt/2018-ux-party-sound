@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import TextInput from '../components/TextInput';
-import Button from '../components/Button';
+import TextInput from '../components/BaseInput';
+import Button from '../components/BaseButton';
 import { registration } from '../api/rest/authentication.api';
 
 export default {

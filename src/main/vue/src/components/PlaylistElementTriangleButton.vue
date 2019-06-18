@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import genresColors from './../../constants/genresColors';
+import genresColors from '../constants/genresColors';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'TriangleButton',
+    name: 'PlaylistElementTriangleButton',
     props: {
         id: {
             type: Number,

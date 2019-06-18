@@ -15,7 +15,7 @@
     </section>
 </template>
 <script>
-import PlaylistElement from './PlaylistElement/PlaylistElement.vue';
+import PlaylistElement from './PlaylistElement.vue';
 import { fakeData } from './fakeData';
 import { getTopPlaylists } from '@/api/rest/playlists.api';
 

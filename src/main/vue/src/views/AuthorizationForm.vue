@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import TextInput from '../components/TextInput';
-import Button from '../components/Button';
+import TextInput from '../components/BaseInput';
+import Button from '../components/BaseButton';
 import { authorization } from '../api/rest/authentication.api';
 import { mapActions } from 'vuex';
 

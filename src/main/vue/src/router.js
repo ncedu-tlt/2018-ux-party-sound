@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Header from './components/Header';
+import Header from './components/TheHeader';
 import Main from './views/Main.vue';
 import RegistrationForm from './views/RegistrationForm';
 import AuthorizationForm from './views/AuthorizationForm';
