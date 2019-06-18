@@ -18,9 +18,9 @@
             class-name="input-field"
         />
         <Button class="child" label="Зарегистрироваться" @click.native="validation" />
-        <div class="response-message error-js">
-            {{ errorMessage }}
-        </div>
+        <RegistrationFormErrorMessages
+            :type="errorType"
+        />
         <div class="success-response" :class="{'is-visible' : isSuccessfully===true}">
             Вы успешно зарегистрировались!
         </div>
@@ -33,11 +33,12 @@
 <script>
 import TextInput from './BaseInput';
 import Button from './BaseButton';
+import RegistrationFormErrorMessages from './TheRegistrationFormErrorMessages';
 import { registration } from '../api/rest/authentication.api';
 
 export default {
     name: 'TheRegistrationForm',
-    components: { Button, TextInput },
+    components: { Button, TextInput, RegistrationFormErrorMessages },
     data() {
         return {
             email: '',
@@ -46,24 +47,24 @@ export default {
             firstPassword: '',
             secondPassword: '',
             isSuccessfully: false,
-            errorMessage: ''
+            errorType: 'success'
         };
     },
     methods: {
         validation() {
             if (this.email.length === 0 || this.login.length === 0 || this.name.length === 0 || this.firstPassword.length === 0 || this.secondPassword.length === 0) {
-                this.errorMessage = 'Все поля формы должны быть заполнены!';
+                this.errorType = 'empty';
                 this.isSuccessfully = false;
             } else {
                 if (this.firstPassword.length >= 8) {
                     if (this.firstPassword !== this.secondPassword) {
-                        this.errorMessage = 'Пароли не совпадают!';
+                        this.errorType = 'incorrectPassword';
                         this.isSuccessfully = false;
                     } else {
                         this.setClientInfo();
                     }
                 } else {
-                    this.errorMessage = 'Пароль слишкм короткий! Введите минимум 8 символов';
+                    this.errorType = 'shortPassword';
                     this.isSuccessfully = false;
                 }
             }
@@ -76,21 +77,19 @@ export default {
                 name: this.name
             });
             let wordForMessage = {
-                mail: 'E-mail',
-                password: 'Пароль ',
-                login: 'Логин',
-                Size: ' должен быть от 8 до 32 символов',
-                Duplicate: ' уже занят',
-                Invalid: ' не корректный'
+                mail: 'email',
+                password: 'password',
+                login: 'login',
+                Size: 'IsShort',
+                Duplicate: 'AlreadyExist',
+                Invalid: 'Invalid'
             };
-            let message = '';
             for (let i = 0; i < response.length; i++) {
-                message = message + ' ' + wordForMessage[response[i].field] + wordForMessage[response[i].code];
-                this.errorMessage = message;
+                this.errorType = wordForMessage[response[i].field] + wordForMessage[response[i].code];
             }
             if (response.length === 0) {
                 this.isSuccessfully = true;
-                this.errorMessage = '';
+                this.errorType = 'success';
             } else {
                 this.isSuccessfully = false;
             }
