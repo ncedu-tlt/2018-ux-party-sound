@@ -6,8 +6,9 @@ export async function registration(regDataObject) {
 }
 
 export async function authorization(authDataObject) {
-    const response = await client.post('/auth/login', authDataObject);
-    return response.data;
+    return client.post('/auth/login', authDataObject)
+        .then(res => res.data)
+        .catch(err => err.status);
 }
 
 export async function logout() {

@@ -1,10 +1,10 @@
 <template>
     <div>
         <div v-if="type === 'isEmpty'" class="error-message">
-            'Все поля должны быть заполнены!'
+            Все поля должны быть заполнены!
         </div>
         <div v-if="type === 'notFound'" class="error-message">
-            'Пользователь, с введенными данными, не найден'
+            Пользователь, с введенными данными, не найден
         </div>
     </div>
 </template>

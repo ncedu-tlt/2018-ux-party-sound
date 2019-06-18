@@ -59,10 +59,11 @@ export default {
             data.append('username', this.login);
             data.append('password', this.password);
             let response = await authorization(data);
-            if (response === 401) {
+            if (response === undefined) {
                 this.errorType = 'notFound';
             } else {
                 this.GET_USER_INFO();
+                this.errorType = 'success';
             }
         }
     }
