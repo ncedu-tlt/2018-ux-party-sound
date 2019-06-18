@@ -19,9 +19,7 @@
         </div>
 
         <Button class="entry" label="Вход" @click.native="validation" />
-        <div class="error-message">
-            {{ errorMessage }}
-        </div>
+        <TheAuthorizationFormErrorMessages :type="errorType" />
         <router-link to="/registration">
             <Button class="register" label="Зарегистрироваться" type="light" />
         </router-link>
@@ -33,15 +31,16 @@ import TextInput from './BaseInput';
 import Button from './BaseButton';
 import { authorization } from '../api/rest/authentication.api';
 import { mapActions } from 'vuex';
+import TheAuthorizationFormErrorMessages from './TheAuthorizationFormErrorMessages';
 
 export default {
     name: 'AuthorizationForm',
-    components: { Button, TextInput },
+    components: { TheAuthorizationFormErrorMessages, Button, TextInput },
     data() {
         return {
             login: '',
             password: '',
-            errorMessage: ''
+            errorType: 'success'
         };
     },
     methods: {
@@ -50,7 +49,7 @@ export default {
         ]),
         validation() {
             if (this.login.length === 0 || this.password.length === 0) {
-                this.errorMessage = 'Все поля должны быть заполнены!';
+                this.errorType = 'isEmpty';
             } else {
                 this.setClientInfo();
             }
@@ -61,7 +60,7 @@ export default {
             data.append('password', this.password);
             let response = await authorization(data);
             if (response === 401) {
-                this.errorMessage = 'Пользователь, с введенными данными, не найден';
+                this.errorType = 'notFound';
             } else {
                 this.GET_USER_INFO();
             }
@@ -95,14 +94,6 @@ export default {
 
         .entry {
             margin-top: 20px;
-        }
-
-        .error-message {
-            max-width: 322px;
-            text-align: center;
-            margin-top: 10px;
-            color: #ff8a8a;
-            font-weight: 600;
         }
 
         .register {
