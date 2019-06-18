@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import Header from './components/TheHeader';
 import Main from './views/Main.vue';
 import RegistrationPage from './views/RegistrationPage';
-import AuthorizationForm from './views/AuthorizationForm';
+import AuthorizationPage from './views/AuthorizationPage';
 import APITest from './views/APITest';
 import PlaylistPage from './views/PlaylistPage';
 
@@ -25,12 +25,12 @@ export default new VueRouter({
                 },
                 {
                     path: 'authorization',
-                    name: 'authorizationForm',
-                    component: AuthorizationForm
+                    name: 'AuthorizationPage',
+                    component: AuthorizationPage
                 },
                 {
                     path: '/registration',
-                    name: 'registrationForm',
+                    name: 'RegistrationPage',
                     component: RegistrationPage
                 },
                 {
